@@ -15,6 +15,7 @@ import logic.container.KeyLocker;
 import logic.container.HpBottle;
 import object.Door;
 import object.Lazer;
+import object.Sculpture;
 import ui.PasswordPopUp;
 
 public class Obj {
@@ -100,6 +101,10 @@ public class Obj {
 				}
 				case HpBottle : {
 					((HpBottle)B).interact(((Player)A));
+					break;
+				}
+				case Sculpture : {
+					((Sculpture)B).interact(((Player)A));
 					break;
 				}
 				default : break;

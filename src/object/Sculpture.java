@@ -35,7 +35,8 @@ public class Sculpture extends GameObject {
 	}
 	
 	public void interact(Player player) {
-		
+		setxPos(getxPos() + player.getxVelo());
+		setyPos(getyPos() + player.getyVelo());
 	}
 	
 	public void initImg() {

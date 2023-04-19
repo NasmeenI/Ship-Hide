@@ -111,7 +111,7 @@ public class Player extends Person {
 
 	@Override
 	public void update() {
-		
+
 		Obj.collision(this);
 		if(getHp() == 0) System.out.println("die");
 		
