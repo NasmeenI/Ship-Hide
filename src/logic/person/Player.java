@@ -11,7 +11,6 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
-import logic.container.KeyLocker;
 import logic.container.Knife;
 import utilz.Checker;
 import utilz.LoadSave;

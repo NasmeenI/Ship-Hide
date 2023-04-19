@@ -85,7 +85,7 @@ public class GameProcess {
 		handler = Handler.getInstance();
 		cam = new Camera(0, 0);
 
-		handler.Player = new Player(500, 500, ID.Player, input);
+		handler.Player = new Player(3000, 2300, ID.Player, input);
 //		handler.addObject(new Criminal(2600, 1600, ID.Criminal, 2, 2, 100));
 
 		aSetter = new AssetSetter();

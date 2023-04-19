@@ -1,5 +1,7 @@
 package object;
 
+import static utilz.Constants.Debug.SOLID_SHOW;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.base.GameObject;
@@ -25,14 +27,14 @@ public class Sculpture extends GameObject {
 
 	@Override
 	public void render(GraphicsContext gc) {
+		if(SOLID_SHOW) ShowSolidArea(gc, 10, 85);
 		gc.drawImage(image ,getxPos() ,getyPos());
-		//ShowSolidArea(gc, 10, 85);
-
 		return ;
 	}
 	
 	public void interact(Player player) {
-		
+		setxPos(getxPos() + player.getxVelo());
+		setyPos(getyPos() + player.getyVelo());
 	}
 	
 	public void initImg() {

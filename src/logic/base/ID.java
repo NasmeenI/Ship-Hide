@@ -29,8 +29,5 @@ public enum ID {
 	Label4(),
 	Lazer1(),
 	Lazer2(),
-	Sculpture1(),
-	Sculpture2(),
-	Sculpture3(),
-	Sculpture4();
+	Sculpture(),
 }

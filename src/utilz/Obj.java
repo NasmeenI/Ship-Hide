@@ -17,6 +17,7 @@ import object.Computer;
 import object.Label;
 import object.Door;
 import object.Lazer;
+import object.Sculpture;
 
 public class Obj {
 	
@@ -112,6 +113,10 @@ public class Obj {
 				}
 				case HpBottle : {
 					((HpBottle)B).interact(((Player)A));
+					break;
+				}
+				case Sculpture : {
+					((Sculpture)B).interact(((Player)A));
 					break;
 				}
 				default : break;

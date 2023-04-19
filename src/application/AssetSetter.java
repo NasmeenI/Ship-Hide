@@ -28,10 +28,10 @@ public class AssetSetter {
 		
 		// Sculpture
 		Sculpture[] sculpture = new Sculpture[4];
-		sculpture[0] = new Sculpture(73 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture1);
-		sculpture[1] = new Sculpture(53 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture2);
-		sculpture[2] = new Sculpture(73 * TILE_SIZE ,40 * TILE_SIZE, ID.Sculpture3);
-		sculpture[3] = new Sculpture(56 * TILE_SIZE ,38 * TILE_SIZE, ID.Sculpture3);
+		sculpture[0] = new Sculpture(73 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture);
+		sculpture[1] = new Sculpture(53 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture);
+		sculpture[2] = new Sculpture(73 * TILE_SIZE ,40 * TILE_SIZE, ID.Sculpture);
+		sculpture[3] = new Sculpture(56 * TILE_SIZE ,38 * TILE_SIZE, ID.Sculpture);
 		for(int i=0;i<4;i++) handler.allObjects.add(sculpture[i]);	
 		
 		// Computer
