@@ -17,7 +17,8 @@ public class Sculpture extends GameObject {
 	public Sculpture(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id ,10 ,85 ,70 ,60);
 		this.handler = Handler.getInstance();
-		Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1, 0);
+		Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+2, 0);
+		Map.setStageMap((int)getxPos()/48, (int)getyPos()/48+2, 0);
 		initImg();
 	}
 
@@ -28,7 +29,7 @@ public class Sculpture extends GameObject {
 	@Override
 	public void render(GraphicsContext gc) {
 		gc.drawImage(image ,getxPos() ,getyPos());
-		ShowSolidArea(gc, 10, 85);
+		//ShowSolidArea(gc, 10, 85);
 
 		return ;
 	}

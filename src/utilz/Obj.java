@@ -54,6 +54,14 @@ public class Obj {
 					}
 					break;
 				}
+				case Label : {
+					if(((Player)A).getKey().E) {
+						PasswordPopUp ppu = new PasswordPopUp();
+						GridPane x = ppu.ShowPasswordScene();
+						GameProcess.getRoot().getChildren().addAll(x);
+					}
+					break;
+				}
 				case Lazer1 : {
 					if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
 					break;

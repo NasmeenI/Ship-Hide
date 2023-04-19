@@ -18,9 +18,9 @@ public class HpBottle extends GameObject implements StableObject {
 	private Handler handler;
 	private Image image;
 
-	public HpBottle(double xPos, double yPos, ID id, Handler handler) {
+	public HpBottle(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id);
-		this.handler = handler;
+		this.handler = Handler.getInstance();
 		this.picked = false;
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		initImg();

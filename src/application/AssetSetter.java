@@ -3,12 +3,14 @@ package application;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.container.Gun;
+import logic.container.HpBottle;
 import logic.container.KeyLocker;
 import logic.container.Knife;
 import logic.container.Magazine;
 import object.Computer;
 import object.Door;
 import object.DoorJail;
+import object.Label;
 import object.Lazer;
 import object.MusiumDoor;
 import object.Sculpture;
@@ -27,19 +29,25 @@ public class AssetSetter {
 		// Sculpture
 		Sculpture[] sculpture = new Sculpture[4];
 		sculpture[0] = new Sculpture(73 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture);
-		sculpture[1] = new Sculpture(73 * TILE_SIZE ,44 * TILE_SIZE, ID.Sculpture);
-		sculpture[2] = new Sculpture(73 * TILE_SIZE ,41 * TILE_SIZE, ID.Sculpture);
-		sculpture[3] = new Sculpture(70 * TILE_SIZE ,44 * TILE_SIZE, ID.Sculpture);
+		sculpture[1] = new Sculpture(53 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture);
+		sculpture[2] = new Sculpture(73 * TILE_SIZE ,40 * TILE_SIZE, ID.Sculpture);
+		sculpture[3] = new Sculpture(56 * TILE_SIZE ,38 * TILE_SIZE, ID.Sculpture);
 		for(int i=0;i<4;i++) handler.allObjects.add(sculpture[i]);	
 		
 		// Computer
 		handler.allObjects.add(new Computer(68 * TILE_SIZE ,12 * TILE_SIZE, ID.Computer));	
+		
+		// Label
+		handler.allObjects.add(new Label(58 * TILE_SIZE ,46 * TILE_SIZE, ID.Label));	
+		handler.allObjects.add(new Label(64 * TILE_SIZE ,46 * TILE_SIZE, ID.Label));
+		handler.allObjects.add(new Label(72 * TILE_SIZE ,46 * TILE_SIZE, ID.Label));
 		
 		// Weapons
 		handler.allObjects.add(new Knife(27 * TILE_SIZE ,12 * TILE_SIZE, ID.Knife ,true));
 		handler.allObjects.add(new Gun(27 * TILE_SIZE ,15 * TILE_SIZE, ID.Gun ,true));
 		handler.allObjects.add(new Magazine(25 * TILE_SIZE ,14 * TILE_SIZE, ID.Magazine ,6));
 		handler.allObjects.add(new Magazine(22 * TILE_SIZE ,14 * TILE_SIZE, ID.Magazine ,6));
+		//handler.allObjects.add(new HpBottle(22 * TILE_SIZE ,16 * TILE_SIZE, ID.Magazine ,6));
 		
 		// Keys
 		handler.allObjects.add(new KeyLocker(37 * TILE_SIZE ,33 * TILE_SIZE, ID.Key1));
