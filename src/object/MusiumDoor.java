@@ -84,14 +84,14 @@ public class MusiumDoor extends GameObject implements StableObject {
 		password[0][0] = 73;
 		password[0][1] = 47;
 		
-		password[1][0] = 73;
-		password[1][1] = 44;
+		password[1][0] = 53;
+		password[1][1] = 47;
 
 		password[2][0] = 73;
-		password[2][1] = 41;
+		password[2][1] = 40;
 		
-		password[3][0] = 70;
-		password[3][1] = 44;
+		password[3][0] = 56;
+		password[3][1] = 38;
 	}
 	
 	// Getters & Setters

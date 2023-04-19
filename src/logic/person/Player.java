@@ -57,8 +57,8 @@ public class Player extends Person {
 		previousAni = T_Up[defaultAni];
 		
 		// Tempt
-		this.addItemInBag(new KeyLocker(0 ,0 ,id.Key1));
-		this.addItemInBag(new KeyLocker(0 ,0 ,id.Key2));
+//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
+//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 	}
 	
 	private void initImg() {
@@ -119,15 +119,15 @@ public class Player extends Person {
 		
 		if(key.ONE) {
 			setUsed(1);
-			if(getUsed() == 1) setSpeed(.8f, .4f);
+			if(getUsed() == 1) setAc(.8f, .4f);
 		}
 		if(key.TWO) {
 			setUsed(2);
-			if(getUsed() == 2) setSpeed(.7f, .35f);
+			if(getUsed() == 2) setAc(.7f, .35f);
 		}
 		if(key.THREE) {
 			setUsed(3);
-			if(getUsed() == 3) setSpeed(.5f, .25f);
+			if(getUsed() == 3) setAc(.5f, .25f);
 		}
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
@@ -464,7 +464,7 @@ public class Player extends Person {
 		}
 	}
 	
-	public void setSpeed(double _ac, double _dc) {
+	public void setAc(double _ac, double _dc) {
 		set_ac(_ac);
 		set_dc(_dc);
 		return ;

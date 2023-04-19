@@ -2,15 +2,17 @@ package object;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.StableObject;
 import logic.person.Player;
+import ui.PasswordPopUp;
 import utilz.LoadSave;
 import utilz.Obj;
 import static utilz.Constants.Debug.*;
+
+import application.GameProcess;
 
 public class Computer extends GameObject implements StableObject {
 	
@@ -40,7 +42,9 @@ public class Computer extends GameObject implements StableObject {
 	}
 	
 	public void interact(Player player) {
-		
+		PasswordPopUp ppu = new PasswordPopUp();
+		Obj.gridPane = ppu.ShowPasswordScene();
+		GameProcess.getRoot().getChildren().addAll(Obj.gridPane);
 	}
 	
 	public void initImg() {

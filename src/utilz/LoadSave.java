@@ -66,6 +66,7 @@ public class LoadSave {
 	public static final String LAZER_1 = "Objects/lazer1.png";
 	public static final String LAZER_2 = "Objects/lazer2.png";
 	public static final String SCULPTURE = "Objects/sculpture.png";
+	public static final String PUZZLE = "Objects/puzzle.png";
 
 	public static final String SPIDER = "Objects/spider.png";
 	

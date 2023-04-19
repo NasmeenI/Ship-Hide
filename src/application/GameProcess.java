@@ -14,7 +14,6 @@ import logic.base.Handler;
 import logic.base.ID;
 import logic.base.KeyInput;
 import logic.base.Map;
-import logic.person.Criminal;
 import logic.person.Player;
 import ui.Ui;
 
@@ -86,7 +85,7 @@ public class GameProcess {
 		handler = Handler.getInstance();
 		cam = new Camera(0, 0);
 
-		handler.Player = new Player(3000, 2300, ID.Player, input);
+		handler.Player = new Player(500, 500, ID.Player, input);
 //		handler.addObject(new Criminal(2600, 1600, ID.Criminal, 2, 2, 100));
 
 		aSetter = new AssetSetter();
@@ -170,6 +169,10 @@ public class GameProcess {
 	}
 	
 	public static void removeGridRoot(GridPane x) {
+		root.getChildren().remove(x);
+	}
+	
+	public static void removeStackRoot(StackPane x) {
 		root.getChildren().remove(x);
 	}
 }
