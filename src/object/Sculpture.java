@@ -4,6 +4,7 @@ import static utilz.Constants.Debug.SOLID_SHOW;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
@@ -33,8 +34,13 @@ public class Sculpture extends GameObject {
 	}
 	
 	public void interact(Player player) {
-		setxPos(getxPos() + player.getxVelo());
-		setyPos(getyPos() + player.getyVelo());
+		while(getSolidArea().intersects(player.getSolidArea().getBoundsInLocal())) {
+			setxPos(getxPos() + player.getxVelo());
+			setyPos(getyPos() + player.getyVelo());
+			setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 85, 70, 60));
+		}
+		player.setxVelo(0);
+		player.setyVelo(0);
 	}
 	
 	public void initImg() {
