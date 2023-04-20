@@ -2,6 +2,7 @@ package utilz;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.Map;
@@ -48,103 +49,140 @@ public class Obj {
 		time += 1;
 
 		switch(A.getId()) {
-		case Player : {
-			switch(B.getId()) {
-				case Bullet : {
-					((Player)A).setHp(((Player)A).getHp() - ((Bullet)B).damage());
-					handler.removeObject(B);
-					break;
+			case Player : {
+				switch(B.getId()) {
+					case Bullet : {
+						((Player)A).setHp(((Player)A).getHp() - ((Bullet)B).damage());
+						handler.removeObject(B);
+						break;
+					}
+					case Computer : {
+						if(((Player)A).getKey().E && time > 15) ((Computer)B).interact(((Player)A));
+						break;
+					}
+					case Label1 : {
+						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						break;
+					}
+					case Label2 : {
+						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						break;
+					}
+					case Label3 : {
+						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						break;
+					}
+					case Label4 : {
+						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						break;
+					}
+					case Lazer1 : {
+						if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
+						break;
+					}
+					case Lazer2 : {
+						if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
+						break;
+					}
+					case Knife : {
+						((Knife)B).interact(((Player)A));
+						break;
+					}
+					case Gun : {
+						((Gun)B).interact(((Player)A));
+						break;
+					}
+					case Magazine : {
+						((Magazine)B).interact(((Player)A));
+						break;
+					}
+					case Door1 : {
+						((Door)B).interact(((Player)A));
+						break;
+					}
+					case Door2 : {
+						((Door)B).interact(((Player)A));
+						break;
+					}
+					case Key1 : {
+						((KeyLocker)B).interact(((Player)A));
+						break;
+					}
+					case Key2 : {
+						((KeyLocker)B).interact(((Player)A));
+						break;
+					}
+					case HpBottle : {
+						((HpBottle)B).interact(((Player)A));
+						break;
+					}
+					case Sculpture : {
+						((Sculpture)B).interact(((Player)A));
+						break;
+					}
+					default : break;
 				}
-				case Computer : {
-					if(((Player)A).getKey().E && time > 15) ((Computer)B).interact(((Player)A));
-					break;
-				}
-				case Label1 : {
-					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
-					break;
-				}
-				case Label2 : {
-					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
-					break;
-				}
-				case Label3 : {
-					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
-					break;
-				}
-				case Label4 : {
-					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
-					break;
-				}
-				case Lazer1 : {
-					if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
-					break;
-				}
-				case Lazer2 : {
-					if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
-					break;
-				}
-				case Knife : {
-					((Knife)B).interact(((Player)A));
-					break;
-				}
-				case Gun : {
-					((Gun)B).interact(((Player)A));
-					break;
-				}
-				case Magazine : {
-					((Magazine)B).interact(((Player)A));
-					break;
-				}
-				case Door1 : {
-					((Door)B).interact(((Player)A));
-					break;
-				}
-				case Door2 : {
-					((Door)B).interact(((Player)A));
-					break;
-				}
-				case Key1 : {
-					((KeyLocker)B).interact(((Player)A));
-					break;
-				}
-				case Key2 : {
-					((KeyLocker)B).interact(((Player)A));
-					break;
-				}
-				case HpBottle : {
-					((HpBottle)B).interact(((Player)A));
-					break;
-				}
-				case Sculpture : {
-					((Sculpture)B).interact(((Player)A));
-					break;
-				}
-				default : break;
-			}
-
-			break;
-		}
-		case Criminal : {
-			switch(B.getId()) {
-			case Bullet : {
-				((Criminal)A).setHp(((Criminal)A).getHp() - ((Bullet)B).damage());
-				handler.removeObject(B);
-				
+	
 				break;
 			}
-			case Knife : {
-				((Criminal)A).setHp(((Criminal)A).getHp() - ((Knife)B).damage());
-				
+			case Criminal : {
+				switch(B.getId()) {
+					case Bullet : {
+						((Criminal)A).setHp(((Criminal)A).getHp() - ((Bullet)B).damage());
+						handler.removeObject(B);
+						
+						break;
+					}
+					case Knife : {
+						((Criminal)A).setHp(((Criminal)A).getHp() - ((Knife)B).damage());
+						
+						break;
+					}
+					default : break;
+				}
+				break;
+			}
+			
+			default : break;
+		}
+		return ;
+	}
+	
+	public static void pushOffFrom(Player A, GameObject B) {
+		Rectangle RA = A.getSolidArea();
+		Rectangle RB = B.getSolidArea();
+
+		switch(A.getDirect()) {
+			case "L" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setxPos(A.getxPos() + A.getxVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			case "R" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setxPos(A.getxPos() - A.getxVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			case "U" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setyPos(A.getyPos() + A.getyVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			case "D" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setyPos(A.getyPos() - A.getyVelo());
+					RA = A.getSolidArea();
+				}
 				break;
 			}
 			default : break;
 		}
-		
-		break;
-		}
-		default : break;
-	}
-	return ;
 	}
 	
 	public static void getClose(GameObject A, GameObject B) {
