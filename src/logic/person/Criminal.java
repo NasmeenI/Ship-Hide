@@ -14,8 +14,6 @@ import static utilz.Constants.Debug.*;
 public class Criminal extends Person {
 	
 	private Handler handler;
-	private double init_xPos, init_yPos, disc;
-	private int status = 0;
 	
 	private Gun gun;
 
@@ -24,19 +22,14 @@ public class Criminal extends Person {
 		this.handler = Handler.getInstance();
 		setxVelo(xVelo);
 		setyVelo(yVelo);
-		init_xPos = xPos;
-		init_yPos = yPos;
-		this.disc = disc;
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
 		setHp(100);
 		this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
 		setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
 		
 		// Tempt
-		
 		setGun(true);
 		setUsed(3);
-		
 	}
 
 	@Override

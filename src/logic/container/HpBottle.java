@@ -28,8 +28,7 @@ public class HpBottle extends GameObject implements StableObject {
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

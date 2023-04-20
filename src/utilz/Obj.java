@@ -1,7 +1,7 @@
 package utilz;
 
-import application.GameProcess;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.Map;
@@ -13,12 +13,19 @@ import logic.container.Gun;
 import logic.container.Magazine;
 import logic.container.KeyLocker;
 import logic.container.HpBottle;
+import object.Computer;
+import object.Label;
 import object.Door;
 import object.Lazer;
 import object.Sculpture;
-import ui.PasswordPopUp;
 
 public class Obj {
+	
+	public static boolean pressed = false;
+	public static double temp1, temp2;
+	public static double time = 0; 
+	public static StackPane stackPane = new StackPane();
+	public static GridPane gridPane = new GridPane();
 	
 	public static boolean collisionZero(GameObject A) {
 		if(Map.mapTileNum[(int)A.getyPos()/48][(int)A.getxPos()/48] == 0) return true;
@@ -38,7 +45,8 @@ public class Obj {
 
 	public static void action(GameObject A, GameObject B) {
 		Handler handler = Handler.getInstance();
-		
+		time += 1;
+
 		switch(A.getId()) {
 		case Player : {
 			switch(B.getId()) {
@@ -48,19 +56,23 @@ public class Obj {
 					break;
 				}
 				case Computer : {
-					if(((Player)A).getKey().E) {
-						PasswordPopUp ppu = new PasswordPopUp();
-						GridPane x = ppu.ShowPasswordScene();
-						GameProcess.getRoot().getChildren().addAll(x);
-					}
+					if(((Player)A).getKey().E && time > 15) ((Computer)B).interact(((Player)A));
 					break;
 				}
-				case Label : {
-					if(((Player)A).getKey().E) {
-						PasswordPopUp ppu = new PasswordPopUp();
-						GridPane x = ppu.ShowPasswordScene();
-						GameProcess.getRoot().getChildren().addAll(x);
-					}
+				case Label1 : {
+					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+					break;
+				}
+				case Label2 : {
+					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+					break;
+				}
+				case Label3 : {
+					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+					break;
+				}
+				case Label4 : {
+					if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
 					break;
 				}
 				case Lazer1 : {

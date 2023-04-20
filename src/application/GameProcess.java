@@ -14,7 +14,6 @@ import logic.base.Handler;
 import logic.base.ID;
 import logic.base.KeyInput;
 import logic.base.Map;
-import logic.person.Criminal;
 import logic.person.Player;
 import ui.Ui;
 
@@ -170,6 +169,10 @@ public class GameProcess {
 	}
 	
 	public static void removeGridRoot(GridPane x) {
+		root.getChildren().remove(x);
+	}
+	
+	public static void removeStackRoot(StackPane x) {
 		root.getChildren().remove(x);
 	}
 }
