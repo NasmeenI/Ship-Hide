@@ -11,6 +11,7 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
+import logic.container.KeyLocker;
 import logic.container.Knife;
 import utilz.Checker;
 import utilz.LoadSave;
@@ -56,8 +57,8 @@ public class Player extends Person {
 		previousAni = T_Up[defaultAni];
 		
 		// Tempt
-//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
-//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
+		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
+		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 	}
 	
 	private void initImg() {
