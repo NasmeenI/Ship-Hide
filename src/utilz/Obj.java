@@ -185,6 +185,43 @@ public class Obj {
 		}
 	}
 	
+	public static void pushOffFrom(Player A, GameObject B) {
+		Rectangle RA = A.getSolidArea();
+		Rectangle RB = B.getSolidArea();
+		
+		switch(A.getDirect()) {
+			case "L" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setxPos(A.getxPos() + A.getxVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			case "R" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setxPos(A.getxPos() - A.getxVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			case "U" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setyPos(A.getyPos() + A.getyVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			case "D" : {
+				while(RA.intersects(RB.getBoundsInLocal())) {
+					A.setyPos(A.getyPos() - A.getyVelo());
+					RA = A.getSolidArea();
+				}
+				break;
+			}
+			default : break;
+		}
+	}
+	
 	public static void getClose(GameObject A, GameObject B) {
 		boolean setX = false;
 		boolean setY = false;
