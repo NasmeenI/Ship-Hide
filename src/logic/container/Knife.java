@@ -18,7 +18,7 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 	public boolean picked;
 	private boolean visible;
 	private Handler handler;
-	private Image image;
+	private Image image ,imageUsed;
 
 	public Knife(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id);
@@ -46,6 +46,7 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 
 	private void initImg() {
 		this.image = LoadSave.GetSpriteAtlas(LoadSave.KNIFE);
+		this.image = LoadSave.GetSpriteAtlas(LoadSave.KNIFE_USED);
 	}
 
 	public void render(GraphicsContext gc) {
@@ -96,5 +97,13 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Image getImageUsed() {
+		return imageUsed;
+	}
+
+	public void setImageUsed(Image imageUsed) {
+		this.imageUsed = imageUsed;
 	}
 }

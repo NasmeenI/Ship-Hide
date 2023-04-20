@@ -21,7 +21,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	public boolean picked;
 	private boolean visible;
 	private Handler handler;
-	private Image image;
+	private Image image ,imageUsed;
 
 	public Gun(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id);
@@ -58,9 +58,10 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	private void initImg() {
 		this.image = LoadSave.GetSpriteAtlas(LoadSave.GUN);
+		this.imageUsed = LoadSave.GetSpriteAtlas(LoadSave.GUN_USED);
 	}
 
 	@Override
@@ -157,6 +158,15 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	}
 
 	// Getter & Setter
+	
+	public Image getImageUsed() {
+		return imageUsed;
+	}
+
+	public void setImageUsed(Image imageUsed) {
+		this.imageUsed = imageUsed;
+	}
+	
 	public boolean isPicked() {
 		return picked;
 	}

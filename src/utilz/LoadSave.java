@@ -50,7 +50,9 @@ public class LoadSave {
 	
 	public static final String PRESS_E = "Objects/pressE.jpg";
 	public static final String KNIFE = "Objects/knife.png";
+	public static final String KNIFE_USED = "Objects/knifeUsed.png";
 	public static final String GUN = "Objects/gun.png";
+	public static final String GUN_USED = "Objects/gunUsed.png";
 	public static final String MAGAZINE = "Objects/magazine.png";
 	public static final String KEY1 = "Objects/key1.png";
 	public static final String KEY2 = "Objects/key2.png";

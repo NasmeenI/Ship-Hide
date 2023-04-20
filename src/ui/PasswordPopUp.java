@@ -27,7 +27,7 @@ public class PasswordPopUp {
 		/*
 		RED : 8
 		GREEN : 1
-		PI์์์K : 9
+		PIN์์K : 9
 		ORANGE : 4
 		*/
 		this.correctPassword = "8149198";
