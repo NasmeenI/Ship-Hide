@@ -11,7 +11,6 @@ import ui.PasswordPopUp;
 import utilz.LoadSave;
 import utilz.Obj;
 import static utilz.Constants.Debug.*;
-
 import application.GameProcess;
 
 public class Computer extends GameObject implements StableObject {
