@@ -19,6 +19,7 @@ import object.Label;
 import object.Door;
 import object.Lazer;
 import object.Sculpture;
+import static utilz.Constants.GameProcess.*;
 
 public class Obj {
 	
@@ -29,7 +30,11 @@ public class Obj {
 	public static GridPane gridPane = new GridPane();
 	
 	public static boolean collisionZero(GameObject A) {
-		if(Map.mapTileNum[(int)A.getyPos()/48][(int)A.getxPos()/48] == 0) return true;
+		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
+			for(int j=(int)A.getSolidArea().getX();j<=(int)A.getSolidArea().getX()+(int)A.getSolidArea().getWidth();j++) {
+				if(Map.mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
+			}
+		}
 		return false;
 	}
 	
@@ -146,43 +151,6 @@ public class Obj {
 			default : break;
 		}
 		return ;
-	}
-	
-	public static void pushOffFrom(Player A, GameObject B) {
-		Rectangle RA = A.getSolidArea();
-		Rectangle RB = B.getSolidArea();
-
-		switch(A.getDirect()) {
-			case "L" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setxPos(A.getxPos() + A.getxVelo());
-					RA = A.getSolidArea();
-				}
-				break;
-			}
-			case "R" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setxPos(A.getxPos() - A.getxVelo());
-					RA = A.getSolidArea();
-				}
-				break;
-			}
-			case "U" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setyPos(A.getyPos() + A.getyVelo());
-					RA = A.getSolidArea();
-				}
-				break;
-			}
-			case "D" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setyPos(A.getyPos() - A.getyVelo());
-					RA = A.getSolidArea();
-				}
-				break;
-			}
-			default : break;
-		}
 	}
 	
 	public static void pushOffFrom(Player A, GameObject B) {
