@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
@@ -22,7 +24,13 @@ public class PasswordPopUp {
 	private String correctPassword;
 	
 	public PasswordPopUp() {
-		this.correctPassword = "1234";
+		/*
+		RED : 8
+		GREEN : 1
+		PI์์์K : 9
+		ORANGE : 4
+		*/
+		this.correctPassword = "8149198";
 	}
 	
 	public GridPane ShowPasswordScene(){
@@ -104,14 +112,35 @@ public class PasswordPopUp {
 		GridPane.setHalignment(numberButtons[0], HPos.CENTER);
 		GridPane.setHalignment(passwordLabel, HPos.CENTER);
 		
+		
+		// Back Button
 		Button backButton = new Button("Back");
 		backButton.setFont(Font.font("Arial", 24));
 		backButton.setPadding(new Insets(8));
 		backButton.setStyle("-fx-background-color: #000080; -fx-text-fill: white;");
 		backButton.setOnAction(event -> GameProcess.removeGridRoot(gridPane));
-
 		GridPane.setConstraints(backButton, 2, 0, 1, 1, HPos.RIGHT, VPos.TOP);
 		gridPane.getChildren().add(backButton);
+		
+		
+		// Hint Password
+		HBox circleBox = new HBox(10);
+	    for (int i = 0; i < 7; i++) {
+	    	Circle circle = new Circle(20);
+	        if(i==0) circle.setFill(Color.RED);
+	        else if(i==1) circle.setFill(Color.GREEN);
+	        else if(i==2) circle.setFill(Color.ORANGE);
+	        else if(i==3) circle.setFill(Color.PINK);
+	        else if(i==4) circle.setFill(Color.GREEN);
+	        else if(i==5) circle.setFill(Color.PINK);
+	        else if(i==6) circle.setFill(Color.RED);
+	        else if(i==7) circle.setFill(Color.PINK);
+	        circle.setStroke(Color.WHITE);
+	        circleBox.getChildren().add(circle);
+	    }
+	    circleBox.setAlignment(Pos.CENTER);
+	    gridPane.getChildren().addAll(circleBox);
+	    GridPane.setConstraints(circleBox, 1, 10);
 		
 		return gridPane;
 	}

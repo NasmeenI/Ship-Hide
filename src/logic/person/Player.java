@@ -206,7 +206,7 @@ public class Player extends Person {
 		else {
 			GameProcess.renderType = 1;
 		}
-		
+
 //		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 		

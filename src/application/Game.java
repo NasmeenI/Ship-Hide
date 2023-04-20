@@ -20,7 +20,6 @@ public class Game extends Application {
 	public static final int FPS = 600;
 
 	public void start(Stage stage) throws Exception {
-		
 		MenuScene menuScene = new MenuScene(stage);
 		
 		stage.setScene(menuScene.getScene());
