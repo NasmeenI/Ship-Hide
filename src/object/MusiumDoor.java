@@ -33,7 +33,7 @@ public class MusiumDoor extends GameObject implements StableObject {
 		int cnt = 0;
 		for(int i=0;i<4;i++) {
 			for(int j=0;j<4;j++) {
-				if((int)sculpture[i].getxPos()/TILE_SIZE == password[i][0] && (int)sculpture[i].getyPos()/TILE_SIZE == password[i][1]) {
+				if(Math.abs(sculpture[i].getxPos()/TILE_SIZE - password[i][0]) <= 0.5 && Math.abs(sculpture[i].getyPos()/TILE_SIZE - password[i][1]) <= 0.5) {
 					cnt++;
 					break;
 				}				
@@ -82,7 +82,7 @@ public class MusiumDoor extends GameObject implements StableObject {
 	private void initPassword() {
 		password = new int[4][2];
 		password[0][0] = 68;
-		password[0][1] = 47;
+		password[0][1] = 46;
 		
 		password[1][0] = 52;
 		password[1][1] = 40;

@@ -36,7 +36,10 @@ public class Ui {
 				box.getChildren().add(new ImageView(image));
 				
 				Magazine currentMagazine = ((Gun)bag.get(i)).getMagazine();
-				numBullet(box ,currentMagazine.getNumBullet() ,currentMagazine.getNumMaxBullet());	
+				int maxBullet;
+				if(((Gun)bag.get(i)).getNumMagazine() == 0) maxBullet = currentMagazine.getNumBullet();
+				else maxBullet = currentMagazine.getNumMaxBullet() + ((Gun)bag.get(i)).getNumMagazine() * currentMagazine.getNumMaxBullet();
+				numBullet(box ,currentMagazine.getNumBullet(), maxBullet);	
 			}
 		}
 		for(int i=0;i<bag.size();i++) {

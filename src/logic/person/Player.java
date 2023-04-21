@@ -57,8 +57,8 @@ public class Player extends Person {
 		previousAni = T_Up[defaultAni];
 		
 		// Tempt
-		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
-		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
+//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
+//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 	}
 	
 	private void initImg() {
@@ -208,8 +208,8 @@ public class Player extends Person {
 			GameProcess.renderType = 1;
 		}
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));

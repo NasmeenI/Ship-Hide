@@ -26,7 +26,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	public Gun(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id);
 		this.handler = Handler.getInstance();
-		this.magazine = new Magazine(xPos, yPos, ID.Magazine, 0, 6);
+		this.magazine = new Magazine(xPos, yPos, ID.Magazine, 6);
 		this.visible = false;
 		this.picked = false;
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
@@ -36,7 +36,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	public Gun(double xPos, double yPos, ID id, int bulletNum) {
 		super(xPos, yPos, id);
 		this.handler = Handler.getInstance();
-		this.magazine = new Magazine(xPos, yPos, ID.Magazine, bulletNum, bulletNum);
+		this.magazine = new Magazine(xPos, yPos, ID.Magazine, bulletNum);
 		this.visible = false;
 		this.picked = false;
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
@@ -46,7 +46,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	public Gun(double xPos, double yPos, ID id, boolean visible) {
 		super(xPos, yPos, id);
 		this.handler = Handler.getInstance();
-		this.magazine = new Magazine(xPos, yPos, ID.Magazine, 0, 6);
+		this.magazine = new Magazine(xPos, yPos, ID.Magazine, 6);
 		this.visible = visible;
 		this.picked = false;
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
@@ -158,6 +158,17 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	}
 
 	// Getter & Setter
+	
+	public int getNumMagazine() {
+		int numMagazine = 0;
+		ArrayList<GameObject> bag = handler.Player.getBag();
+		for(int i=0;i<bag.size();i++) {
+			if(bag.get(i) instanceof Magazine) {
+				numMagazine ++ ;
+			}
+		}
+		return numMagazine;
+	}
 	
 	public Image getImageUsed() {
 		return imageUsed;

@@ -23,27 +23,27 @@ public class Magazine extends GameObject implements StableObject ,Pickable {
 	private Image image;
 	private int numMaxBullet;
 	
-	public Magazine(double xPos, double yPos, ID id ,int numMaxBullet) {
+	public Magazine(double xPos, double yPos, ID id) {
 		super(xPos ,yPos ,id);
 		this.handler = Handler.getInstance();
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		setPicked(false);
 		setVisible(true);
 		initImg();
-		this.numMaxBullet = numMaxBullet;
+		this.numMaxBullet = 6;
 		
 		magazine = new ArrayList<Bullet>();
 		AddBulletsPack(numMaxBullet);
 	}
 	
-	public Magazine(double xPos, double yPos, ID id ,int numBullet, int numMaxBullet) {
+	public Magazine(double xPos, double yPos, ID id ,int numBullet) {
 		super(xPos ,yPos ,id);
 		this.handler = Handler.getInstance();
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		setPicked(false);
 		setVisible(false);
 		initImg();
-		this.numMaxBullet = numMaxBullet;
+		this.numMaxBullet = 6;
 		
 		magazine = new ArrayList<Bullet>();
 		AddBulletsPack(numBullet);
