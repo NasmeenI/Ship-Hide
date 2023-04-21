@@ -6,6 +6,7 @@ public class Keys {
 	public boolean Z, X, C, V, B, N, M;
 	public boolean SHIFT, SPACE, LEFT, RIGHT, UP, DOWN;
 	public boolean ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE;
+	public boolean ESC;
 	
 	public Keys() {
 		Q = false;
@@ -49,7 +50,7 @@ public class Keys {
 		SIX = false;
 		SEVEN = false;
 		EIGHT = false;
-
+		ESC = false;
 	}
 	
 }

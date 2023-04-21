@@ -32,6 +32,7 @@ public class KeyInput {
 		if(keyInt == KeyCode.DIGIT7) key.SEVEN = true;
 		if(keyInt == KeyCode.DIGIT8) key.EIGHT = true;
 		if(keyInt == KeyCode.DIGIT9) key.NINE = true;
+		if(keyInt == KeyCode.ESCAPE) key.ESC = true;
 		
 	}
 	
@@ -60,7 +61,7 @@ public class KeyInput {
 		if(keyInt == KeyCode.DIGIT7) key.SEVEN = false;
 		if(keyInt == KeyCode.DIGIT8) key.EIGHT = false;
 		if(keyInt == KeyCode.DIGIT9) key.NINE = false;
-		
+		if(keyInt == KeyCode.ESCAPE) key.ESC = false;
 	}
 	
 }

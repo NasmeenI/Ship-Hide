@@ -11,7 +11,6 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
-import logic.container.KeyLocker;
 import logic.container.Knife;
 import utilz.Checker;
 import utilz.LoadSave;
@@ -32,12 +31,14 @@ public class Player extends Person {
 
 	public static double _CurxPos;
 	public static double _CuryPos;
-	
+
 	private Image[] T_Up, T_Down, T_Left, T_Right;
 	Image currentAni, previousAni;
 	private final int defaultAni = 9;
 	
 	public ArrayList<GameObject> bag;
+	
+
 	
 	public Player(double xPos, double yPos, ID id, KeyInput input) {
 		super(xPos, yPos, id);
@@ -160,6 +161,8 @@ public class Player extends Person {
 			}
 			setReloadTime(0);
 		}
+		
+		
 		
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		

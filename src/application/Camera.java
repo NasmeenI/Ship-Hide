@@ -3,6 +3,7 @@ package application;
 
 import logic.base.Handler;
 import logic.person.Player;
+import static utilz.Constants.Screen.*;
 
 public class Camera {
 	
@@ -26,8 +27,8 @@ public class Camera {
 	
 	public void update() {
 		getPlayer();
-		x = Player_xPos - Game.WIDTH / 2 + 30;
-		y = Player_yPos - Game.HEIGHT / 2 + 40;
+		x = Player_xPos - S_WIDTH_DEFAULT / 2 + 30;
+		y = Player_yPos - S_HEIGHT_DEFAULT / 2 + 40;
 		return ;
 	}
 	

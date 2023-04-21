@@ -10,39 +10,53 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.KeyInput;
+import logic.base.Keys;
 import logic.base.Map;
 import logic.person.Player;
 import ui.Ui;
 
 import static utilz.Constants.Screen.*;
 
+import Scenes.MenuScene;
+
 public class GameProcess {
 	
+	public static Stage stage;
 	public static Scene scene;
 	private long lastUpdateTime;
 		
-	// base process
+	// BASE PROCESS
 	private Handler handler; 
 	private KeyInput input = new KeyInput();
 	private Camera cam;
 	
-	// setting map 
+	// SETTING MAP
 	public static int renderType = 1;
 	private Map map = new Map();
 	
-	// UI	
-	private GraphicsContext gc;
-	private AssetSetter aSetter;
+	// GAME STATE
+	public int gameState;
+	public final int playState = 1;
+	public final int pauseState = 2;
 	
+	// PRESS ESC
+	private Keys key;
+	private boolean ESCState = false;
+	
+	// UI	
+	public GraphicsContext gc;
+	private AssetSetter aSetter;
 	public Ui ui;
 	public static StackPane root;
 	private HBox box = new HBox();
 	private ProgressBar pb = new ProgressBar(1);
 	
-	public GameProcess() {
+	public GameProcess(Stage stage) {
+		GameProcess.stage = stage;
 		Canvas canvas = new Canvas(960, 640);
 		root = new StackPane(canvas);
 		scene = new Scene(root);
@@ -55,11 +69,10 @@ public class GameProcess {
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
 			input.keyReleased(key);
 		});
-		
 		initial();
 	}
 	
-	private void run(GraphicsContext gc) {
+	public void run(GraphicsContext gc) {
 		AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long currentUpdateTime) {
@@ -84,12 +97,14 @@ public class GameProcess {
 		ui = new Ui(this);
 		handler = Handler.getInstance();
 		cam = new Camera(0, 0);
-
+		
 		handler.Player = new Player(500, 500, ID.Player, input);
 //		handler.addObject(new Criminal(2600, 1600, ID.Criminal, 2, 2, 100));
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();
+		MenuScene.initContinueScene(this);
+		gameState = playState;
 
 		// initial HP Bar
 		pb.setTranslateX(300);
@@ -97,11 +112,17 @@ public class GameProcess {
 		pb.setPrefWidth(300);
 		pb.setPrefHeight(30);
 		pb.setStyle("-fx-accent: green;");
-		
 		root.getChildren().addAll(pb);
 	}
 	
 	private void update() {
+		setKey(input.key);
+		checkPress();
+		if(gameState == pauseState) {
+			// nothing
+			return;
+		}
+		
 		// Inventory box
 		root.getChildren().remove(box);
 		box = ui.draw(cam ,handler.Player);
@@ -115,10 +136,10 @@ public class GameProcess {
 		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
 		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
 		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
-		
-		
+
 		handler.update();
-		cam.update();
+		cam.update();		
+
 		return;
 	}
 	
@@ -154,10 +175,25 @@ public class GameProcess {
 		map.render_2(gc ,xTile ,yTile); 
 	}
 	
+	public void checkPress() {
+		if(key.ESC) {
+			if(!ESCState) {
+				ESCState = true;
+				stage.setScene(MenuScene.continueScene);	
+				setGameState(pauseState);
+			}
+		}
+	}
+	
 	// Getters & Setters
 	
-	public Scene getScene() {
-		return scene;
+	public void setKey(Keys key) {
+		this.key = key;
+		return ;
+	}
+	
+	public void setFalseKeyESC() {
+		this.key.ESC = false;
 	}
 	
 	public Handler getHandler() {
@@ -174,5 +210,25 @@ public class GameProcess {
 	
 	public static void removeStackRoot(StackPane x) {
 		root.getChildren().remove(x);
+	}
+	
+	public void setGameState(int gameState) {
+		this.gameState = gameState;
+	}
+	
+	public int getPlayState() {
+		return this.playState;
+	}
+	
+	public int getPauseState() {
+		return this.pauseState;
+	}
+	
+	public GraphicsContext getGc() {
+		return this.gc;
+	}
+	
+	public void setESCState(boolean ESCState) {
+		this.ESCState = ESCState;
 	}
 }

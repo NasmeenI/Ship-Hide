@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class TutorialScene {
 	public static Scene scene;
-	public TutorialScene(Stage stage ,MenuScene menuScene) {
+	public TutorialScene(Stage stage) {
 		StackPane root = new StackPane();
 		scene = new Scene(root);
 		
@@ -25,8 +25,8 @@ public class TutorialScene {
 		backButton.setTranslateX(-370);
 		backButton.setTranslateY(-250);
         backButton.setOnAction(event -> {
-            // Set the scene to the main scene
-        	stage.setScene(menuScene.getScene());
+        	if(!MenuScene.start) stage.setScene(MenuScene.startScene);
+        	else stage.setScene(MenuScene.continueScene);
         });
 		
 		root.getChildren().addAll(backButton);	

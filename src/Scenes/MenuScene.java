@@ -23,11 +23,20 @@ import javafx.util.Duration;
 import application.GameProcess;
 
 public class MenuScene {
-	public static Scene scene;
+	private Stage stage;
+	public static Scene startScene;
+	public static Scene continueScene;
+	public static boolean start;
+	
 	public MenuScene(Stage stage) {
+		this.stage = stage;
+		MenuScene.start = false;
+		initStartScene();
+	}
+
+	public void initStartScene() {
 		StackPane root = new StackPane();
-		scene = new Scene(root);
-		
+		MenuScene.startScene = new Scene(root);
 		Canvas canvas = new Canvas(960 ,640);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
@@ -39,22 +48,23 @@ public class MenuScene {
 			10,
 			new MenuItem("Start" ,() -> {
 				try {
-					GameProcess gameScene = new GameProcess();
-					stage.setScene(gameScene.getScene());
+					MenuScene.start = true;
+					GameProcess gameProcess = new GameProcess(stage);
+					stage.setScene(GameProcess.scene);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}),
 			new MenuItem("Custom" ,() -> {
-				CustomScene customScene = new CustomScene(stage ,this);
+				CustomScene customScene = new CustomScene(stage);
 				stage.setScene(customScene.getScene());
 			}),
 			new MenuItem("Tutorial" ,() -> {
-				TutorialScene tutorialScene = new TutorialScene(stage ,this);
+				TutorialScene tutorialScene = new TutorialScene(stage);
 				stage.setScene(tutorialScene.getScene());
 			}),
 			new MenuItem("Setting" ,() -> {
-				SettingScene settingScene = new SettingScene(stage ,this);
+				SettingScene settingScene = new SettingScene(stage);
 				stage.setScene(settingScene.getScene());
 			}),
 			new MenuItem("Exit" ,() -> Platform.exit())
@@ -64,7 +74,49 @@ public class MenuScene {
 			
 		root.getChildren().addAll(box);
 	}
-
+	
+	public static void initContinueScene(GameProcess gameProcess) {
+		StackPane root = new StackPane();
+		MenuScene.continueScene = new Scene(root);
+		Canvas canvas = new Canvas(960 ,640);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		root.getChildren().add(canvas);
+		
+		String image_path = "file:res/background.jpg";
+		gc.drawImage(new Image(image_path) ,0 ,0 ,960 ,640);
+		
+		VBox box = new VBox(
+			10,
+			new MenuItem("Continue" ,() -> {
+				try {
+					gameProcess.setGameState(gameProcess.getPlayState()); 
+					gameProcess.run(gameProcess.getGc());
+					gameProcess.setESCState(false);
+					gameProcess.setFalseKeyESC();
+					GameProcess.stage.setScene(GameProcess.scene);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}),
+			new MenuItem("Custom" ,() -> {
+				CustomScene customScene = new CustomScene(GameProcess.stage);
+				GameProcess.stage.setScene(customScene.getScene());
+			}),
+			new MenuItem("Tutorial" ,() -> {
+				TutorialScene tutorialScene = new TutorialScene(GameProcess.stage);
+				GameProcess.stage.setScene(tutorialScene.getScene());
+			}),
+			new MenuItem("Setting" ,() -> {
+				SettingScene settingScene = new SettingScene(GameProcess.stage);
+				GameProcess.stage.setScene(settingScene.getScene());
+			}),
+			new MenuItem("Exit" ,() -> Platform.exit())
+		);
+		box.setTranslateX(100);
+		box.setTranslateY(200);
+			
+		root.getChildren().addAll(box);
+	}
 
 	private static class MenuItem extends StackPane {
 		MenuItem(String name ,Runnable action){
@@ -122,8 +174,5 @@ public class MenuScene {
 			
 			getChildren().addAll(bg0 ,bg1 ,box);
 		}
-	}
-	public Scene getScene() {
-		return scene;
 	}
 }
