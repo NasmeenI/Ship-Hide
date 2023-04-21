@@ -21,6 +21,8 @@ import object.Lazer;
 import object.Sculpture;
 import static utilz.Constants.GameProcess.*;
 
+import java.util.ArrayList;
+
 public class Obj {
 	
 	public static boolean pressed = false;
@@ -29,9 +31,23 @@ public class Obj {
 	public static StackPane stackPane = new StackPane();
 	public static GridPane gridPane = new GridPane();
 	
+	public static int dx[] = {-1, 0, 1, 0};
+	public static int dy[] = {0, -1, 0, 1};
+	private static boolean vit[][] = new boolean[240][240];
+	private static ArrayList<Rectangle> queue = new ArrayList();
+	
 	public static boolean collisionZero(GameObject A) {
 		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
 			for(int j=(int)A.getSolidArea().getX();j<=(int)A.getSolidArea().getX()+(int)A.getSolidArea().getWidth();j++) {
+				if(Map.mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean collisionZeroRect(Rectangle A) {
+		for(int i=(int)A.getY();i<=(int)A.getY()+(int)A.getHeight();i++) {
+			for(int j=(int)A.getX();j<=(int)A.getX()+(int)A.getWidth();j++) {
 				if(Map.mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
 			}
 		}
@@ -153,40 +169,82 @@ public class Obj {
 		return ;
 	}
 	
-	public static void pushOffFrom(Player A, GameObject B) {
-		Rectangle RA = A.getSolidArea();
-		Rectangle RB = B.getSolidArea();
+	public static void pushOffWall(GameObject A) {
+		if(!Obj.collisionZeroRect(A.getSolidArea())) return ;
 		
-		switch(A.getDirect()) {
-			case "L" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setxPos(A.getxPos() + A.getxVelo());
-					RA = A.getSolidArea();
-				}
-				break;
+		for(int i = 0; i < 240; i++) {
+			for(int j = 0; j < 240; j++) {
+				vit[i][j] = false;
 			}
-			case "R" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setxPos(A.getxPos() - A.getxVelo());
-					RA = A.getSolidArea();
+		}
+		
+		Rectangle RA = new Rectangle(A.getSolidArea().getX(), A.getSolidArea().getY(), A.getSolidArea().getWidth(), A.getSolidArea().getHeight());
+		int Tx = (int) (RA.getX() - 120);
+		int Ty = (int) (RA.getY() - 120);
+		queue.add(RA);
+		
+		while(!queue.isEmpty()) {
+			Rectangle RT = queue.get(0);
+			queue.remove(0);
+			
+			if(vit[(int) RT.getX() - Tx][(int) RT.getY() - Ty]) continue;
+			vit[(int) RT.getX() - Tx][(int) RT.getY() - Ty] = true;
+			
+			for(int i = 0; i < 4; i++) {
+				int newX = (int) (RT.getX() + dx[i]);
+				int newY = (int) (RT.getY() + dy[i]);
+				if(newX < 0 || (newX + RT.getWidth()) / 48 > 109 || newY < 0 || (newY + RT.getHeight()) / 48 > 59) continue;
+				if(newX - Tx < 0 || newX - Tx >= 240 || newY - Ty < 0 || newY - Ty >= 240 || vit[newX - Tx][newY - Ty]) continue;
+				Rectangle RX = new Rectangle(newX, newY, RT.getWidth(), RT.getHeight());
+				System.out.println(newX + " " + newY);
+				if(!Obj.collisionZeroRect(RX)) {
+					A.setxPos(RX.getX() - A.getSolidArea().getX() + A.getxPos());
+					A.setyPos(RX.getY() - A.getSolidArea().getY() + A.getyPos());
+					A.setSolidArea(RX);
+					queue.clear();
+					return ;
 				}
-				break;
+				queue.add(RX);
 			}
-			case "U" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setyPos(A.getyPos() + A.getyVelo());
-					RA = A.getSolidArea();
+		}
+	}
+	
+	public static void pushOffFrom(GameObject A, GameObject B) {
+		if(!A.getSolidArea().intersects(B.getSolidArea().getBoundsInLocal())) return ;
+		
+		for(int i = 0; i < 240; i++) {
+			for(int j = 0; j < 240; j++) {
+				vit[i][j] = false;
+			}
+		}
+		
+		Rectangle RA = new Rectangle(A.getSolidArea().getX(), A.getSolidArea().getY(), A.getSolidArea().getWidth(), A.getSolidArea().getHeight());
+		int Tx = (int) (RA.getX() - 120);
+		int Ty = (int) (RA.getY() - 120);
+		queue.add(RA);
+		
+		while(!queue.isEmpty()) {
+			Rectangle RT = queue.get(0);
+			queue.remove(0);
+			
+			if(vit[(int) RT.getX() - Tx][(int) RT.getY() - Ty]) continue;
+			vit[(int) RT.getX() - Tx][(int) RT.getY() - Ty] = true;
+			
+			for(int i = 0; i < 4; i++) {
+				int newX = (int) (RT.getX() + dx[i]);
+				int newY = (int) (RT.getY() + dy[i]);
+				if(newX < 0 || (newX + RT.getWidth()) / 48 > 109 || newY < 0 || (newY + RT.getHeight()) / 48 > 59) continue;
+				if(newX - Tx < 0 || newX - Tx >= 240 || newY - Ty < 0 || newY - Ty >= 240 || vit[newX - Tx][newY - Ty]) continue;
+				Rectangle RX = new Rectangle(newX, newY, RT.getWidth(), RT.getHeight());
+				if(!RX.intersects(B.getSolidArea().getBoundsInLocal())) {
+					A.setxPos(RX.getX() - A.getSolidArea().getX() + A.getxPos());
+					A.setyPos(RX.getY() - A.getSolidArea().getY() + A.getyPos());
+					A.setSolidArea(RX);
+					queue.clear();
+					return ;
 				}
-				break;
+				queue.add(RX);
 			}
-			case "D" : {
-				while(RA.intersects(RB.getBoundsInLocal())) {
-					A.setyPos(A.getyPos() - A.getyVelo());
-					RA = A.getSolidArea();
-				}
-				break;
-			}
-			default : break;
 		}
 	}
 	
@@ -281,4 +339,5 @@ public class Obj {
 			return "DOWN";
 		}
 	}
+	
 }

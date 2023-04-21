@@ -10,6 +10,7 @@ import logic.base.Handler;
 import logic.base.ID;
 import logic.person.Player;
 import utilz.LoadSave;
+import utilz.Obj;
 
 public class Sculpture extends GameObject {
 	
@@ -23,7 +24,8 @@ public class Sculpture extends GameObject {
 	}
 
 	public void update() {
-		
+		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 85, 70, 60));
+		Obj.pushOffWall(this);
 	}
 
 	@Override
@@ -34,10 +36,13 @@ public class Sculpture extends GameObject {
 	}
 	
 	public void interact(Player player) {
-		while(getSolidArea().intersects(player.getSolidArea().getBoundsInLocal())) {
+		Rectangle RA = new Rectangle(getSolidArea().getX() + player.getxVelo(), getSolidArea().getY() + player.getyVelo(), getSolidArea().getWidth(), getSolidArea().getHeight());
+		if(Obj.collisionZeroRect(RA)) {
+			Obj.pushOffFrom(player, this);
+			return ;
+		}else {
 			setxPos(getxPos() + player.getxVelo());
 			setyPos(getyPos() + player.getyVelo());
-			setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 85, 70, 60));
 		}
 		player.setxVelo(0);
 		player.setyVelo(0);

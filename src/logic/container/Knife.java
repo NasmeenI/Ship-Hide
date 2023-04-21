@@ -40,7 +40,6 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 
 	public void update() {
 		if(!isVisible()) handler.removeObject(this);
-		handler.removeObject(this);
 		return ;
 	}
 
