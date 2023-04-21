@@ -16,6 +16,7 @@ import utilz.Checker;
 import utilz.LoadSave;
 import utilz.Obj;
 import java.util.ArrayList;
+
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 
@@ -114,8 +115,6 @@ public class Player extends Person {
 	public void update() {
 
 		Obj.collision(this);
-		if(getHp() == 0) System.out.println("die");
-		
 		setKey(input.key);
 		
 		if(key.ONE) {

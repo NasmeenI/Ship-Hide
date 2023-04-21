@@ -118,7 +118,7 @@ public class MenuScene {
 		root.getChildren().addAll(box);
 	}
 
-	private static class MenuItem extends StackPane {
+	public static class MenuItem extends StackPane {
 		MenuItem(String name ,Runnable action){
 			LinearGradient gradient = new LinearGradient(
 					0 ,0.5 ,1 ,0.5 ,true ,CycleMethod.NO_CYCLE,

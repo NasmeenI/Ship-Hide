@@ -18,9 +18,11 @@ import logic.base.Keys;
 import logic.base.Map;
 import logic.person.Player;
 import ui.Ui;
+import utilz.Obj;
 
 import static utilz.Constants.Screen.*;
 
+import Scenes.GameOverScene;
 import Scenes.MenuScene;
 
 public class GameProcess {
@@ -39,9 +41,10 @@ public class GameProcess {
 	private Map map = new Map();
 	
 	// GAME STATE
-	public int gameState;
-	public final int playState = 1;
-	public final int pauseState = 2;
+	private int gameState;
+	private final int playState = 1;
+	private final int pauseState = 2;
+	private final int gameOverState = 3;
 	
 	// PRESS ESC
 	private Keys key;
@@ -103,7 +106,10 @@ public class GameProcess {
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();
+		
+		// INITIAL SCENE
 		MenuScene.initContinueScene(this);
+		//GameOverScreen scene = new GameOverScreen(GameProcess.stage);
 		gameState = playState;
 
 		// initial HP Bar
@@ -118,10 +124,11 @@ public class GameProcess {
 	private void update() {
 		setKey(input.key);
 		checkPress();
-		if(gameState == pauseState) {
+		if(gameState == pauseState || gameState == gameOverState) {
 			// nothing
 			return;
 		}
+		checkDied();
 		
 		// Inventory box
 		root.getChildren().remove(box);
@@ -182,6 +189,14 @@ public class GameProcess {
 				stage.setScene(MenuScene.continueScene);	
 				setGameState(pauseState);
 			}
+		}
+	}
+	
+	public void checkDied() {
+		if(handler.Player.getHp() == 0) {
+			GameOverScene y = new GameOverScene(stage);
+			stage.setScene(GameOverScene.scene);
+			setGameState(gameOverState);
 		}
 	}
 	
