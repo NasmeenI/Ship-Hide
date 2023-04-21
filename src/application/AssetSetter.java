@@ -28,10 +28,10 @@ public class AssetSetter {
 		
 		// Sculpture
 		Sculpture[] sculpture = new Sculpture[4];
-		sculpture[0] = new Sculpture(73 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture);
-		sculpture[1] = new Sculpture(53 * TILE_SIZE ,47 * TILE_SIZE, ID.Sculpture);
-		sculpture[2] = new Sculpture(73 * TILE_SIZE ,40 * TILE_SIZE, ID.Sculpture);
-		sculpture[3] = new Sculpture(56 * TILE_SIZE ,38 * TILE_SIZE, ID.Sculpture);
+		sculpture[0] = new Sculpture(65 * TILE_SIZE ,42 * TILE_SIZE, ID.Sculpture); // 68 47
+		sculpture[1] = new Sculpture(52 * TILE_SIZE ,37 * TILE_SIZE, ID.Sculpture); // 52 40
+		sculpture[2] = new Sculpture(73 * TILE_SIZE ,37 * TILE_SIZE, ID.Sculpture); // 72 41
+		sculpture[3] = new Sculpture(52 * TILE_SIZE ,46 * TILE_SIZE, ID.Sculpture); // 58 42
 		for(int i=0;i<4;i++) handler.allObjects.add(sculpture[i]);	
 		
 		// Computer
@@ -44,13 +44,24 @@ public class AssetSetter {
 		handler.allObjects.add(new Label(65 * TILE_SIZE ,36 * TILE_SIZE, ID.Label4));
 		
 		// Weapons
-		handler.allObjects.add(new Knife(27 * TILE_SIZE ,12 * TILE_SIZE, ID.Knife ,true));
-		handler.allObjects.add(new Gun(27 * TILE_SIZE ,15 * TILE_SIZE, ID.Gun ,true));
-		handler.allObjects.add(new Magazine(25 * TILE_SIZE ,14 * TILE_SIZE, ID.Magazine ,6));
-		handler.allObjects.add(new Magazine(22 * TILE_SIZE ,14 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Knife(10 * TILE_SIZE ,10 * TILE_SIZE, ID.Knife ,true));
+		handler.allObjects.add(new Gun(26 * TILE_SIZE ,13 * TILE_SIZE, ID.Gun ,true));
+		handler.allObjects.add(new Magazine(16 * TILE_SIZE ,20 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Magazine(60 * TILE_SIZE ,38 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Magazine(59 * TILE_SIZE ,13 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Magazine(59 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Magazine(61 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Magazine(63 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine ,6));
+		handler.allObjects.add(new Magazine(65 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine ,6));
 		
 		// HP Bottle
-		handler.allObjects.add(new HpBottle(22 * TILE_SIZE ,16 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(32 * TILE_SIZE ,47 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(71 * TILE_SIZE ,37 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(49 * TILE_SIZE ,23 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(48 * TILE_SIZE ,13 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(66 * TILE_SIZE ,13 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(74 * TILE_SIZE ,28 * TILE_SIZE, ID.HpBottle));
+		handler.allObjects.add(new HpBottle(74 * TILE_SIZE ,33 * TILE_SIZE, ID.HpBottle));
 		
 		// Keys
 		handler.allObjects.add(new KeyLocker(37 * TILE_SIZE ,33 * TILE_SIZE, ID.Key1));

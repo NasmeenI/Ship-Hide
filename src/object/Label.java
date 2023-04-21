@@ -1,5 +1,6 @@
 package object;
 
+import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,6 +53,7 @@ public class Label extends GameObject implements StableObject {
 
 	        ImageView imageView = new ImageView(getImagePuzzle());
 			Obj.stackPane.getChildren().addAll(imageView);
+			Obj.stackPane.setAlignment(Pos.CENTER);
 	        GameProcess.getRoot().getChildren().addAll(Obj.stackPane);
 		}
 		else {
@@ -66,19 +68,19 @@ public class Label extends GameObject implements StableObject {
 		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
 		switch(getId()) {
 			case Label1 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE);
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE1);
 				break;
 			}
 			case Label2 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.MAGAZINE);
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE2);
 				break;
 			}
 			case Label3 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.HPBOTTLE);
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE3);
 				break;
 			}
 			case Label4 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE4);
 				break;
 			}
 			default : break;

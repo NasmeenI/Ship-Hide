@@ -50,7 +50,9 @@ public class LoadSave {
 	
 	public static final String PRESS_E = "Objects/pressE.jpg";
 	public static final String KNIFE = "Objects/knife.png";
+	public static final String KNIFE_USED = "Objects/knifeUsed.png";
 	public static final String GUN = "Objects/gun.png";
+	public static final String GUN_USED = "Objects/gunUsed.png";
 	public static final String MAGAZINE = "Objects/magazine.png";
 	public static final String KEY1 = "Objects/key1.png";
 	public static final String KEY2 = "Objects/key2.png";
@@ -66,7 +68,10 @@ public class LoadSave {
 	public static final String LAZER_1 = "Objects/lazer1.png";
 	public static final String LAZER_2 = "Objects/lazer2.png";
 	public static final String SCULPTURE = "Objects/sculpture.png";
-	public static final String PUZZLE = "Objects/puzzle.png";
+	public static final String PUZZLE1 = "Objects/puzzle1.png";
+	public static final String PUZZLE2 = "Objects/puzzle2.png";
+	public static final String PUZZLE3 = "Objects/puzzle3.png";
+	public static final String PUZZLE4 = "Objects/puzzle4.png";
 
 	public static final String SPIDER = "Objects/spider.png";
 	

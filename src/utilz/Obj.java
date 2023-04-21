@@ -281,5 +281,4 @@ public class Obj {
 			return "DOWN";
 		}
 	}
-	
 }

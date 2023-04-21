@@ -207,9 +207,9 @@ public class Player extends Person {
 		else {
 			GameProcess.renderType = 1;
 		}
-		
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -299,8 +299,6 @@ public class Player extends Person {
 		}
 		
 		if(!gun.shootAble()) return ;
-		
-		System.out.println("shoot!");
 		
 		gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
 		
@@ -464,14 +462,14 @@ public class Player extends Person {
 		}
 	}
 	
+	// Getters & Setters
+	
 	public void setAc(double _ac, double _dc) {
 		set_ac(_ac);
 		set_dc(_dc);
 		return ;
 	}
 	
-	// Getters & Setters
-
 	public double get_ac() {
 		return _ac;
 	}

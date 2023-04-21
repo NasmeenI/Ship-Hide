@@ -27,22 +27,29 @@ public class Ui {
 	
 	public HBox draw(Camera cam ,Player player) {
 		HBox box = new HBox();
+		Image image;
 		ArrayList<GameObject> bag = player.getBag();
 		for(int i=0;i<bag.size();i++) {
-			if(bag.get(i) instanceof KeyLocker) {
-				Image image = ((KeyLocker)bag.get(i)).getImage();
-				box.getChildren().add(new ImageView(image));
-			}
-			else if(bag.get(i) instanceof Knife) {
-				Image image = ((Knife)bag.get(i)).getImage();
-				box.getChildren().add(new ImageView(image));
-			}
-			else if(bag.get(i) instanceof Gun) {
-				Image image = ((Gun)bag.get(i)).getImage();
+			if(bag.get(i) instanceof Gun) {
+				if(player.getUsed() == 3) image = ((Gun)bag.get(i)).getImageUsed();
+				else image = ((Gun)bag.get(i)).getImage();
 				box.getChildren().add(new ImageView(image));
 				
 				Magazine currentMagazine = ((Gun)bag.get(i)).getMagazine();
 				numBullet(box ,currentMagazine.getNumBullet() ,currentMagazine.getNumMaxBullet());	
+			}
+		}
+		for(int i=0;i<bag.size();i++) {
+			if(bag.get(i) instanceof Knife) {
+				if(player.getUsed() == 2) image = ((Knife)bag.get(i)).getImageUsed();
+				else image = ((Knife)bag.get(i)).getImage();
+				box.getChildren().add(new ImageView(image));
+			}
+		}
+		for(int i=0;i<bag.size();i++) {
+			if(bag.get(i) instanceof KeyLocker) {
+				image = ((KeyLocker)bag.get(i)).getImage();
+				box.getChildren().add(new ImageView(image));
 			}
 		}
 		
