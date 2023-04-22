@@ -6,7 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
-import logic.base.Handler;
 import logic.base.ID;
 import logic.person.Player;
 import utilz.LoadSave;
@@ -14,12 +13,11 @@ import utilz.Obj;
 
 public class Sculpture extends GameObject {
 	
-	private Handler handler;
-	private Image image;
+	private static final long serialVersionUID = 1L;
+	transient private Image image;
 	
 	public Sculpture(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id ,10 ,85 ,70 ,60);
-		this.handler = Handler.getInstance();
 		initImg();
 	}
 
@@ -30,7 +28,7 @@ public class Sculpture extends GameObject {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, 10, 85);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		gc.drawImage(image ,getxPos() ,getyPos());
 		return ;
 	}
@@ -54,14 +52,6 @@ public class Sculpture extends GameObject {
 	}
 
 	// Getter & Setter
-	
-	public Handler getHandler() {
-		return handler;
-	}
-
-	public void setHandler(Handler handler) {
-		this.handler = handler;
-	}
 
 	public Image getImage() {
 		return image;

@@ -15,7 +15,6 @@ public class GameComplete {
 	
 	public GameComplete(Stage stage) {
 		this.stage = stage;
-		MenuScene.start = false;
 		initStartScene();
 	}
 
@@ -31,6 +30,7 @@ public class GameComplete {
 		HBox box = new HBox(
 			10,
 			new MenuScene.MenuItem("New Game" ,() -> {
+				MenuScene.start = false;
 				stage.setScene(MenuScene.startScene);
 			}),
 			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())

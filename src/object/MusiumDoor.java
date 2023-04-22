@@ -8,20 +8,22 @@ import logic.base.Map;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
-import static utilz.Constants.Player.*;
+import application.GameProcess;
 import static utilz.Constants.GameProcess.*;
 import static utilz.Constants.Debug.*;
 
 public class MusiumDoor extends GameObject implements StableObject {
 	
+	private static final long serialVersionUID = 1L;
 	private boolean opened;
-	private Image imageOpen;
-	private Image imageClose;
+	transient private Image imageOpen;
+	transient private Image imageClose;
 	private Sculpture[] sculpture;
 	private int[][] password;
+	private boolean saved = false;
 	
 	public MusiumDoor(int xPos, int yPos, ID id, Sculpture[] sculpture) {
-		super(xPos, yPos, id ,0 ,0 ,P_WIDTH ,P_HEIGHT);
+		super(xPos, yPos, id ,0 ,10 ,100 ,100);
 		setOpened(false);
 		this.sculpture = sculpture;
 		initPassword();
@@ -40,24 +42,28 @@ public class MusiumDoor extends GameObject implements StableObject {
 			}
 		}
 		if(cnt == 4) {
-			Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1, 1);
-			Map.setStageMap((int)getxPos()/48, (int)getyPos()/48+1, 1);
-			Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+2, 1);
-			Map.setStageMap((int)getxPos()/48, (int)getyPos()/48+2, 1);
+			Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1, 1);
+			Map.getInstance().setStageMap((int)getxPos()/48, (int)getyPos()/48+1, 1);
+			Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+2, 1);
+			Map.getInstance().setStageMap((int)getxPos()/48, (int)getyPos()/48+2, 1);
 			setOpened(true);
+			if(!saved) {
+				GameProcess.save();
+				saved = true;
+			}
 		}
 		else {
-			Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1, 0);
-			Map.setStageMap((int)getxPos()/48, (int)getyPos()/48+1, 0);
-			Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+2, 0);
-			Map.setStageMap((int)getxPos()/48, (int)getyPos()/48+2, 0);
+			Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1, 0);
+			Map.getInstance().setStageMap((int)getxPos()/48, (int)getyPos()/48+1, 0);
+			Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+2, 0);
+			Map.getInstance().setStageMap((int)getxPos()/48, (int)getyPos()/48+2, 0);
 			setOpened(false);
 		}
 	}
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, 0, 0);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		if(opened) gc.drawImage(imageOpen ,getxPos() ,getyPos());
 		else gc.drawImage(imageClose ,getxPos() ,getyPos());
@@ -68,7 +74,7 @@ public class MusiumDoor extends GameObject implements StableObject {
 		
 	}
 	
-	private void initImg() {
+	public void initImg() {
 		switch(getId()) {
 			case MusiumDoor : {
 				imageOpen = LoadSave.GetSpriteAtlas(LoadSave.MUSIUM_DOOR_OPEN);

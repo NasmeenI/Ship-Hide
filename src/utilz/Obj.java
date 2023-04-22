@@ -24,6 +24,8 @@ import static utilz.Constants.GameProcess.*;
 
 import java.util.ArrayList;
 
+import application.GameProcess;
+
 public class Obj {
 	
 	public static boolean pressed = false;
@@ -40,7 +42,7 @@ public class Obj {
 	public static boolean collisionZero(GameObject A) {
 		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
 			for(int j=(int)A.getSolidArea().getX();j<=(int)A.getSolidArea().getX()+(int)A.getSolidArea().getWidth();j++) {
-				if(Map.mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
+				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
 			}
 		}
 		return false;
@@ -49,25 +51,22 @@ public class Obj {
 	public static boolean collisionZeroRect(Rectangle A) {
 		for(int i=(int)A.getY();i<=(int)A.getY()+(int)A.getHeight();i++) {
 			for(int j=(int)A.getX();j<=(int)A.getX()+(int)A.getWidth();j++) {
-				if(Map.mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
+				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
 			}
 		}
 		return false;
 	}
 	
 	public static void collision(GameObject A) {
-		Handler handler = Handler.getInstance();
-		
-		for(int i = 0; i < handler.allObjects.size(); i++) {
-			if(handler.allObjects.get(i).getCode() == A.getCode()) continue;
-			if(A.getSolidArea().intersects(handler.allObjects.get(i).getSolidArea().getBoundsInLocal())) {
-				action(A, handler.allObjects.get(i));
+		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
+			if(Handler.getInstance().allObjects.get(i).getCode() == A.getCode()) continue;
+			if(A.getSolidArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
+				action(A, Handler.getInstance().allObjects.get(i));
 			}
 		}
 	}
 
 	public static void action(GameObject A, GameObject B) {
-		Handler handler = Handler.getInstance();
 		time += 1;
 
 		switch(A.getId()) {
@@ -75,7 +74,7 @@ public class Obj {
 				switch(B.getId()) {
 					case Bullet : {
 						((Player)A).setHp(((Player)A).getHp() - ((Bullet)B).damage());
-						handler.removeObject(B);
+						Handler.getInstance().removeObject(B);
 						break;
 					}
 					case Computer : {
@@ -155,7 +154,7 @@ public class Obj {
 				switch(B.getId()) {
 					case Bullet : {
 						((Criminal)A).setHp(((Criminal)A).getHp() - ((Bullet)B).damage());
-						handler.removeObject(B);
+						Handler.getInstance().removeObject(B);
 						
 						break;
 					}
@@ -253,6 +252,17 @@ public class Obj {
 		}
 	}
 	
+	public static void getClosePoint(GameObject A, int mPx, int mPy, int xPos, int yPos) {
+		boolean setX = false;
+		boolean setY = false;		
+		if(!setX)
+			if(mPx < xPos) A.setxPos(A.getxPos() + Math.abs(A.getxVelo()));
+			else if(mPx > xPos) A.setxPos(A.getxPos() - Math.abs(A.getxVelo()));
+		if(!setY)
+			if(mPy < yPos) A.setyPos(A.getyPos() + Math.abs(A.getyVelo()));
+			else if(mPy > yPos) A.setyPos(A.getyPos() - Math.abs(A.getyVelo()));
+	}
+	
 	public static void getClose(GameObject A, GameObject B) {
 		boolean setX = false;
 		boolean setY = false;
@@ -283,20 +293,20 @@ public class Obj {
 		if(_Vy >= 0) newYPos = ((int)((A.getyPos() + _Vy - 4)/48)) + 2;		 	
 		else newYPos = ((int)((A.getyPos() + _Vy - 20)/48)) + 2;
 		
-		if(Map.mapTileNum[newYPos][newXPos] != 0) {
+		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
 			A.setxPos(setX ? B.getxPos() : A.getxPos() + _Vx);
 			A.setyPos(setY ? B.getyPos() : A.getyPos() + _Vy);
 		}
-		else if(Map.mapTileNum[newYPos][newXPos] == 0 && Map.mapTileNum[newYPos][(int)(A.getxPos()-10)/48] != 0 && _Vx >= 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(A.getxPos()-10)/48] != 0 && _Vx >= 0) {
 			A.setyPos(setY ? B.getyPos() : A.getyPos() + _Vy);
 		}
-		else if(Map.mapTileNum[newYPos][newXPos] == 0 && Map.mapTileNum[newYPos][(int)(A.getxPos()-20)/48] != 0 && _Vx < 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(A.getxPos()-20)/48] != 0 && _Vx < 0) {
 			A.setyPos(setY ? B.getyPos() : A.getyPos() + _Vy);
 		}
-		else if(Map.mapTileNum[newYPos][newXPos] == 0 && Map.mapTileNum[((int)(A.getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(A.getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
 			A.setxPos(setX ? B.getxPos() : A.getxPos() + _Vx);
 		}
-		else if(Map.mapTileNum[newYPos][newXPos] == 0 && Map.mapTileNum[((int)(A.getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(A.getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
 			A.setxPos(setX ? B.getxPos() : A.getxPos() + _Vx);
 		}
 		

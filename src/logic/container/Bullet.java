@@ -8,16 +8,18 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Map;
+
 import static utilz.Constants.Debug.*;
+
+import application.GameProcess;
 
 public class Bullet extends GameObject implements Attackable {
 	
+	private static final long serialVersionUID = 1L;
 	private int maxDamage, minDamage;
-	private Handler handler;
 	
 	public Bullet(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 0, 0, 16, 16);
-		this.handler = Handler.getInstance();
 		setxVelo(0);
 		setyVelo(0);
 		setMinDamage(30);
@@ -26,7 +28,6 @@ public class Bullet extends GameObject implements Attackable {
 	
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo) {
 		super(xPos, yPos, id, 0, 0, 16, 16);
-		this.handler = Handler.getInstance();
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(30);
@@ -35,7 +36,6 @@ public class Bullet extends GameObject implements Attackable {
 
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo, int MxD, int MnD) {
 		super(xPos, yPos, id, 0, 0, 16, 16);
-		this.handler = Handler.getInstance();
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(MxD);
@@ -44,7 +44,6 @@ public class Bullet extends GameObject implements Attackable {
 	
 	public Bullet(double xPos, double yPos, ID id, int MxD, int MnD) {
 		super(xPos, yPos, id, 0, 0, 16, 16);
-		this.handler = Handler.getInstance();
 		setMinDamage(MxD);
 		setMaxDamage(MnD);
 	}
@@ -63,12 +62,12 @@ public class Bullet extends GameObject implements Attackable {
 		if(_Vy >= 0) newYPos = ((int)((getyPos() + _Vy)/48)); 	
 		else newYPos = ((int)((getyPos() + _Vy)/48));
 		
-		if(Map.mapTileNum[newYPos][newXPos] != 0) {
+		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
 			setxPos(getxPos() + _Vx);
 			setyPos(getyPos() + _Vy);
 		}
 		else {
-			handler.removeObject(this);
+			Handler.getInstance().removeObject(this);
 		}
 		
 		setxVelo(_Vx);
@@ -80,7 +79,7 @@ public class Bullet extends GameObject implements Attackable {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, 0, 0);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		gc.setFill(Color.BLACK);
 		gc.fillOval((int)getxPos(), (int)getyPos(), 8, 8);
@@ -97,8 +96,14 @@ public class Bullet extends GameObject implements Attackable {
 		return 0;
 	}
 	
-	// Getters & Setters
+	@Override
+	public void initImg() {
+		// TODO Auto-generated method stub
+		
+	}
 	
+	
+	// Getters & Setters
 	public int getMaxDamage() {
 		return maxDamage;
 	}
@@ -116,5 +121,4 @@ public class Bullet extends GameObject implements Attackable {
 		this.minDamage = minDamage;
 		return ;
 	}
-	
 }

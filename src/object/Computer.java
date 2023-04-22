@@ -10,31 +10,30 @@ import logic.person.Player;
 import ui.PasswordPopUp;
 import utilz.LoadSave;
 import utilz.Obj;
-import static utilz.Constants.Debug.*;
 import application.GameProcess;
+import static utilz.Constants.Debug.*;
 
 public class Computer extends GameObject implements StableObject {
 	
-	private Handler handler;
-	private Image imageInteract;
+	private static final long serialVersionUID = 1L;
+	transient private Image imageInteract;
 	private boolean interacted;
 	
 	public Computer(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -50, 0, 150, 150);
-		this.handler = Handler.getInstance();
 		interacted = false;
 		initImg();
 	}
 
 	public void update() {
-		double dis = Obj.distance(this, handler.Player);
+		double dis = Obj.distance(this, Handler.getInstance().Player);
 		if(dis < 4*48) setInteracted(true);
 		else setInteracted(false);
 	}
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, -50, 0);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(imageInteract ,getxPos() ,getyPos());
 		return ;
 	}

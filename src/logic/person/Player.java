@@ -11,51 +11,44 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
+import logic.container.KeyLocker;
 import logic.container.Knife;
 import utilz.Checker;
 import utilz.LoadSave;
 import utilz.Obj;
 import java.util.ArrayList;
-
 import Scenes.GameOverScene;
-
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 import static utilz.Constants.GameState.*;
 
 public class Player extends Person {
 	
+	private static final long serialVersionUID = 1L;
 	// default
 	private double _ac = .8f;
 	private double _dc = .4f;
-	private KeyInput input;
-	private Keys key;
-	
-	private Handler handler;
+	transient private KeyInput input;
+
+	transient private Keys key;
 
 	public static double _CurxPos;
 	public static double _CuryPos;
 
-	private Image[] T_Up, T_Down, T_Left, T_Right;
-	Image currentAni, previousAni;
+	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	private final int defaultAni = 9;
+	transient private Image currentAni, previousAni;
 	
 	public ArrayList<GameObject> bag;
 	
-
-	
 	public Player(double xPos, double yPos, ID id, KeyInput input) {
-		super(xPos, yPos, id);
+		super(xPos, yPos, id, 10, 5, P_WIDTH, P_HEIGHT);
 		this.input = input;
-		this.handler = Handler.getInstance();
 		_CurxPos = xPos;
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
-
 		initImg();
-		
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
-		setHp(1000);
+		setHp(100000);
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
@@ -66,7 +59,7 @@ public class Player extends Person {
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 	}
 	
-	private void initImg() {
+	public void initImg() {
 		T_Up = new Image[12];
 		T_Up[defaultAni] = LoadSave.GetSpriteAtlas(LoadSave.Player_Animation_Up_Default);
 		T_Up[0] = LoadSave.GetSpriteAtlas(LoadSave.Player_Animation_Up_0);
@@ -140,7 +133,7 @@ public class Player extends Person {
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));
 		
-		Walk(Map.mapTileNum);
+		Walk(Map.getInstance().mapTileNum);
 		
 		if(getKnifeTime() < 30) setKnifeTime(getKnifeTime() + 1);
 		if(getBulletTime() < 20) setBulletTime(getBulletTime() + 1);
@@ -167,7 +160,6 @@ public class Player extends Person {
 			}
 			setReloadTime(0);
 		}
-		
 		
 		
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
@@ -217,8 +209,25 @@ public class Player extends Person {
 			GameProcess.renderType = 1;
 		}
 
-		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		
+//		if(mapTileNum[newYPos][newXPos] != 0) {
+//			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+//			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+//			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+//			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+//			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+//			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+//		}
 		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -238,38 +247,21 @@ public class Player extends Person {
 //		}
 		
 		if(mapTileNum[newYPos][newXPos] != 0) {
-			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
 		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
-			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
 		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
-			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
 		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
-			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 		}
 		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
-			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 		}
-		
-//		if(mapTileNum[newYPos][newXPos] != 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//		}
-//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//		}
 		
 		
 		setxVelo(_Vx);
@@ -296,7 +288,7 @@ public class Player extends Person {
 	}
 	
 	public void shoot() {
-		if(!GunAvailable() || handler.Player == null) return ;
+		if(!GunAvailable() || Handler.getInstance().Player == null) return ;
 		
 		Gun gun = null;
 		ArrayList<GameObject> bag = this.getBag();
@@ -315,9 +307,9 @@ public class Player extends Person {
 	}
 	
 	public void slash() {
-		if(!KnifeAvailable() || handler.Player == null) return ;
+		if(!KnifeAvailable() || Handler.getInstance().Player == null) return ;
 		
-		handler.addObject(new Knife(getxPos(), getyPos(), ID.Knife, false));
+		Handler.getInstance().addObject(new Knife(getxPos(), getyPos(), ID.Knife, false));
 		
 		return ;
 	}
@@ -338,7 +330,7 @@ public class Player extends Person {
 
 	@Override
 	public void render(GraphicsContext gc) { // Set Player Graphics
-		if(SOLID_SHOW) ShowSolidArea(gc, 10, 5);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		gc.drawImage(currentAni, xPos, yPos);
 		return ;
@@ -472,7 +464,7 @@ public class Player extends Person {
 	}
 	
 	// Getters & Setters
-	
+
 	public void setAc(double _ac, double _dc) {
 		set_ac(_ac);
 		set_dc(_dc);

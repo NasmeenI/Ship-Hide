@@ -5,9 +5,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Game extends Application {
-
+	MenuScene menuScene;
+	
 	public void start(Stage stage) throws Exception {
-		MenuScene menuScene = new MenuScene(stage);
+		menuScene = new MenuScene(stage);
 		
 		stage.setScene(MenuScene.startScene);
 		stage.setTitle("Ship Hide");

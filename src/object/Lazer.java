@@ -12,16 +12,29 @@ import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
 public class Lazer extends GameObject implements StableObject, Attackable {
+	private static final long serialVersionUID = 1L;
 	private boolean show;
-	private Image imageShow;
-	private Image imageNotShow;
+	transient private Image imageShow;
+	transient private Image imageNotShow;
 	private int damage;
 	private int interval, intervalCount;
 	
 	public Lazer(int xPos, int yPos, ID id, int damage, int interval) {
 		super(xPos, yPos, id);
-		if(getId() == ID.Lazer1) setSolidArea(new Rectangle(getxPos()+20, getyPos()+48, 5, 96));
-		else setSolidArea(new Rectangle(getxPos(), getyPos()+120, 48, 5));
+		if(getId() == ID.Lazer1) {
+			setSolidArea(new Rectangle(getxPos()+20, getyPos()+48, 5, 96));
+			setxDif(20);
+			setyDif(48);
+			setW(5);
+			setH(96);
+		}
+		else {
+			setSolidArea(new Rectangle(getxPos(), getyPos()+120, 48, 5));
+			setxDif(0);
+			setyDif(120);
+			setW(48);
+			setH(5);
+		}
 		setDamage(damage);
 		setInterval(interval);
 		setShow(false);
@@ -29,7 +42,7 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 		initImg();
 	}
 	
-	private void initImg() {
+	public void initImg() {
 		if(getId() == ID.Lazer1) {
 			imageShow = LoadSave.GetSpriteAtlas(LoadSave.LAZER_1);
 			imageNotShow = LoadSave.GetSpriteAtlas(LoadSave.LAZER_1);
@@ -52,8 +65,8 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) {
-			if(getId() == ID.Lazer1) ShowSolidArea(gc, 20, 48);
-			if(getId() == ID.Lazer2) ShowSolidArea(gc, 0, 120);
+			if(getId() == ID.Lazer1) ShowSolidArea(gc);
+			if(getId() == ID.Lazer2) ShowSolidArea(gc);
 		}
 		
 		if(isShow()) gc.drawImage(imageShow ,getxPos() ,getyPos());

@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -20,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utilz.LoadSave;
 import application.GameProcess;
 import static utilz.Constants.GameState.*;
 
@@ -42,8 +42,7 @@ public class MenuScene {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		
-		String image_path = "file:res/background.jpg";
-		gc.drawImage(new Image(image_path) ,0 ,0 ,960 ,640);
+		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MENU_SCENE) ,0 ,0 ,960 ,640);
 		
 		VBox box = new VBox(
 			10,
@@ -83,8 +82,7 @@ public class MenuScene {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		
-		String image_path = "file:res/background.jpg";
-		gc.drawImage(new Image(image_path) ,0 ,0 ,960 ,640);
+		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MENU_SCENE) ,0 ,0 ,960 ,640);
 		
 		VBox box = new VBox(
 			10,

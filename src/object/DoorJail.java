@@ -11,9 +11,10 @@ import static utilz.Constants.Debug.*;
 import static utilz.Constants.Player.*;
 
 public class DoorJail extends GameObject implements StableObject {
+	private static final long serialVersionUID = 1L;
 	public static boolean opened;
-	private Image imageOpen;
-	private Image imageClose;
+	transient private Image imageOpen;
+	transient private Image imageClose;
 	
 	public DoorJail(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, 0, 0, P_WIDTH, P_HEIGHT);
@@ -21,7 +22,7 @@ public class DoorJail extends GameObject implements StableObject {
 		initImg();
 	}
 	
-	private void initImg() {
+	public void initImg() {
 		imageOpen = LoadSave.GetSpriteAtlas(LoadSave.DOOR3_OPEN);
 		imageClose = LoadSave.GetSpriteAtlas(LoadSave.DOOR3_CLOSE);		
 	}
@@ -33,7 +34,7 @@ public class DoorJail extends GameObject implements StableObject {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, 0, 0);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		if(isOpened()) gc.drawImage(imageOpen ,getxPos() ,getyPos());
 		else gc.drawImage(imageClose ,getxPos() ,getyPos());

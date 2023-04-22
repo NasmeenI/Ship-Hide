@@ -1,10 +1,13 @@
 package logic.base;
 
+import java.io.Serializable;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class KeyInput {
+public class KeyInput implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	public Keys key = new Keys();
 	
 	public void keyPressed(KeyEvent x) {
@@ -16,6 +19,7 @@ public class KeyInput {
 		if(keyInt == KeyCode.D) key.D = true;
 		if(keyInt == KeyCode.R) key.R = true;
 		if(keyInt == KeyCode.E) key.E = true;
+		if(keyInt == KeyCode.K) key.K = true;
 		if(keyInt == KeyCode.LEFT) key.LEFT = true;
 		if(keyInt == KeyCode.RIGHT) key.RIGHT = true;
 		if(keyInt == KeyCode.UP) key.UP = true;
@@ -45,6 +49,7 @@ public class KeyInput {
 		if(keyInt == KeyCode.D) key.D = false;
 		if(keyInt == KeyCode.R) key.R = false;
 		if(keyInt == KeyCode.E) key.E = false;
+		if(keyInt == KeyCode.K) key.K = false;
 		if(keyInt == KeyCode.LEFT) key.LEFT = false;
 		if(keyInt == KeyCode.RIGHT) key.RIGHT = false;
 		if(keyInt == KeyCode.UP) key.UP = false;

@@ -1,5 +1,6 @@
 package Scenes;
 
+import application.GameProcess;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -15,7 +16,6 @@ public class GameOverScene {
 	
 	public GameOverScene(Stage stage) {
 		this.stage = stage;
-		MenuScene.start = false;
 		initStartScene();
 	}
 
@@ -31,9 +31,11 @@ public class GameOverScene {
 		HBox box = new HBox(
 			10,
 			new MenuScene.MenuItem("New Game" ,() -> {
+				MenuScene.start = false;
 				stage.setScene(MenuScene.startScene);
 			}),
 			new MenuScene.MenuItem("Load Save" ,() -> {
+				GameProcess.setLoad(true);
 				stage.setScene(MenuScene.continueScene);
 			}),
 			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())

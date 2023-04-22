@@ -18,26 +18,25 @@ import application.GameProcess;
 
 public class Label extends GameObject implements StableObject {
 	
-	private Handler handler;
-	private Image imageInteract, imagePuzzle;
+	private static final long serialVersionUID = 1L;
+	transient private Image imageInteract, imagePuzzle;
 	private boolean interacted;
 	
 	public Label(int xPos, int yPos, ID id) {
-		super(xPos, yPos, id, -10, 10, 130, 90);
-		this.handler = Handler.getInstance();
+		super(xPos, yPos, id, -30, 10, 130, 90);
 		interacted = false;
 		initImg();
 	}
 
 	public void update() {
-		double dis = Obj.distance(this, handler.Player);
+		double dis = Obj.distance(this, Handler.getInstance().Player);
 		if(dis < 4*48) setInteracted(true);
 		else setInteracted(false);
 	}
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, -10, 10);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(imageInteract ,getxPos() ,getyPos());
 		return ;
 	}
@@ -88,14 +87,6 @@ public class Label extends GameObject implements StableObject {
 	}
 
 	// Getter & Setter
-	
-	public Handler getHandler() {
-		return handler;
-	}
-
-	public void setHandler(Handler handler) {
-		this.handler = handler;
-	}
 
 	public Image getImagePuzzle() {
 		return imagePuzzle;

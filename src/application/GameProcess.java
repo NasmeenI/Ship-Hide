@@ -16,11 +16,17 @@ import logic.base.ID;
 import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
+import logic.person.Criminal;
 import logic.person.Player;
 import ui.Ui;
 import Scenes.GameOverScene;
 import Scenes.MenuScene;
 import Scenes.GameComplete;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import static utilz.Constants.Screen.*;
 import static utilz.Constants.GameState.*;
 
@@ -31,13 +37,11 @@ public class GameProcess {
 	private long lastUpdateTime;
 		
 	// BASE PROCESS
-	private Handler handler; 
-	private KeyInput input = new KeyInput();
+	transient private KeyInput input = new KeyInput();
 	private Camera cam;
 	
 	// SETTING MAP
 	public static int renderType = 1;
-	private Map map;
 	
 	// GAME STATE
 	public static int gameState;
@@ -47,7 +51,7 @@ public class GameProcess {
 	GameComplete gameComplete;
 	
 	// PRESS ESC
-	private Keys key;
+	transient private Keys key;
 	private boolean ESCState = false;
 	
 	// UI	
@@ -57,6 +61,9 @@ public class GameProcess {
 	public static StackPane root;
 	private HBox box = new HBox();
 	private ProgressBar pb = new ProgressBar(1);
+	
+	// LOAD SAVE
+	public static boolean load = false;
 	
 	public GameProcess(Stage stage) {
 		GameProcess.stage = stage;
@@ -97,13 +104,13 @@ public class GameProcess {
 	}
 	
 	private void initial() {
-		map = new Map();
 		ui = new Ui(this);
-		handler = Handler.getInstance();
 		cam = new Camera(0, 0);
 		
-		handler.Player = new Player(500, 500, ID.Player, input);
-//		handler.addObject(new Criminal(2600, 1600, ID.Criminal, 2, 2, 100));
+		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
+		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(800, 500, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();
@@ -112,7 +119,8 @@ public class GameProcess {
 		MenuScene.initContinueScene(this);
 		gameOverScene = new GameOverScene(stage);
 		gameComplete = new GameComplete(stage);
-		//GameOverScreen scene = new GameOverScreen(GameProcess.stage);
+		
+		// CHECK POINT
 		gameState = PLAY_STATE;
 
 		// initial HP Bar
@@ -122,9 +130,13 @@ public class GameProcess {
 		pb.setPrefHeight(30);
 		pb.setStyle("-fx-accent: green;");
 		root.getChildren().addAll(pb);
-	}
+		
+		save();
+	}	
 	
 	private void update() {	
+		if(load) loadSave();
+		System.out.println(Handler.getInstance().Player.getHp());
 		setKey(input.key);
 		checkPress();
 		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {
@@ -133,24 +145,24 @@ public class GameProcess {
 		
 		// Inventory box
 		root.getChildren().remove(box);
-		box = ui.draw(cam ,handler.Player);
+		box = ui.draw(cam ,Handler.getInstance().Player);
 		box.setTranslateX(50);
 		box.setTranslateY(530);
 		root.getChildren().addAll(box);
 		
 		// HP Bar
-		double hp = (double)handler.Player.getHp()/1000.0;
+		double hp = (double)Handler.getInstance().Player.getHp()/1000.0;
 		pb.setProgress(hp);
 		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
 		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
 		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
 
-		handler.update();
+		Handler.getInstance().update();
 		cam.update();		
 
 		return;
 	}
-	
+
 	private void render(GraphicsContext gc) {
 		gc.setFill(Color.CYAN);
 		gc.fillRect(0, 0, S_WIDTH_DEFAULT, S_HEIGHT_DEFAULT);
@@ -164,23 +176,23 @@ public class GameProcess {
 	}
 	
 	public void render_format_1() {
-		int xTile = (int) (handler.Player.getxPos()/48);
-		int yTile = (int) (handler.Player.getyPos()/48);
-		map.render_1(gc);
-		map.render_0(gc ,xTile ,yTile);
-		handler.renderStable(gc);
-		map.render_2(gc ,xTile ,yTile);
-		handler.render(gc);
+		int xTile = (int) (Handler.getInstance().Player.getxPos()/48);
+		int yTile = (int) (Handler.getInstance().Player.getyPos()/48);
+		Map.getInstance().render_1(gc);
+		Map.getInstance().render_0(gc ,xTile ,yTile);
+		Handler.getInstance().renderStable(gc);
+		Map.getInstance().render_2(gc ,xTile ,yTile);
+		Handler.getInstance().render(gc);
 	}
 	
 	public void render_format_2() {
-		int xTile = (int) (handler.Player.getxPos()/48);
-		int yTile = (int) (handler.Player.getyPos()/48);
-		map.render_1(gc);
-		map.render_0(gc ,xTile ,yTile);
-		handler.renderStable(gc);
-		handler.render(gc);
-		map.render_2(gc ,xTile ,yTile); 
+		int xTile = (int) (Handler.getInstance().Player.getxPos()/48);
+		int yTile = (int) (Handler.getInstance().Player.getyPos()/48);
+		Map.getInstance().render_1(gc);
+		Map.getInstance().render_0(gc ,xTile ,yTile);
+		Handler.getInstance().renderStable(gc);
+		Handler.getInstance().render(gc);
+		Map.getInstance().render_2(gc ,xTile ,yTile); 
 	}
 	
 	public void checkPress() {
@@ -191,10 +203,54 @@ public class GameProcess {
 				setGameState(PAUSE_STATE);
 			}
 		}
+		if(key.K) save();
 	}
 	
-	// Getters & Setters
+	public void loadSave() {
+		load = false;
+		try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("res/LoadSave/handler.ser"))) {
+		    Handler newHandler = (Handler) objectInputStream.readObject();
+		    for(int i=0;i<Handler.getInstance().allObjects.size();i++) {
+		    	Handler.getInstance().allObjects.remove(0);
+		    }
+		    Handler.getInstance().replace(newHandler);
+		    Handler.getInstance().updateAfterLoadSave(input);
+		    System.out.println(Handler.instance.Player.getBag());
+		}catch (Exception e){
+		    e.printStackTrace();
+		} 
+		
+		try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("res/LoadSave/map.ser"))) {
+		    Map newMap = (Map) objectInputStream.readObject();
+		    Map.getInstance().replace(newMap);
+		    Map.getInstance().updateAfterLoadSave();
+		}catch (Exception e){
+		    e.printStackTrace();
+		}
+	}
 	
+	public static void save() {
+		try{
+			FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/handler.ser");
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(Handler.getInstance());
+			objectOutputStream.close();
+		}catch(IOException e){
+
+		}
+		
+		try{
+			FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/map.ser");
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(Map.getInstance());
+			objectOutputStream.close();
+		}catch(IOException e){
+
+		}
+	}
+	
+	
+	// Getters & Setters
 	public void setKey(Keys key) {
 		this.key = key;
 		return ;
@@ -202,10 +258,6 @@ public class GameProcess {
 	
 	public void setFalseKeyESC() {
 		this.key.ESC = false;
-	}
-	
-	public Handler getHandler() {
-		return handler;
 	}
 	
 	public static StackPane getRoot() {
@@ -234,5 +286,13 @@ public class GameProcess {
 
 	public int getGameState() {
 		return gameState;
+	}
+	
+	public boolean isLoad() {
+		return load;
+	}
+
+	public static void setLoad(boolean load) {
+		GameProcess.load = load;
 	}
 }

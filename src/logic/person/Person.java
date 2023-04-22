@@ -1,16 +1,27 @@
 package logic.person;
 
+import ai.PathFinder;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.ID;
+import logic.base.Point;
+import utilz.Obj;
+
+import static utilz.Constants.Tile.*;
 
 public abstract class Person extends GameObject {
 	
+	private static final long serialVersionUID = 1L;
 	protected int Hp, bullets;
 	protected boolean gun, knife;
 	protected int used;
 	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime;
 	protected String direct, prv_direct = null;
+	
+	protected boolean onPath = false;
+	public static PathFinder pathFinder = new PathFinder();
 
 	/*
 	1 --> Hand
@@ -18,10 +29,8 @@ public abstract class Person extends GameObject {
 	3 --> Gun
 	*/
 
-	public Person(double xPos, double yPos, ID id) {
-		super(xPos, yPos, id);
-		setxVelo(0);
-		setyVelo(0);
+	public Person(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
+		super(xPos, yPos, id, xDif, yDif, w, h);
 		setUsed(1);
 		setDirect("Z");
 		setPrv_direct("Z");
@@ -33,13 +42,49 @@ public abstract class Person extends GameObject {
 		setBulletTime(0);
 		setKnifeTime(0);
 		setReloadTime(0);
+//		setPathFinder(new PathFinder());
 	}
-	
+
 	public abstract void update();
 	public abstract void render(GraphicsContext gc);
 	public abstract void shoot();
 	public abstract void slash();
 	public abstract void Animation();
+	
+	public void SearchPath(int endRow, int endCol) {
+		
+		Point mP = getMiddlePoint(getSolidArea());
+		
+		int startRow = (int) (mP.y / TILESIZE);
+		int startCol = (int) (mP.x / TILESIZE);
+		
+		pathFinder.setNode(startRow, startCol, endRow, endCol);
+
+		if(pathFinder.search()) {
+			
+			int nextX = pathFinder.pathList.get(0).col * TILESIZE;
+			int nextY = pathFinder.pathList.get(0).row * TILESIZE;
+
+			Obj.getClosePoint(this, (int) mP.x, (int) mP.y, nextX + 36, nextY + 36);
+			
+			int nextCol = pathFinder.pathList.get(0).col * TILESIZE;
+			int nextRow = pathFinder.pathList.get(0).row * TILESIZE;
+			
+			if(nextCol == endCol && nextRow == endRow) {
+				onPath = false;
+			}
+			 
+		}
+	}
+	
+	public void ShowPath(GraphicsContext gc) {
+		for(int i = 0; i < pathFinder.pathList.size(); i++) {
+			int Wx = pathFinder.pathList.get(i).col * TILESIZE;
+			int Wy = pathFinder.pathList.get(i).row * TILESIZE;
+			gc.setFill(Color.PURPLE);
+			gc.fillRect(Wx, Wy, TILESIZE, TILESIZE);
+		}
+	}
 	
 	public boolean GunAvailable() {
 		return gun;
@@ -49,7 +94,21 @@ public abstract class Person extends GameObject {
 		return knife;
 	}
 	
+	public Point getMiddlePoint(Rectangle A) {
+		int xMid = (int) (A.getX() + A.getWidth() / 2);
+		int yMid = (int) (A.getY() + A.getHeight());
+		return new Point(xMid, yMid);
+	}
+	
 	// Getters & Setters
+	
+	public PathFinder getPathFinder() {
+		return pathFinder;
+	}
+
+	public void setPathFinder(PathFinder pathFinder) {
+		Person.pathFinder = pathFinder;
+	}
 	
 	public int getHp() {
 		return Hp;

@@ -57,7 +57,8 @@ public class PasswordPopUp {
         submitButton.setOnAction(event -> {
             if (passwordField.getText().equals(correctPassword)) {
             	DoorJail.setOpened(true);
-            	Map.setStageMap(X_POS_DOORJAIL, Y_POS_DOORJAIL+2, 1);
+            	Map.getInstance().setStageMap(X_POS_DOORJAIL, Y_POS_DOORJAIL+2, 1);
+            	GameProcess.save();
                 Label passwordCorrectLabel = new Label("Password Correct");
                 passwordCorrectLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
                 passwordCorrectLabel.setTextFill(Color.web("#228B22"));
@@ -111,7 +112,6 @@ public class PasswordPopUp {
 		GridPane.setHalignment(numberButtons[9], HPos.RIGHT);
 		GridPane.setHalignment(numberButtons[0], HPos.CENTER);
 		GridPane.setHalignment(passwordLabel, HPos.CENTER);
-		
 		
 		// Back Button
 		Button backButton = new Button("Back");

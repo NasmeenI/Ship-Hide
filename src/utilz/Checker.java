@@ -113,8 +113,11 @@ public class Checker {
 		}
 	}
 	
+	public static boolean InRange(double low, double high,double val) {
+		return val >= low && val <= high;
+	}
+	
 	public static int Rand(int Min, int Max) {
 		return (int)((Math.random()*(Max-Min+1)+Min));
 	}
-	
 }

@@ -2,7 +2,6 @@ package logic.container;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import logic.base.Attackable;
 import logic.base.GameObject;
 import logic.base.Handler;
@@ -11,45 +10,42 @@ import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
+import application.GameProcess;
 import static utilz.Constants.Debug.*;
 
 public class Knife extends GameObject implements Attackable, StableObject, Pickable {
 	
+	private static final long serialVersionUID = 1L;
 	public boolean picked;
 	private boolean visible;
-	private Handler handler;
-	private Image image ,imageUsed;
+	transient private Image image ,imageUsed;
 
 	public Knife(double xPos, double yPos, ID id) {
-		super(xPos, yPos, id);
-		this.handler = Handler.getInstance();
+		super(xPos, yPos, id, 0, 0, 100, 50);
 		this.visible = false;
 		this.picked = false;
-		setSolidArea(new Rectangle(getxPos(), getyPos(), 70, 100));
 		initImg();
 	}
 	
 	public Knife(double xPos, double yPos, ID id, boolean visible) {
-		super(xPos, yPos, id);
-		this.handler = Handler.getInstance();
+		super(xPos, yPos, id, 0, 0, 100, 50);
 		this.visible = visible;
 		this.picked = false;
-		setSolidArea(new Rectangle(getxPos(), getyPos(), 70, 100));
 		initImg();
 	}
 
 	public void update() {
-		if(!isVisible()) handler.removeObject(this);
+		if(!isVisible()) Handler.getInstance().removeObject(this);
 		return ;
 	}
 
-	private void initImg() {
+	public void initImg() {
 		this.image = LoadSave.GetSpriteAtlas(LoadSave.KNIFE);
 		this.imageUsed = LoadSave.GetSpriteAtlas(LoadSave.KNIFE_USED);
 	}
 
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc, 0, 0);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		if(!isVisible()) return ;
 		gc.drawImage(image ,getxPos() ,getyPos());
@@ -60,7 +56,7 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 		setPicked(true);
 		player.addItemInBag(this);
 		player.setKnife(true);
-		handler.removeObject(this);
+		Handler.getInstance().removeObject(this);
 	}
 	
 	public int damage() {

@@ -48,6 +48,6 @@ public class Constants {
 	}
 
 	public static class Debug {
-		public static final boolean SOLID_SHOW = false;
+		public static final boolean SOLID_SHOW = false;;
 	}
 }

@@ -9,9 +9,10 @@ import utilz.LoadSave;
 
 public class Tile extends GameObject {
 	
+	private static final long serialVersionUID = 1L;
 	private int x ,y;
 	private int state;
-	private Image image0 ,image2;
+	transient private Image image0 ,image2;
 	
 	public Tile(int xPos, int yPos, ID id ,int x ,int y ,int state) {
 		super(xPos, yPos, id);
@@ -21,7 +22,7 @@ public class Tile extends GameObject {
 		initImg();
 	}
 
-	private void initImg() {
+	public void initImg() {
 		if(getState() == 1) {
 			image0 = null;
 			image2 = null;

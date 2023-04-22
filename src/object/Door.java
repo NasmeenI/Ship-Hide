@@ -1,8 +1,7 @@
 package object;
 
-import static utilz.Constants.Debug.*;
-import static utilz.Constants.Player.*;
 import java.util.ArrayList;
+import application.GameProcess;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -12,26 +11,40 @@ import logic.base.Map;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
+import static utilz.Constants.Debug.*;
 
 public class Door extends GameObject implements StableObject {
+	private static final long serialVersionUID = 1L;
 	private boolean opened;
 	private ID keyId;
-	private Image imageOpen;
-	private Image imageClose;
+	transient private Image imageOpen;
+	transient private Image imageClose;
 	
 	private int doorCount = 0;
 	
 	public Door(int xPos, int yPos, ID id, ID keyId) {
 		super(xPos, yPos, id);
-		if(id == ID.Door1) setSolidArea(new Rectangle(getxPos() - 30, getyPos(), P_WIDTH + 60, P_HEIGHT + 40));
-		else setSolidArea(new Rectangle(getxPos() - 50, getyPos(), P_WIDTH + 60, P_HEIGHT + 40));	
+		if(id == ID.Door1) {
+			setSolidArea(new Rectangle(getxPos() - 50, getyPos(), 150, 130));
+			setxDif(-50);
+			setyDif(0);
+			setW(150);	
+			setH(130);
+		}
+		else {
+			setSolidArea(new Rectangle(getxPos() - 50, getyPos()-10, 110, 150));	
+			setxDif(-50);
+			setyDif(-10);
+			setW(110);
+			setH(150);
+		}
 		setKeyId(keyId);
 		setId(id);
 		setOpened(false);
 		initImg();
 	}
 	
-	private void initImg() {
+	public void initImg() {
 		switch(getId()) {
 			case Door1 : {
 				imageOpen = LoadSave.GetSpriteAtlas(LoadSave.DOOR1_OPEN);
@@ -56,7 +69,7 @@ public class Door extends GameObject implements StableObject {
 				int x = 0;
 				if(getId() == ID.Door1) x = 0;
 				else if(getId() == ID.Door2) x = 1;
-				Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 0);
+				Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 0);
 			}
 		}else {
 			doorCount = 0;
@@ -67,8 +80,8 @@ public class Door extends GameObject implements StableObject {
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) {
-			if(getId() == ID.Door1) ShowSolidArea(gc, -30, 0);
-			if(getId() == ID.Door2) ShowSolidArea(gc, -50, 0);
+			if(getId() == ID.Door1) ShowSolidArea(gc);
+			if(getId() == ID.Door2) ShowSolidArea(gc);
 		}
 		
 		if(isOpened() && doorCount < 15) gc.drawImage(imageOpen ,getxPos() ,getyPos());
@@ -85,9 +98,10 @@ public class Door extends GameObject implements StableObject {
 				int x = 0;
 				if(getId() == ID.Door1) x = 0;
 				else if(getId() == ID.Door2) x = 1;
-				Map.setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 2);
+				Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 2);
 			}
 		}
+		System.out.println("213");
 	}
 	
 	// Getters & Setters

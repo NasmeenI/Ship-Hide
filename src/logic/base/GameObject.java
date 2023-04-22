@@ -1,22 +1,30 @@
 package logic.base;
 
+import java.io.Serializable;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	protected double xPos, yPos;
 	protected double xVelo, yVelo;
-	protected Rectangle solidArea;
+	protected double xDif, yDif, w, h;
+	transient protected Rectangle solidArea;
 	protected ID id;
 	protected int Code;
-	// ebug
+	// Debug
 	public static boolean solidShow = false;
 	
 	public GameObject(double xPos, double yPos, ID id) {
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.xDif = 0;
+		this.yDif = 0;
+		this.w = 0;
+		this.h = 0;
 		this.xVelo = 0;
 		this.yVelo = 0;
 		this.id = id;
@@ -27,12 +35,18 @@ public abstract class GameObject {
 	public GameObject(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.xDif = xDif;
+		this.yDif = yDif;
+		this.w = w;
+		this.h = h;
 		this.xVelo = 0;
 		this.yVelo = 0;
 		this.id = id;
 		this.solidArea = new Rectangle(xPos+xDif ,yPos+yDif ,w ,h);
 		this.Code = Handler.Code++;
 	}
+
+	
 
 	public void move() {
 		setxPos(getxPos() + getxVelo());
@@ -42,9 +56,9 @@ public abstract class GameObject {
 	public abstract void update();
 	public abstract void render(GraphicsContext gc);
 	
-	public void ShowSolidArea(GraphicsContext gc, int Xdif, int Ydif) {
+	public void ShowSolidArea(GraphicsContext gc) {
 		gc.setFill(Color.PINK);
-		gc.fillRect((int)getxPos() + Xdif, (int)getyPos() + Ydif, solidArea.getWidth(), solidArea.getHeight());
+		gc.fillRect((int)getxPos() + getxDif(), (int)getyPos() + getyDif(), solidArea.getWidth(), solidArea.getHeight());
 	}
 	
 	// Getters & Setters
@@ -68,6 +82,38 @@ public abstract class GameObject {
 
 	public double getyPos() {
 		return yPos;
+	}
+	
+	public double getxDif() {
+		return xDif;
+	}
+
+	public void setxDif(double xDif) {
+		this.xDif = xDif;
+	}
+
+	public double getyDif() {
+		return yDif;
+	}
+
+	public void setyDif(double yDif) {
+		this.yDif = yDif;
+	}
+
+	public double getW() {
+		return w;
+	}
+
+	public void setW(double w) {
+		this.w = w;
+	}
+
+	public double getH() {
+		return h;
+	}
+
+	public void setH(double h) {
+		this.h = h;
 	}
 
 	public void setyPos(double yPos) {
@@ -110,4 +156,6 @@ public abstract class GameObject {
 		Code = code;
 		return ;
 	}
+
+	public abstract void initImg();
 }

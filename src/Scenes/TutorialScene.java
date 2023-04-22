@@ -4,12 +4,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import utilz.LoadSave;
 
 public class TutorialScene {
 	public static Scene scene;
+	
 	public TutorialScene(Stage stage) {
 		StackPane root = new StackPane();
 		scene = new Scene(root);
@@ -18,8 +19,7 @@ public class TutorialScene {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		
-		String image_path = "file:res/background.jpg";
-		gc.drawImage(new Image(image_path) ,0 ,0 ,960 ,640);
+		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MENU_SCENE) ,0 ,0 ,960 ,640);
 
 		Button backButton = new Button("Back");
 		backButton.setTranslateX(-370);

@@ -1,9 +1,9 @@
 package logic.container;
 
 import java.util.ArrayList;
+import application.GameProcess;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 import logic.base.Attackable;
 import logic.base.GameObject;
 import logic.base.Handler;
@@ -12,44 +12,38 @@ import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
-import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 
 public class Gun extends GameObject implements Attackable, StableObject, Pickable {
 	
+	private static final long serialVersionUID = 1L;
 	private Magazine magazine;
+	Handler handler = Handler.getInstance();
 	public boolean picked;
 	private boolean visible;
-	private Handler handler;
-	private Image image ,imageUsed;
+	transient private Image image ,imageUsed;
 
 	public Gun(double xPos, double yPos, ID id) {
-		super(xPos, yPos, id);
-		this.handler = Handler.getInstance();
+		super(xPos, yPos, id, -10, -10, 120, 70);
 		this.magazine = new Magazine(xPos, yPos, ID.Magazine, 6);
 		this.visible = false;
 		this.picked = false;
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		initImg();
 	}
 	
 	public Gun(double xPos, double yPos, ID id, int bulletNum) {
-		super(xPos, yPos, id);
-		this.handler = Handler.getInstance();
+		super(xPos, yPos, id, -10, -10, 120, 57);
 		this.magazine = new Magazine(xPos, yPos, ID.Magazine, bulletNum);
 		this.visible = false;
 		this.picked = false;
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		initImg();
 	}
 	
 	public Gun(double xPos, double yPos, ID id, boolean visible) {
-		super(xPos, yPos, id);
-		this.handler = Handler.getInstance();
+		super(xPos, yPos, id, -10, -10, 120, 70);
 		this.magazine = new Magazine(xPos, yPos, ID.Magazine, 6);
 		this.visible = visible;
 		this.picked = false;
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
 		initImg();
 	}
 	
@@ -59,15 +53,15 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 		
 	}
 
-	private void initImg() {
+	public void initImg() {
 		this.image = LoadSave.GetSpriteAtlas(LoadSave.GUN);
 		this.imageUsed = LoadSave.GetSpriteAtlas(LoadSave.GUN_USED);
 	}
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(!isVisible()) return ;
-		if(SOLID_SHOW) ShowSolidArea(gc, 10, 10);
+		if(!isVisible()) return;
+		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		gc.drawImage(image ,getxPos() ,getyPos());
 		return ;
@@ -78,7 +72,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 		setPicked(true);
 		player.addItemInBag(this);
 		player.setGun(true);
-		handler.removeObject(this);
+		Handler.getInstance().removeObject(this);
 	}
 	
 	public boolean shootAble() {
@@ -87,12 +81,12 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
  	}
 	
 	public boolean reload() { // More to fix (Delay)
-		ArrayList<GameObject> bag = handler.Player.getBag();
+		ArrayList<GameObject> bag = Handler.getInstance().Player.getBag();
 		boolean isReload = false;
 		for(int i=0;i<bag.size();i++) {
 			if(bag.get(i) instanceof Magazine) {
 				magazine = ((Magazine)bag.get(i));
-				handler.Player.getBag().remove(bag.get(i));
+				Handler.getInstance().Player.getBag().remove(bag.get(i));
 				isReload = true;
 				break;
 			}
@@ -128,7 +122,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 			}
 		}
 		
-		handler.addObject(bullet);
+		Handler.getInstance().addObject(bullet);
 		
 		return ;
 		
@@ -161,7 +155,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	
 	public int getNumMagazine() {
 		int numMagazine = 0;
-		ArrayList<GameObject> bag = handler.Player.getBag();
+		ArrayList<GameObject> bag = Handler.getInstance().Player.getBag();
 		for(int i=0;i<bag.size();i++) {
 			if(bag.get(i) instanceof Magazine) {
 				numMagazine ++ ;
