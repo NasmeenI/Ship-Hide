@@ -7,20 +7,21 @@ import logic.base.Handler;
 import logic.base.ID;
 import logic.base.StableObject;
 import logic.person.Player;
-import ui.PasswordPopUp;
 import utilz.LoadSave;
 import utilz.Obj;
-import static utilz.Constants.Debug.*;
 import application.GameProcess;
+import Scenes.GameComplete;
+import static utilz.Constants.GameState.*;
+import static utilz.Constants.Debug.*;
 
-public class Computer extends GameObject implements StableObject {
+public class Helicopter extends GameObject implements StableObject {
 	
 	private Handler handler;
 	private Image imageInteract;
 	private boolean interacted;
 	
-	public Computer(int xPos, int yPos, ID id) {
-		super(xPos, yPos, id, -50, 0, 150, 150);
+	public Helicopter(int xPos, int yPos, ID id) {
+		super(xPos, yPos, id, -50, 0, 300, 150);
 		this.handler = Handler.getInstance();
 		interacted = false;
 		initImg();
@@ -40,15 +41,15 @@ public class Computer extends GameObject implements StableObject {
 	}
 	
 	public void interact(Player player) {
-		PasswordPopUp ppu = new PasswordPopUp();
-		Obj.gridPane = ppu.ShowPasswordScene();
-		GameProcess.getRoot().getChildren().addAll(Obj.gridPane);
+		GameProcess.stage.setScene(GameComplete.scene);
+		GameProcess.setGameState(GAME_COMPLETE_STATE);
 	}
 	
 	public void initImg() {
 		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
 	}
-
+	
+	
 	// Getter & Setter
 	public Image getImageInteract() {
 		return imageInteract;

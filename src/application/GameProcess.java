@@ -18,12 +18,11 @@ import logic.base.Keys;
 import logic.base.Map;
 import logic.person.Player;
 import ui.Ui;
-import utilz.Obj;
-
-import static utilz.Constants.Screen.*;
-
 import Scenes.GameOverScene;
 import Scenes.MenuScene;
+import Scenes.GameComplete;
+import static utilz.Constants.Screen.*;
+import static utilz.Constants.GameState.*;
 
 public class GameProcess {
 	
@@ -38,13 +37,14 @@ public class GameProcess {
 	
 	// SETTING MAP
 	public static int renderType = 1;
-	private Map map = new Map();
+	private Map map;
 	
 	// GAME STATE
-	private int gameState;
-	private final int playState = 1;
-	private final int pauseState = 2;
-	private final int gameOverState = 3;
+	public static int gameState;
+	
+	// SCENE
+	GameOverScene gameOverScene;
+	GameComplete gameComplete;
 	
 	// PRESS ESC
 	private Keys key;
@@ -97,6 +97,7 @@ public class GameProcess {
 	}
 	
 	private void initial() {
+		map = new Map();
 		ui = new Ui(this);
 		handler = Handler.getInstance();
 		cam = new Camera(0, 0);
@@ -109,8 +110,10 @@ public class GameProcess {
 		
 		// INITIAL SCENE
 		MenuScene.initContinueScene(this);
+		gameOverScene = new GameOverScene(stage);
+		gameComplete = new GameComplete(stage);
 		//GameOverScreen scene = new GameOverScreen(GameProcess.stage);
-		gameState = playState;
+		gameState = PLAY_STATE;
 
 		// initial HP Bar
 		pb.setTranslateX(300);
@@ -121,14 +124,12 @@ public class GameProcess {
 		root.getChildren().addAll(pb);
 	}
 	
-	private void update() {
+	private void update() {	
 		setKey(input.key);
 		checkPress();
-		if(gameState == pauseState || gameState == gameOverState) {
-			// nothing
+		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {
 			return;
 		}
-		checkDied();
 		
 		// Inventory box
 		root.getChildren().remove(box);
@@ -187,16 +188,8 @@ public class GameProcess {
 			if(!ESCState) {
 				ESCState = true;
 				stage.setScene(MenuScene.continueScene);	
-				setGameState(pauseState);
+				setGameState(PAUSE_STATE);
 			}
-		}
-	}
-	
-	public void checkDied() {
-		if(handler.Player.getHp() == 0) {
-			GameOverScene y = new GameOverScene(stage);
-			stage.setScene(GameOverScene.scene);
-			setGameState(gameOverState);
 		}
 	}
 	
@@ -227,16 +220,8 @@ public class GameProcess {
 		root.getChildren().remove(x);
 	}
 	
-	public void setGameState(int gameState) {
-		this.gameState = gameState;
-	}
-	
-	public int getPlayState() {
-		return this.playState;
-	}
-	
-	public int getPauseState() {
-		return this.pauseState;
+	public static void setGameState(int gameState) {
+		GameProcess.gameState = gameState;
 	}
 	
 	public GraphicsContext getGc() {
@@ -245,5 +230,9 @@ public class GameProcess {
 	
 	public void setESCState(boolean ESCState) {
 		this.ESCState = ESCState;
+	}
+
+	public int getGameState() {
+		return gameState;
 	}
 }

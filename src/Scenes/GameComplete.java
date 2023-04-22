@@ -9,11 +9,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import utilz.LoadSave;
 
-public class GameOverScene {
+public class GameComplete {
 	private Stage stage;
 	public static Scene scene;
 	
-	public GameOverScene(Stage stage) {
+	public GameComplete(Stage stage) {
 		this.stage = stage;
 		MenuScene.start = false;
 		initStartScene();
@@ -26,19 +26,16 @@ public class GameOverScene {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		
-		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MISSION_FAIL) ,0 ,0 ,960 ,640);
+		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MISSION_COMPLETE) ,0 ,0 ,960 ,640);
 		
 		HBox box = new HBox(
 			10,
 			new MenuScene.MenuItem("New Game" ,() -> {
 				stage.setScene(MenuScene.startScene);
 			}),
-			new MenuScene.MenuItem("Load Save" ,() -> {
-				stage.setScene(MenuScene.continueScene);
-			}),
 			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())
 		);
-		box.setTranslateX(100);
+		box.setTranslateX(225);
 		box.setTranslateY(200);
 			
 		root.getChildren().addAll(box);

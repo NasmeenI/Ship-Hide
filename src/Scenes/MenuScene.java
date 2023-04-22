@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import application.GameProcess;
+import static utilz.Constants.GameState.*;
 
 public class MenuScene {
 	private Stage stage;
@@ -89,7 +90,7 @@ public class MenuScene {
 			10,
 			new MenuItem("Continue" ,() -> {
 				try {
-					gameProcess.setGameState(gameProcess.getPlayState()); 
+					GameProcess.setGameState(PLAY_STATE); 
 					gameProcess.run(gameProcess.getGc());
 					gameProcess.setESCState(false);
 					gameProcess.setFalseKeyESC();

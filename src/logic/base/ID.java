@@ -23,6 +23,7 @@ public enum ID {
 	Slash(),
 	HpBottle,
 	Computer(),
+	Helicopter(),
 	Label1(),
 	Label2(),
 	Label3(),

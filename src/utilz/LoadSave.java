@@ -7,7 +7,8 @@ public class LoadSave {
 	public static final String MAP_0 = "Maps/project_0.png";
 	public static final String MAP_1 = "Maps/project_1.png";
 	public static final String MAP_2 = "Maps/project_2.png";
-	public static final String GAME_OVER = "gameOver.png";
+	public static final String MISSION_FAIL = "missionFail.jpg";
+	public static final String MISSION_COMPLETE = "missionComplete.png";
 	
 	public static final String Player_Animation_Up_Default = "Animation/T_Up_9.png";
 	public static final String Player_Animation_Up_0 = "Animation/T_Up_0.png";

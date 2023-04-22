@@ -16,6 +16,7 @@ import logic.container.KeyLocker;
 import logic.container.HpBottle;
 import object.Computer;
 import object.Label;
+import object.Helicopter;
 import object.Door;
 import object.Lazer;
 import object.Sculpture;
@@ -79,6 +80,10 @@ public class Obj {
 					}
 					case Computer : {
 						if(((Player)A).getKey().E && time > 15) ((Computer)B).interact(((Player)A));
+						break;
+					}
+					case Helicopter : {
+						if(((Player)A).getKey().E && time > 15) ((Helicopter)B).interact(((Player)A));
 						break;
 					}
 					case Label1 : {

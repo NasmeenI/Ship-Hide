@@ -17,8 +17,11 @@ import utilz.LoadSave;
 import utilz.Obj;
 import java.util.ArrayList;
 
+import Scenes.GameOverScene;
+
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
+import static utilz.Constants.GameState.*;
 
 public class Player extends Person {
 	
@@ -113,7 +116,11 @@ public class Player extends Person {
 
 	@Override
 	public void update() {
-
+		
+		if(getHp() == 0) {
+			GameProcess.stage.setScene(GameOverScene.scene);
+			GameProcess.setGameState(GAME_OVER_STATE);
+		}
 		Obj.collision(this);
 		setKey(input.key);
 		

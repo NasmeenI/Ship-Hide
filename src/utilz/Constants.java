@@ -11,6 +11,13 @@ public class Constants {
 	    public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
 	    public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
 	}
+	
+	public static class GameState {
+		public static final int PLAY_STATE = 1;
+	    public static final int PAUSE_STATE = 2;
+	    public static final int GAME_OVER_STATE = 3;
+	    public static final int GAME_COMPLETE_STATE = 4;
+	}
 
 	public static class UI {
 		public static class Buttons {

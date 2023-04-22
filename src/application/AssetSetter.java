@@ -10,6 +10,7 @@ import logic.container.Magazine;
 import object.Computer;
 import object.Door;
 import object.DoorJail;
+import object.Helicopter;
 import object.Label;
 import object.Lazer;
 import object.MusiumDoor;
@@ -42,6 +43,9 @@ public class AssetSetter {
 		
 		// Computer
 		handler.allObjects.add(new Computer(68 * TILE_SIZE ,12 * TILE_SIZE, ID.Computer));	
+		
+		// Helicopter
+		handler.allObjects.add(new Helicopter(86 * TILE_SIZE ,30 * TILE_SIZE, ID.Helicopter));	
 		
 		// Labels
 		handler.allObjects.add(new Label(58 * TILE_SIZE ,46 * TILE_SIZE, ID.Label1));	
