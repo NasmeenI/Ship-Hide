@@ -7,6 +7,7 @@ public enum ID {
 	Player(),
 	Criminal(),
 	Commander(),
+	Captive(),
 	Block(),
 	Door1(),
 	Door2(),

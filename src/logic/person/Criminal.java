@@ -12,6 +12,7 @@ import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
 
+import ai.PathFinder;
 import application.GameProcess;
 
 import static utilz.Constants.Debug.*;
@@ -22,27 +23,14 @@ public class Criminal extends Person {
 	
 	private Gun gun;
 
-//	public Criminal(int xPos, int yPos, ID id, double xVelo, double yVelo) {
-//		super(xPos, yPos, id, 10, 5, P_WIDTH, P_HEIGHT);
-//		setxVelo(xVelo);
-//		setyVelo(yVelo);
-//		setHp(100);
-//		this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
-//		setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
-//		
-//		// Tempt
-//		setGun(true);
-//		setUsed(3);
-//		onPath = true;
-//	}
 	public Criminal(int xPos, int yPos, ID id, double xVelo, double yVelo) {
         super(xPos, yPos, id, 10, 5 , P_WIDTH , P_HEIGHT);
         setxVelo(xVelo);
         setyVelo(yVelo);
-//        setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
         setHp(100);
         this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
+        setPathFinder(new PathFinder());
         
         // Tempt
         setGun(true);

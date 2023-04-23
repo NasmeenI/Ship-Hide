@@ -16,6 +16,7 @@ import logic.base.ID;
 import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
+import logic.person.Captive;
 import logic.person.Criminal;
 import logic.person.Player;
 import ui.Ui;
@@ -108,9 +109,8 @@ public class GameProcess {
 		cam = new Camera(0, 0);
 		
 		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
-		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(800, 500, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
+//		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Captive(3450, 650, ID.Captive, 3, 3));
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();
@@ -136,7 +136,7 @@ public class GameProcess {
 	
 	private void update() {	
 		if(load) loadSave();
-		System.out.println(Handler.getInstance().Player.getHp());
+//		System.out.println(Handler.getInstance().Player.getHp());
 		setKey(input.key);
 		checkPress();
 		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {

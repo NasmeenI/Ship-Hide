@@ -254,7 +254,17 @@ public class Obj {
 	
 	public static void getClosePoint(GameObject A, int mPx, int mPy, int xPos, int yPos) {
 		boolean setX = false;
-		boolean setY = false;		
+		boolean setY = false;
+		
+		if(Math.abs(mPx - xPos) < A.getxVelo()) {
+			A.setxPos(A.getxPos() + Math.abs(mPx - xPos));
+			setX = true;
+		}
+		if(Math.abs(mPy - yPos) < A.getyVelo()) {
+			A.setyPos(A.getyPos() + Math.abs(mPy - yPos));
+			setY = true;
+		}
+		
 		if(!setX)
 			if(mPx < xPos) A.setxPos(A.getxPos() + Math.abs(A.getxVelo()));
 			else if(mPx > xPos) A.setxPos(A.getxPos() - Math.abs(A.getxVelo()));

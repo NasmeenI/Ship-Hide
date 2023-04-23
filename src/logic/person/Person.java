@@ -21,7 +21,7 @@ public abstract class Person extends GameObject {
 	protected String direct, prv_direct = null;
 	
 	protected boolean onPath = false;
-	public static PathFinder pathFinder = new PathFinder();
+	public PathFinder pathFinder;
 
 	/*
 	1 --> Hand
@@ -42,7 +42,6 @@ public abstract class Person extends GameObject {
 		setBulletTime(0);
 		setKnifeTime(0);
 		setReloadTime(0);
-//		setPathFinder(new PathFinder());
 	}
 
 	public abstract void update();
@@ -107,7 +106,7 @@ public abstract class Person extends GameObject {
 	}
 
 	public void setPathFinder(PathFinder pathFinder) {
-		Person.pathFinder = pathFinder;
+		this.pathFinder = pathFinder;
 	}
 	
 	public int getHp() {

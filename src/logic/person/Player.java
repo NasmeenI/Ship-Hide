@@ -18,6 +18,8 @@ import utilz.LoadSave;
 import utilz.Obj;
 import java.util.ArrayList;
 import Scenes.GameOverScene;
+import ai.PathFinder;
+
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 import static utilz.Constants.GameState.*;
@@ -48,11 +50,12 @@ public class Player extends Person {
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
 		initImg();
-		setHp(100000);
+		setHp(20000);
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
 		previousAni = T_Up[defaultAni];
+//		setPathFinder(new PathFinder());
 		
 		// Tempt
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
@@ -209,8 +212,8 @@ public class Player extends Person {
 			GameProcess.renderType = 1;
 		}
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -246,22 +249,22 @@ public class Player extends Person {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		}
 		
-		if(mapTileNum[newYPos][newXPos] != 0) {
-			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
-			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
-			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
-			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
-			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-		}
+//		if(mapTileNum[newYPos][newXPos] != 0) {
+//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+//		}
+//		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+//		}
 		
 		
 		setxVelo(_Vx);
