@@ -5,8 +5,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
+import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
+import utilz.Checker;
 import utilz.Obj;
 
 import static utilz.Constants.Tile.*;
@@ -17,11 +19,12 @@ public abstract class Person extends GameObject {
 	protected int Hp, bullets;
 	protected boolean gun, knife;
 	protected int used;
-	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime;
+	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime;
+	private int direction = 9;
 	protected String direct, prv_direct = null;
 	
-	protected boolean onPath = false;
-	public PathFinder pathFinder;
+	protected boolean chasing = false;
+	public static PathFinder pathFinder = new PathFinder();
 
 	/*
 	1 --> Hand
@@ -42,6 +45,7 @@ public abstract class Person extends GameObject {
 		setBulletTime(0);
 		setKnifeTime(0);
 		setReloadTime(0);
+		setRandWalkTime(0);
 	}
 
 	public abstract void update();
@@ -54,7 +58,7 @@ public abstract class Person extends GameObject {
 		
 		Point mP = getMiddlePoint(getSolidArea());
 		
-		int startRow = (int) (mP.y / TILESIZE);
+		int startRow = (int) ((mP.y + getSolidArea().getHeight() / 2) / TILESIZE);
 		int startCol = (int) (mP.x / TILESIZE);
 		
 		pathFinder.setNode(startRow, startCol, endRow, endCol);
@@ -70,9 +74,30 @@ public abstract class Person extends GameObject {
 			int nextRow = pathFinder.pathList.get(0).row * TILESIZE;
 			
 			if(nextCol == endCol && nextRow == endRow) {
-				onPath = false;
+				chasing = false;
 			}
 			 
+		}
+		else {
+			Point mPz = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
+			
+			pathFinder.setNode(startRow, startCol,(int) (mPz.y + Handler.getInstance().Player.getSolidArea().getHeight() / 2) / TILESIZE,(int) mPz.x / TILESIZE);
+			
+			if(pathFinder.search()) {
+				
+				int nextX = pathFinder.pathList.get(0).col * TILESIZE;
+				int nextY = pathFinder.pathList.get(0).row * TILESIZE;
+
+				Obj.getClosePoint(this, (int) mP.x, (int) mP.y, nextX + 36, nextY + 36);
+				
+				int nextCol = pathFinder.pathList.get(0).col * TILESIZE;
+				int nextRow = pathFinder.pathList.get(0).row * TILESIZE;
+				
+				if(nextCol == endCol && nextRow == endRow) {
+					chasing = false;
+				}
+				 
+			}
 		}
 	}
 	
@@ -95,8 +120,33 @@ public abstract class Person extends GameObject {
 	
 	public Point getMiddlePoint(Rectangle A) {
 		int xMid = (int) (A.getX() + A.getWidth() / 2);
-		int yMid = (int) (A.getY() + A.getHeight());
+		int yMid = (int) (A.getY() + A.getHeight() / 2);
 		return new Point(xMid, yMid);
+	}
+	
+	public void moveX() { setxPos(getxPos() + getxVelo()); }
+	public void moveY() { setyPos(getyPos() + getyVelo()); }
+	public void move() { setyPos(getyPos() + getyVelo()); setxPos(getxPos() + getxVelo()); }
+	public void moveLeft() { setxPos(getxPos() - Math.abs(getxVelo())); }
+	public void moveRight() { setxPos(getxPos() + Math.abs(getxVelo())); }
+	public void moveUp() { setyPos(getyPos() - Math.abs(getyVelo())); }
+	public void moveDown() { setyPos(getyPos() + Math.abs(getyVelo())); }
+	
+	public void randomWalk(int interval) {
+		if(randWalkTime == 0) direction = Checker.Rand(1, 9);
+		switch(direction) {
+			case 1 : moveLeft(); break; // Left
+			case 2 : moveRight(); break; // Right
+			case 3 : moveUp(); break; // Up
+			case 4 : moveDown(); break; // Down
+			case 5 : moveLeft(); moveUp(); break; // Left-Up
+			case 6 : moveRight(); moveUp(); break; // Right-Up
+			case 7 : moveLeft(); moveDown(); break; // Left-Down
+			case 8 : moveRight(); moveDown(); break; // Right-Down
+			default : break; // Stick
+		}
+		randWalkTime++;
+		randWalkTime %= (interval + Checker.Rand(-(interval / 5), interval / 5));
 	}
 	
 	// Getters & Setters
@@ -190,6 +240,14 @@ public abstract class Person extends GameObject {
 
 	public void setReloadTime(int reloadTime) {
 		ReloadTime = Math.max(0, reloadTime);
+	}
+
+	public int getRandWalkTime() {
+		return randWalkTime;
+	}
+
+	public void setRandWalkTime(int randWalkTime) {
+		this.randWalkTime = Math.max(0, randWalkTime);
 	}
 
 	public String getDirect() {

@@ -7,6 +7,7 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.Map;
 import logic.person.Criminal;
+import logic.person.Person;
 import logic.person.Player;
 import logic.container.Bullet;
 import logic.container.Knife;

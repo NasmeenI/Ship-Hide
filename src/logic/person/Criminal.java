@@ -30,12 +30,10 @@ public class Criminal extends Person {
         setHp(100);
         this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
-        setPathFinder(new PathFinder());
         
         // Tempt
         setGun(true);
         setUsed(3);
-        onPath = true;
     }
 
 	@Override
@@ -44,11 +42,25 @@ public class Criminal extends Person {
 		Obj.collision(this);
 		if(getHp() == 0) Handler.getInstance().removeObject(this);
 		
-		if(onPath) {
+		if(Obj.distance(this, Handler.getInstance().Player) <= 200) {
+			chasing = true;
+			setxVelo(2);
+			setyVelo(2);
+		}
+		else if(Obj.distance(this, Handler.getInstance().Player) > 450) {
+			chasing = false;
+			setxVelo(1);
+			setyVelo(1);
+		}
+		
+		if(chasing) {
 			Point mP = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().Player));
 		}
+		else randomWalk(120);
+		
+		Obj.pushOffWall(this);
 		
 		if(getKnifeTime() < 40) setKnifeTime(getKnifeTime() + 1);
 		if(getBulletTime() < 30) setBulletTime(getBulletTime() + 1);
@@ -94,7 +106,7 @@ public class Criminal extends Person {
 
 	@Override
 	public void shoot() {
-		if(!GunAvailable() || Handler.getInstance().Player == null) return ;
+		if(!GunAvailable() || !chasing || Handler.getInstance().Player == null) return ;
 		
 		if(!gun.shootAble()) return ;
 		
@@ -112,7 +124,7 @@ public class Criminal extends Person {
 
 	@Override
 	public void slash() {
-		if(!KnifeAvailable() || Handler.getInstance().Player == null) return ;
+		if(!KnifeAvailable() || !chasing || Handler.getInstance().Player == null) return ;
 		
 		return ;
 	}

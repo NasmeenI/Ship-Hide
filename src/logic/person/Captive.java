@@ -25,8 +25,7 @@ public class Captive extends Person {
         setyVelo(yVelo);
         setHp(100);
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
-        setPathFinder(new PathFinder());
-       	onPath = true;
+       	chasing = true;
         initImg();
 	}
 	
@@ -38,7 +37,7 @@ public class Captive extends Person {
 
 	@Override
 	public void update() {
-		if(onPath) {
+		if(chasing) {
 			Point mP = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().Player));

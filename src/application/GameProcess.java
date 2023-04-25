@@ -109,7 +109,7 @@ public class GameProcess {
 		cam = new Camera(0, 0);
 		
 		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
-//		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
 		Handler.getInstance().addObject(new Captive(3450, 650, ID.Captive, 3, 3));
 
 		aSetter = new AssetSetter();
