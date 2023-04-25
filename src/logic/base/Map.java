@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 
+import application.GameProcess;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import object.Tile;
@@ -81,12 +82,16 @@ public class Map implements Serializable {
 		gc.drawImage(map_1 , 0, 0);
 		
 	}
-	
+
 	public void render_2(GraphicsContext gc ,int xTile ,int yTile) {
 		for(int y=Math.max(yTile, 8)-8;y<Math.min(yTile, 51)+9;y++) {
 			for(int x=Math.max(xTile, 12)-12;x<Math.min(xTile, 98)+12;x++) {
-				if(mapTile[y][x].getImage2() == null) continue;
-				gc.drawImage(mapTile[y][x].getImage2() ,x*48 ,y*48);
+				if(GameProcess.renderState[y][x] == true) {
+					gc.drawImage(mapTile[y][x].getImage2_0() ,x*48 ,y*48);
+				}
+				else {
+					gc.drawImage(mapTile[y][x].getImage2() ,x*48 ,y*48);
+				}
 			}
 		}
 	}

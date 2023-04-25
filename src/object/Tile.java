@@ -12,7 +12,7 @@ public class Tile extends GameObject {
 	private static final long serialVersionUID = 1L;
 	private int x ,y;
 	private int state;
-	transient private Image image0 ,image2;
+	transient private Image image0 ,image2, image2_0;
 	
 	public Tile(int xPos, int yPos, ID id ,int x ,int y ,int state) {
 		super(xPos, yPos, id);
@@ -29,6 +29,7 @@ public class Tile extends GameObject {
 		}
 		image0 = LoadSave.GetSpriteAtlas("Maps/project_" + 0 +"/tile_" + x + "_" + y + ".png");
 		image2 = LoadSave.GetSpriteAtlas("Maps/project_" + 2 +"/tile_" + x + "_" + y + ".png");
+		image2_0 = LoadSave.GetSpriteAtlas("Maps/project_" + 2 +"_0/tile_" + x + "_" + y + ".png");
 	}
 	
 	@Override
@@ -82,5 +83,12 @@ public class Tile extends GameObject {
 
 	public void setImage2(Image image2) {
 		this.image2 = image2;
+	}
+	public Image getImage2_0() {
+		return image2_0;
+	}
+
+	public void setImage2_0(Image image2_0) {
+		this.image2_0 = image2_0;
 	}
 }

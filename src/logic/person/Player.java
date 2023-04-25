@@ -136,6 +136,7 @@ public class Player extends Person {
 		else setDirect(Checker.KeyDirection(key));
 		
 		Walk(Map.getInstance().mapTileNum);
+		Obj.collisionTwo(this);
 		
 		if(getKnifeTime() < 30) setKnifeTime(getKnifeTime() + 1);
 		if(getBulletTime() < 20) setBulletTime(getBulletTime() + 1);

@@ -43,7 +43,8 @@ public class GameProcess {
 	
 	// SETTING MAP
 	public static int renderType = 1;
-	
+	public static boolean[][] renderState = new boolean[60][110];
+
 	// GAME STATE
 	public static int gameState;
 	
@@ -136,12 +137,14 @@ public class GameProcess {
 	
 	private void update() {	
 		if(load) loadSave();
-//		System.out.println(Handler.getInstance().Player.getHp());
 		setKey(input.key);
 		checkPress();
 		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {
 			return;
 		}
+		
+		// Render State
+		GameProcess.renderState = new boolean[60][110];
 		
 		// Inventory box
 		root.getChildren().remove(box);
@@ -158,7 +161,15 @@ public class GameProcess {
 		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
 
 		Handler.getInstance().update();
-		cam.update();		
+		cam.update();	
+		
+		for(int i=0;i<60;i++) {
+			for(int j=0;j<110;j++) {
+				if(GameProcess.renderState[i][j] == true) System.out.print(1);
+				else System.out.print(0);
+			}
+			System.out.println("");
+		}
 
 		return;
 	}
@@ -168,9 +179,7 @@ public class GameProcess {
 		gc.fillRect(0, 0, S_WIDTH_DEFAULT, S_HEIGHT_DEFAULT);
 		gc.translate(-cam.getX(), -cam.getY());
 		
-		if(renderType == 1) render_format_1();
-		else if(renderType == 2) render_format_2();
-
+		render_format_1();
 		gc.translate(cam.getX(), cam.getY());
 
 	}
@@ -181,8 +190,8 @@ public class GameProcess {
 		Map.getInstance().render_1(gc);
 		Map.getInstance().render_0(gc ,xTile ,yTile);
 		Handler.getInstance().renderStable(gc);
-		Map.getInstance().render_2(gc ,xTile ,yTile);
 		Handler.getInstance().render(gc);
+		Map.getInstance().render_2(gc ,xTile ,yTile);
 	}
 	
 	public void render_format_2() {
@@ -190,9 +199,9 @@ public class GameProcess {
 		int yTile = (int) (Handler.getInstance().Player.getyPos()/48);
 		Map.getInstance().render_1(gc);
 		Map.getInstance().render_0(gc ,xTile ,yTile);
-		Handler.getInstance().renderStable(gc);
-		Handler.getInstance().render(gc);
+		Handler.getInstance().renderStable(gc);		
 		Map.getInstance().render_2(gc ,xTile ,yTile); 
+		Handler.getInstance().render(gc);
 	}
 	
 	public void checkPress() {
@@ -203,7 +212,6 @@ public class GameProcess {
 				setGameState(PAUSE_STATE);
 			}
 		}
-		if(key.K) save();
 	}
 	
 	public void loadSave() {

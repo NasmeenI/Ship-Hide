@@ -49,6 +49,26 @@ public class Obj {
 		return false;
 	}
 	
+	public static void collisionTwo(GameObject A) {
+		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
+			for(int j=(int)A.getSolidArea().getX();j<=(int)A.getSolidArea().getX()+(int)A.getSolidArea().getWidth();j++) {
+				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
+					int j1 = (int)j/TILE_SIZE;
+					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+						j1++;
+					}
+					
+					j1 = (int)j/TILE_SIZE-1;
+					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+						j1--;
+					}
+				}
+			}
+		}
+	}
+	
 	public static boolean collisionZeroRect(Rectangle A) {
 		for(int i=(int)A.getY();i<=(int)A.getY()+(int)A.getHeight();i++) {
 			for(int j=(int)A.getX();j<=(int)A.getX()+(int)A.getWidth();j++) {
@@ -182,7 +202,7 @@ public class Obj {
 				vit[i][j] = false;
 			}
 		}
-		
+
 		Rectangle RA = new Rectangle(A.getSolidArea().getX(), A.getSolidArea().getY(), A.getSolidArea().getWidth(), A.getSolidArea().getHeight());
 		int Tx = (int) (RA.getX() - 120);
 		int Ty = (int) (RA.getY() - 120);
@@ -201,7 +221,6 @@ public class Obj {
 				if(newX < 0 || (newX + RT.getWidth()) / 48 > 109 || newY < 0 || (newY + RT.getHeight()) / 48 > 59) continue;
 				if(newX - Tx < 0 || newX - Tx >= 240 || newY - Ty < 0 || newY - Ty >= 240 || vit[newX - Tx][newY - Ty]) continue;
 				Rectangle RX = new Rectangle(newX, newY, RT.getWidth(), RT.getHeight());
-				System.out.println(newX + " " + newY);
 				if(!Obj.collisionZeroRect(RX)) {
 					A.setxPos(RX.getX() - A.getSolidArea().getX() + A.getxPos());
 					A.setyPos(RX.getY() - A.getSolidArea().getY() + A.getyPos());
