@@ -29,6 +29,7 @@ public abstract class Person extends GameObject {
 	
 	protected boolean chasing 	= false;
 	public static PathFinder pathFinder = new PathFinder();
+	private int[][] mapTileNum = Map.getInstance().getMapTileNum();
 
 	/*
 	1 --> Hand
@@ -146,8 +147,6 @@ public abstract class Person extends GameObject {
         
         if(yVelo >= 0) newYPos = ((int)((getyPos() + yVelo - 4)/48)) + 2;             
         else newYPos = ((int)((getyPos() + yVelo - 20)/48)) + 2;
-        
-        int[][] mapTileNum = Map.getInstance().getMapTileNum();
         
         if(mapTileNum[newYPos][newXPos] != 0) {
             setxPos(getxPos() + xVelo);

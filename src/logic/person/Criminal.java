@@ -11,6 +11,7 @@ import utilz.Checker;
 import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
+import static utilz.Constants.Debug.*;
 
 public class Criminal extends Person {
 	
@@ -21,7 +22,7 @@ public class Criminal extends Person {
         super(xPos, yPos, id, 10, 5 , P_WIDTH , P_HEIGHT);
         setxVelo(xVelo);
         setyVelo(yVelo);
-        setHp(100);
+        setHp(1000	);
         setGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
         
@@ -91,7 +92,7 @@ public class Criminal extends Person {
 
 	@Override
 	public void render(GraphicsContext gc) {
-//		if(SOLID_SHOW) ShowSolidArea(gc);
+		if(SOLID_SHOW) ShowSolidArea(gc);
 //		showFootArea(gc);
 //		ShowPath(gc);
 		gc.setFill(Color.RED);
@@ -105,11 +106,11 @@ public class Criminal extends Person {
 		
 		if(!gun.shootAble()) return ;
 		
-		if(Checker.InRange(getSolidArea().getX(), getSolidArea().getX() + getSolidArea().getWidth(), Handler.getInstance().Player.getSolidArea().getX() + Handler.getInstance().Player.getSolidArea().getWidth()/2)) {
+		if(Checker.InRange(getSolidArea().getX() - 20, getSolidArea().getX() + getSolidArea().getWidth() + 20, Handler.getInstance().Player.getSolidArea().getX() + Handler.getInstance().Player.getSolidArea().getWidth()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
 			return ;
 		}
-		if(Checker.InRange(getSolidArea().getY(), getSolidArea().getY() + getSolidArea().getHeight(), Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
+		if(Checker.InRange(getSolidArea().getY() - 20, getSolidArea().getY() + getSolidArea().getHeight() + 20, Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
 			return ;
 		}

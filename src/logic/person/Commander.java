@@ -41,12 +41,12 @@ public class Commander extends Person {
 		
 		if(getHp() == 0) Handler.getInstance().removeObject(this);
 		
-		if(Obj.distance(this, Handler.getInstance().Player) <= 200) {
+		if(Obj.distance(this, Handler.getInstance().Player) <= 300) {
 			chasing = true;
-			setxVelo(2);
-			setyVelo(2);
+			setxVelo(1);
+			setyVelo(1);
 		}
-		else if(Obj.distance(this, Handler.getInstance().Player) > 450) {
+		else if(Obj.distance(this, Handler.getInstance().Player) > 600) {
 			chasing = false;
 			setxVelo(.5f);
 			setyVelo(.5f);

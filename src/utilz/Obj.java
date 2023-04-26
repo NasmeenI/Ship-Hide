@@ -6,6 +6,8 @@ import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.Map;
+import logic.person.Captive;
+import logic.person.Commander;
 import logic.person.Criminal;
 import logic.person.Person;
 import logic.person.Player;
@@ -56,14 +58,14 @@ public class Obj {
 				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
-					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+					while(j1 <= 60 && Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
 						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
 						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
 						j1++;
 					}
 						
 					j1 = (int)j/TILE_SIZE-1;
-					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+					while(j1 > 0 && Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
 						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
 						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
 						j1--;
@@ -211,6 +213,35 @@ public class Obj {
 					}
 					case Knife : {
 						((Criminal)A).setHp(((Criminal)A).getHp() - ((Knife)B).damage());
+						
+						break;
+					}
+					default : break;
+				}
+				break;
+			}
+			case Commander : {
+				switch(B.getId()) {
+					case Bullet : {
+						((Commander)A).setHp(((Commander)A).getHp() - ((Bullet)B).damage());
+						Handler.getInstance().removeObject(B);
+						
+						break;
+					}
+					case Knife : {
+						((Commander)A).setHp(((Commander)A).getHp() - ((Knife)B).damage());
+						
+						break;
+					}
+					default : break;
+				}
+				break;
+			}
+			case Captive : {
+				switch(B.getId()) {
+					case Bullet : {
+						((Captive)A).setHp(((Captive)A).getHp() - ((Bullet)B).damage());
+						Handler.getInstance().removeObject(B);
 						
 						break;
 					}

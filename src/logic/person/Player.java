@@ -11,6 +11,7 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
+import logic.container.KeyLocker;
 import logic.container.Knife;
 import object.Sculpture;
 import utilz.Checker;
@@ -48,14 +49,14 @@ public class Player extends Person {
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
 		initImg();
-		setHp(15000);
+		setHp(20000);
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
 		previousAni = T_Up[defaultAni];
 		// Tempt
-//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
-//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
+		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
+		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 	}
 	
 	public void initImg() {
@@ -129,11 +130,17 @@ public class Player extends Person {
 		}
 		if(key.TWO) {
 			setUsed(2);
-			if(getUsed() == 2) setAc(.7f, .35f);
+			if(getUsed() == 2) {
+				setAc(.7f, .35f);
+				setKnifeTime(90);
+			}
 		}
 		if(key.THREE) {
 			setUsed(3);
-			if(getUsed() == 3) setAc(.5f, .25f);
+			if(getUsed() == 3) {
+				setAc(.5f, .25f);
+				setBulletTime(20);
+			}
 		}
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
@@ -141,13 +148,13 @@ public class Player extends Person {
 		
 		Walk();
 		setBeforeTwo(Obj.collisionTwo(this));
-		
-		if(getKnifeTime() < 30) setKnifeTime(getKnifeTime() + 1);
+	
+		if(getKnifeTime() < 90) setKnifeTime(getKnifeTime() + 1);
 		if(getBulletTime() < 20) setBulletTime(getBulletTime() + 1);
 		if(getReloadTime() < 30) setReloadTime(getReloadTime() + 1);
 		
 		if(getUsed() != 1) {
-			if(key.SPACE && getUsed() == 2 && getKnifeTime() == 30) {
+			if(key.SPACE && getUsed() == 2 && getKnifeTime() == 90) {
 				slash();
 				setKnifeTime(0);
 			}
@@ -335,7 +342,7 @@ public class Player extends Person {
 	@Override
 	public void render(GraphicsContext gc) { // Set Player Graphics
 		if(SOLID_SHOW) ShowSolidArea(gc);
-		showFootArea(gc);
+//		showFootArea(gc);
 
 		gc.drawImage(currentAni, xPos, yPos);
 		return ;

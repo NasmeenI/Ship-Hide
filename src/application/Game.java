@@ -11,6 +11,7 @@ public class Game extends Application {
 		menuScene = new MenuScene(stage);
 		
 		stage.setScene(MenuScene.startScene);
+		stage.setResizable(false);
 		stage.setTitle("Ship Hide");
 		stage.show();
 	}

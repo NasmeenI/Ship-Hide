@@ -16,7 +16,7 @@ public class Bullet extends GameObject implements Attackable {
 	private int maxDamage, minDamage;
 	
 	public Bullet(double xPos, double yPos, ID id) {
-		super(xPos, yPos, id, 0, 0, 16, 16);
+		super(xPos, yPos, id, 0, 0, 12, 12);
 		setxVelo(0);
 		setyVelo(0);
 		setMinDamage(30);
@@ -24,7 +24,7 @@ public class Bullet extends GameObject implements Attackable {
 	}
 	
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo) {
-		super(xPos, yPos, id, 0, 0, 16, 16);
+		super(xPos, yPos, id, 0, 0, 12, 12);
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(30);
@@ -32,7 +32,7 @@ public class Bullet extends GameObject implements Attackable {
 	}
 
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo, int MxD, int MnD) {
-		super(xPos, yPos, id, 0, 0, 16, 16);
+		super(xPos, yPos, id, 0, 0, 12, 12);
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(MxD);
@@ -40,7 +40,7 @@ public class Bullet extends GameObject implements Attackable {
 	}
 	
 	public Bullet(double xPos, double yPos, ID id, int MxD, int MnD) {
-		super(xPos, yPos, id, 0, 0, 16, 16);
+		super(xPos, yPos, id, 0, 0, 12, 12);
 		setMinDamage(MxD);
 		setMaxDamage(MnD);
 	}
@@ -61,18 +61,17 @@ public class Bullet extends GameObject implements Attackable {
 		
 //		Obj.collisionTwo(this);
 		
-		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
-			setxPos(getxPos() + _Vx);
-			setyPos(getyPos() + _Vy);
-		}
-		else {
+		if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0) {
 			Handler.getInstance().removeObject(this);
 		}
+		
+		setxPos(getxPos() + _Vx);
+		setyPos(getyPos() + _Vy);
 		
 		setxVelo(_Vx);
 		setyVelo(_Vy);
 		
-		setSolidArea(new Rectangle((int)getxPos(), (int)getyPos(), 16, 16));
+		setSolidArea(new Rectangle((int)getxPos(), (int)getyPos(), 12, 12));
 		return ;
 	}
 

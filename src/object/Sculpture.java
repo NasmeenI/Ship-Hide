@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.ID;
+import logic.person.Person;
 import logic.person.Player;
 import utilz.LoadSave;
 import utilz.Obj;
@@ -32,18 +33,21 @@ public class Sculpture extends GameObject {
 		return ;
 	}
 	
-	public void interact(Player player) {
-		Rectangle RA = new Rectangle(getSolidArea().getX() + player.getxVelo(), getSolidArea().getY() + player.getyVelo(), getSolidArea().getWidth(), getSolidArea().getHeight());
-		if(Obj.collisionZeroRect(RA)) {
-			Obj.pushOffFrom(player, this);
-			return ;
-		}else {
-			setxPos(getxPos() + player.getxVelo());
-			setyPos(getyPos() + player.getyVelo());
+	public void interact(GameObject X) {
+		
+		if(X instanceof Person) {
+			Rectangle RA = new Rectangle(getSolidArea().getX() + X.getxVelo(), getSolidArea().getY() + X.getyVelo(), getSolidArea().getWidth(), getSolidArea().getHeight());
+			if(Obj.collisionZeroRect(RA)) {
+				Obj.pushOffFrom(X, this);
+				return ;
+			}else {
+				setxPos(getxPos() + X.getxVelo());
+				setyPos(getyPos() + X.getyVelo());
+			}
+			setBeforeTwo(Obj.collisionTwo_sculpture(this));
+			X.setxVelo(0);
+			X.setyVelo(0);
 		}
-		setBeforeTwo(Obj.collisionTwo_sculpture(this));
-		player.setxVelo(0);
-		player.setyVelo(0);
 	}
 	
 	public void initImg() {

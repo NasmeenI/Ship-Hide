@@ -39,7 +39,7 @@ public class HpBottle extends GameObject implements StableObject {
 	public void interact(Player player) {
 		setPicked(true);
 		//player.addItemInBag(this);
-		player.setHp(player.getHp() + 300);
+		player.setHp(player.getHp() + 1000);
 		Handler.getInstance().removeObject(this);
 	}
 	

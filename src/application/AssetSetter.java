@@ -33,12 +33,9 @@ public class AssetSetter {
 		
 		// Criminal
 		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(500, 700, ID.Criminal, 2, 2));
 		Handler.getInstance().addObject(new Criminal(600, 800, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(600, 900, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(600, 1000, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(800, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1200, 1500, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(800, 1200, ID.Criminal, 2, 2));
 		Handler.getInstance().addObject(new Criminal(900, 600, ID.Criminal, 2, 2));
 		Handler.getInstance().addObject(new Criminal(1200, 600, ID.Criminal, 2, 2));
 		Handler.getInstance().addObject(new Criminal(1300, 600, ID.Criminal, 2, 2));
@@ -46,6 +43,7 @@ public class AssetSetter {
 		
 		// Commander
 		Handler.getInstance().addObject(new Commander(2600, 600, ID.Commander, 2, 2));
+		Handler.getInstance().addObject(new Commander(1200, 1200, ID.Commander, 2, 2));
 		
 		
 		// Sculptures

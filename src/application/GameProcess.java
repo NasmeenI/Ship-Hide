@@ -156,7 +156,7 @@ public class GameProcess {
 		root.getChildren().addAll(box);
 		
 		// HP Bar
-		double hp = (double)Handler.getInstance().Player.getHp()/3000.0;
+		double hp = (double)Handler.getInstance().Player.getHp()/20000.0;
 		pb.setProgress(hp);
 		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
 		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
@@ -226,7 +226,9 @@ public class GameProcess {
 		    	Handler.getInstance().allObjects.remove(0);
 		    }
 		    Handler.getInstance().replace(newHandler);
-		    Handler.getInstance().updateAfterLoadSave(input);
+		    KeyInput inputTemp = input;
+		    inputTemp.key = new Keys();
+		    Handler.getInstance().updateAfterLoadSave(inputTemp);
 		    System.out.println(Handler.instance.Player.getBag());
 		}catch (Exception e){
 		    e.printStackTrace();
