@@ -10,7 +10,6 @@ import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
-import application.GameProcess;
 import static utilz.Constants.Debug.*;
 
 public class Knife extends GameObject implements Attackable, StableObject, Pickable {
@@ -46,7 +45,7 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-		
+	
 		if(!isVisible()) return ;
 		gc.drawImage(image ,getxPos() ,getyPos());
 		return ;

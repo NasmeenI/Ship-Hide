@@ -1,10 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
-
 import logic.base.Map;
-import logic.person.Person;
-
 import static utilz.Constants.GameProcess.*;
 
 public class PathFinder {

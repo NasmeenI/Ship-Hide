@@ -8,7 +8,6 @@ import logic.base.ID;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
-import application.GameProcess;
 import static utilz.Constants.Debug.*;
 
 public class HpBottle extends GameObject implements StableObject {

@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.KeyInput;
@@ -19,6 +20,9 @@ import logic.base.Map;
 import logic.person.Captive;
 import logic.person.Criminal;
 import logic.person.Player;
+import object.Helicopter;
+import object.Label;
+import object.Sculpture;
 import ui.Ui;
 import Scenes.GameOverScene;
 import Scenes.MenuScene;
@@ -108,10 +112,8 @@ public class GameProcess {
 	private void initial() {
 		ui = new Ui(this);
 		cam = new Camera(0, 0);
-		
+
 		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
-		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Captive(3450, 650, ID.Captive, 3, 3));
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();
@@ -154,22 +156,14 @@ public class GameProcess {
 		root.getChildren().addAll(box);
 		
 		// HP Bar
-		double hp = (double)Handler.getInstance().Player.getHp()/1000.0;
+		double hp = (double)Handler.getInstance().Player.getHp()/3000.0;
 		pb.setProgress(hp);
 		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
 		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
 		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
 
 		Handler.getInstance().update();
-		cam.update();	
-		
-		for(int i=0;i<60;i++) {
-			for(int j=0;j<110;j++) {
-				if(GameProcess.renderState[i][j] == true) System.out.print(1);
-				else System.out.print(0);
-			}
-			System.out.println("");
-		}
+		cam.update();
 
 		return;
 	}
@@ -179,31 +173,41 @@ public class GameProcess {
 		gc.fillRect(0, 0, S_WIDTH_DEFAULT, S_HEIGHT_DEFAULT);
 		gc.translate(-cam.getX(), -cam.getY());
 		
-		render_format_1();
+		render_format();
 		gc.translate(cam.getX(), cam.getY());
-
 	}
 	
-	public void render_format_1() {
+	public void render_format() {
 		int xTile = (int) (Handler.getInstance().Player.getxPos()/48);
 		int yTile = (int) (Handler.getInstance().Player.getyPos()/48);
 		Map.getInstance().render_1(gc);
 		Map.getInstance().render_0(gc ,xTile ,yTile);
 		Handler.getInstance().renderStable(gc);
-		Handler.getInstance().render(gc);
+		
+		// Render before state 2
+		for(int i=0;i<Handler.getInstance().getAllObjects().size();i++) {
+			GameObject object = Handler.getInstance().getAllObjects().get(i);
+			if(object instanceof Criminal A && object.isBeforeTwo() == true) A.render(gc);
+			else if(object instanceof Captive A && object.isBeforeTwo() == true) A.render(gc);
+			else if(object instanceof Sculpture A && object.isBeforeTwo() == true) A.render(gc);
+			else object.render(gc);
+		}
+		if(Handler.getInstance().Player.isBeforeTwo() == true) Handler.getInstance().Player.render(gc);
+		
 		Map.getInstance().render_2(gc ,xTile ,yTile);
+		
+		// Render after state 2
+		for(int i=0;i<Handler.getInstance().getAllObjects().size();i++) {
+			GameObject object = Handler.getInstance().getAllObjects().get(i);
+			if(object instanceof Criminal A && object.isBeforeTwo() == false) A.render(gc);
+			else if(object instanceof Captive A && object.isBeforeTwo() == false) A.render(gc);
+			else if(object instanceof Sculpture A && object.isBeforeTwo() == false) A.render(gc);
+			else if(object instanceof Label A)  A.render(gc);
+			else if(object instanceof Helicopter A)  A.render(gc);
+		}
+		if(Handler.getInstance().Player.isBeforeTwo() == false) Handler.getInstance().Player.render(gc);	
 	}
-	
-	public void render_format_2() {
-		int xTile = (int) (Handler.getInstance().Player.getxPos()/48);
-		int yTile = (int) (Handler.getInstance().Player.getyPos()/48);
-		Map.getInstance().render_1(gc);
-		Map.getInstance().render_0(gc ,xTile ,yTile);
-		Handler.getInstance().renderStable(gc);		
-		Map.getInstance().render_2(gc ,xTile ,yTile); 
-		Handler.getInstance().render(gc);
-	}
-	
+		
 	public void checkPress() {
 		if(key.ESC) {
 			if(!ESCState) {

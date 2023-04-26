@@ -15,6 +15,7 @@ public abstract class GameObject implements Serializable {
 	transient protected Rectangle solidArea;
 	protected ID id;
 	protected int Code;
+	protected boolean beforeTwo;
 	// Debug
 	public static boolean solidShow = false;
 	
@@ -30,13 +31,13 @@ public abstract class GameObject implements Serializable {
 		this.id = id;
 		this.solidArea = new Rectangle(xPos ,yPos ,0 ,0);
 		this.Code = Handler.Code++;
+		this.beforeTwo = true;
 	}
 	
 	public GameObject(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.xDif = xDif;
-		this.yDif = yDif;
 		this.w = w;
 		this.h = h;
 		this.xVelo = 0;
@@ -44,9 +45,8 @@ public abstract class GameObject implements Serializable {
 		this.id = id;
 		this.solidArea = new Rectangle(xPos+xDif ,yPos+yDif ,w ,h);
 		this.Code = Handler.Code++;
+		this.beforeTwo = true;
 	}
-
-	
 
 	public void move() {
 		setxPos(getxPos() + getxVelo());
@@ -155,6 +155,14 @@ public abstract class GameObject implements Serializable {
 	public void setCode(int code) {
 		Code = code;
 		return ;
+	}
+	
+	public boolean isBeforeTwo() {
+		return beforeTwo;
+	}
+
+	public void setBeforeTwo(boolean beforeTwo) {
+		this.beforeTwo = beforeTwo;
 	}
 
 	public abstract void initImg();

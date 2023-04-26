@@ -6,6 +6,7 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.StableObject;
+import logic.person.Captive;
 import logic.person.Player;
 import utilz.LoadSave;
 import utilz.Obj;
@@ -40,6 +41,7 @@ public class Helicopter extends GameObject implements StableObject {
 	}
 	
 	public void interact(Player player) {
+		if(!Captive.isReady()) return;
 		GameProcess.stage.setScene(GameComplete.scene);
 		GameProcess.setGameState(GAME_COMPLETE_STATE);
 	}

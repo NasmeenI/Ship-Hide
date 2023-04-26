@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
+import logic.base.Map;
 import logic.base.Point;
 import utilz.Checker;
 import utilz.Obj;
@@ -19,11 +20,14 @@ public abstract class Person extends GameObject {
 	protected int Hp, bullets;
 	protected boolean gun, knife;
 	protected int used;
-	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime;
+	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime, interval;
 	private int direction = 9;
 	protected String direct, prv_direct = null;
 	
-	protected boolean chasing = false;
+	transient protected Rectangle footArea;
+	transient protected Rectangle renderArea;
+	
+	protected boolean chasing 	= false;
 	public static PathFinder pathFinder = new PathFinder();
 
 	/*
@@ -34,6 +38,8 @@ public abstract class Person extends GameObject {
 
 	public Person(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
 		super(xPos, yPos, id, xDif, yDif, w, h);
+		setFootArea(new Rectangle(xPos + xDif, yPos + yDif + h - 10, w, 10));
+		setRenderArea(new Rectangle(xPos + xDif, yPos + yDif + 40, w, h-40));
 		setUsed(1);
 		setDirect("Z");
 		setPrv_direct("Z");
@@ -46,6 +52,7 @@ public abstract class Person extends GameObject {
 		setKnifeTime(0);
 		setReloadTime(0);
 		setRandWalkTime(0);
+		setInterval(0);
 	}
 
 	public abstract void update();
@@ -56,9 +63,9 @@ public abstract class Person extends GameObject {
 	
 	public void SearchPath(int endRow, int endCol) {
 		
-		Point mP = getMiddlePoint(getSolidArea());
+		Point mP = getMiddlePoint(getFootArea());
 		
-		int startRow = (int) ((mP.y + getSolidArea().getHeight() / 2) / TILESIZE);
+		int startRow = (int) (mP.y / TILESIZE);
 		int startCol = (int) (mP.x / TILESIZE);
 		
 		pathFinder.setNode(startRow, startCol, endRow, endCol);
@@ -81,7 +88,7 @@ public abstract class Person extends GameObject {
 		else {
 			Point mPz = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
 			
-			pathFinder.setNode(startRow, startCol,(int) (mPz.y + Handler.getInstance().Player.getSolidArea().getHeight() / 2) / TILESIZE,(int) mPz.x / TILESIZE);
+			pathFinder.setNode(startRow, startCol,(int) mPz.y / TILESIZE,(int) mPz.x / TILESIZE);
 			
 			if(pathFinder.search()) {
 				
@@ -124,16 +131,47 @@ public abstract class Person extends GameObject {
 		return new Point(xMid, yMid);
 	}
 	
-	public void moveX() { setxPos(getxPos() + getxVelo()); }
-	public void moveY() { setyPos(getyPos() + getyVelo()); }
-	public void move() { setyPos(getyPos() + getyVelo()); setxPos(getxPos() + getxVelo()); }
-	public void moveLeft() { setxPos(getxPos() - Math.abs(getxVelo())); }
-	public void moveRight() { setxPos(getxPos() + Math.abs(getxVelo())); }
-	public void moveUp() { setyPos(getyPos() - Math.abs(getyVelo())); }
-	public void moveDown() { setyPos(getyPos() + Math.abs(getyVelo())); }
+	public void moveX() { movePass(getxVelo(), 0); }
+    public void moveY() { movePass(0, getyVelo()); }
+    public void move() { movePass(getxVelo(), getyVelo()); }
+    public void moveLeft() { movePass(- Math.abs(getxVelo()), 0); }
+    public void moveRight() { movePass(Math.abs(getxVelo()), 0); }
+    public void moveUp() { movePass(0, - Math.abs(getyVelo())); }
+    public void moveDown() { movePass(0, Math.abs(getyVelo())); }
+    
+    public void movePass(double xVelo, double yVelo) {
+        int newXPos = 0 ,newYPos = 0;
+        if(xVelo >= 0) newXPos = ((int)((getxPos() + xVelo - 10)/48));            
+        else newXPos = ((int)((getxPos() + xVelo - 20)/48));    
+        
+        if(yVelo >= 0) newYPos = ((int)((getyPos() + yVelo - 4)/48)) + 2;             
+        else newYPos = ((int)((getyPos() + yVelo - 20)/48)) + 2;
+        
+        int[][] mapTileNum = Map.getInstance().getMapTileNum();
+        
+        if(mapTileNum[newYPos][newXPos] != 0) {
+            setxPos(getxPos() + xVelo);
+            setyPos(getyPos() + yVelo);
+        }
+        else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && xVelo >= 0) {
+            setyPos(getyPos() + yVelo);
+        }
+        else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && xVelo < 0) {
+            setyPos(getyPos() + yVelo);
+        }
+        else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && yVelo >= 0) {
+            setxPos(getxPos() + xVelo);
+        }
+        else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && yVelo < 0) {
+            setxPos(getxPos() + xVelo);
+        }
+    }
 	
 	public void randomWalk(int interval) {
-		if(randWalkTime == 0) direction = Checker.Rand(1, 9);
+		if(randWalkTime == 0) {
+			direction = Checker.Rand(1, 9);
+			setInterval(interval + Checker.Rand(-(interval / 5), interval / 5));
+		}
 		switch(direction) {
 			case 1 : moveLeft(); break; // Left
 			case 2 : moveRight(); break; // Right
@@ -146,7 +184,12 @@ public abstract class Person extends GameObject {
 			default : break; // Stick
 		}
 		randWalkTime++;
-		randWalkTime %= (interval + Checker.Rand(-(interval / 5), interval / 5));
+		randWalkTime %= getInterval();
+	}
+	
+	public void showFootArea(GraphicsContext gc) {
+		gc.setFill(Color.PINK);
+		gc.fillRect((int)footArea.getX(), (int)footArea.getY(), footArea.getWidth(), footArea.getHeight());
 	}
 	
 	// Getters & Setters
@@ -156,7 +199,7 @@ public abstract class Person extends GameObject {
 	}
 
 	public void setPathFinder(PathFinder pathFinder) {
-		this.pathFinder = pathFinder;
+		Person.pathFinder = pathFinder;
 	}
 	
 	public int getHp() {
@@ -250,6 +293,14 @@ public abstract class Person extends GameObject {
 		this.randWalkTime = Math.max(0, randWalkTime);
 	}
 
+	public int getInterval() {
+		return interval;
+	}
+
+	public void setInterval(int interval) {
+		this.interval = Math.max(0, interval);
+	}
+
 	public String getDirect() {
 		return direct;
 	}
@@ -266,6 +317,22 @@ public abstract class Person extends GameObject {
 	public void setPrv_direct(String prv_direct) {
 		this.prv_direct = prv_direct;
 		return ;
+	}
+
+	public Rectangle getFootArea() {
+		return footArea;
+	}
+
+	public void setFootArea(Rectangle footArea) {
+		this.footArea = footArea;
+	}
+	
+	public Rectangle getRenderArea() {
+		return renderArea;
+	}
+
+	public void setRenderArea(Rectangle renderArea) {
+		this.renderArea = renderArea;
 	}
 
 }

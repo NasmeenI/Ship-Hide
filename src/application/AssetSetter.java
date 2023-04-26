@@ -7,6 +7,9 @@ import logic.container.HpBottle;
 import logic.container.KeyLocker;
 import logic.container.Knife;
 import logic.container.Magazine;
+import logic.person.Captive;
+import logic.person.Commander;
+import logic.person.Criminal;
 import object.Computer;
 import object.Door;
 import object.DoorJail;
@@ -24,6 +27,26 @@ public class AssetSetter {
 	}
 	
 	public void setObject() {
+		
+		// Captive
+		Handler.getInstance().addObject(new Captive(3000, 600, ID.Captive, 2, 2));
+		
+		// Criminal
+		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(500, 700, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(600, 800, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(600, 900, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(600, 1000, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(800, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(900, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1200, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1300, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1400, 600, ID.Criminal, 2, 2));
+		
+		// Commander
+		Handler.getInstance().addObject(new Commander(2600, 600, ID.Commander, 2, 2));
+		
 		
 		// Sculptures
 		Sculpture[] sculpture = new Sculpture[4];

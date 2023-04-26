@@ -1,7 +1,6 @@
 package logic.container;
 
 import java.util.ArrayList;
-import application.GameProcess;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.base.Attackable;

@@ -1,7 +1,6 @@
 package object;
 
 import static utilz.Constants.Debug.SOLID_SHOW;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -42,13 +41,13 @@ public class Sculpture extends GameObject {
 			setxPos(getxPos() + player.getxVelo());
 			setyPos(getyPos() + player.getyVelo());
 		}
+		setBeforeTwo(Obj.collisionTwo_sculpture(this));
 		player.setxVelo(0);
 		player.setyVelo(0);
 	}
 	
 	public void initImg() {
 		image = LoadSave.GetSpriteAtlas(LoadSave.SCULPTURE);
-		
 	}
 
 	// Getter & Setter

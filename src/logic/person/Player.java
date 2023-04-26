@@ -11,15 +11,13 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
-import logic.container.KeyLocker;
 import logic.container.Knife;
+import object.Sculpture;
 import utilz.Checker;
 import utilz.LoadSave;
 import utilz.Obj;
 import java.util.ArrayList;
 import Scenes.GameOverScene;
-import ai.PathFinder;
-
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 import static utilz.Constants.GameState.*;
@@ -50,12 +48,11 @@ public class Player extends Person {
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
 		initImg();
-		setHp(20000);
+		setHp(15000);
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
 		previousAni = T_Up[defaultAni];
-		
 		// Tempt
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
@@ -111,12 +108,19 @@ public class Player extends Person {
 
 	@Override
 	public void update() {
-		
 		if(getHp() == 0) {
 			GameProcess.stage.setScene(GameOverScene.scene);
 			GameProcess.setGameState(GAME_OVER_STATE);
 		}
 		Obj.collision(this);
+		
+		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
+            if(Handler.getInstance().allObjects.get(i).getCode() == getCode()) continue;
+            if((Handler.getInstance().allObjects.get(i) instanceof Sculpture) && getFootArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
+                Obj.action(this, Handler.getInstance().allObjects.get(i));
+            }
+        }
+		
 		setKey(input.key);
 		
 		if(key.ONE) {
@@ -135,8 +139,8 @@ public class Player extends Person {
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));
 		
-		Walk(Map.getInstance().mapTileNum);
-		Obj.collisionTwo(this);
+		Walk();
+		setBeforeTwo(Obj.collisionTwo(this));
 		
 		if(getKnifeTime() < 30) setKnifeTime(getKnifeTime() + 1);
 		if(getBulletTime() < 20) setBulletTime(getBulletTime() + 1);
@@ -165,14 +169,15 @@ public class Player extends Person {
 		}
 		
 		
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 10, P_WIDTH, P_HEIGHT));
-		
+		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
+		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
+		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
 		Animation();
 		
 		return ;
 	}
 	
-	public void Walk(int[][] mapTileNum) {
+	public void Walk() {
 		_CurxPos = getxPos();
 		_CuryPos = getyPos();
 		
@@ -205,12 +210,8 @@ public class Player extends Person {
 		else newYPos = ((int)((getyPos() + _Vy - 20)/48)) + 2;
 		
 		
-		if(mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) {
-			GameProcess.renderType = 2;
-		}
-		else {
-			GameProcess.renderType = 1;
-		}
+//		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
+//		else setBeforeTwo(false);
 
 //		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
@@ -249,20 +250,20 @@ public class Player extends Person {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		}
 		
-		if(mapTileNum[newYPos][newXPos] != 0) {
+		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
 			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
 			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
 			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
 			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 		}
-		else if(mapTileNum[newYPos][newXPos] == 0 && mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
 			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 		}
 		
@@ -334,7 +335,8 @@ public class Player extends Person {
 	@Override
 	public void render(GraphicsContext gc) { // Set Player Graphics
 		if(SOLID_SHOW) ShowSolidArea(gc);
-		
+		showFootArea(gc);
+
 		gc.drawImage(currentAni, xPos, yPos);
 		return ;
 	}
@@ -525,6 +527,5 @@ public class Player extends Person {
 	
 	public ArrayList<GameObject> getBag(){
 		return this.bag;
-	}
-	
+	}	
 }

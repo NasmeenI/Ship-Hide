@@ -8,10 +8,7 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Map;
-
 import static utilz.Constants.Debug.*;
-
-import application.GameProcess;
 
 public class Bullet extends GameObject implements Attackable {
 	
@@ -61,6 +58,8 @@ public class Bullet extends GameObject implements Attackable {
 		
 		if(_Vy >= 0) newYPos = ((int)((getyPos() + _Vy)/48)); 	
 		else newYPos = ((int)((getyPos() + _Vy)/48));
+		
+//		Obj.collisionTwo(this);
 		
 		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
 			setxPos(getxPos() + _Vx);

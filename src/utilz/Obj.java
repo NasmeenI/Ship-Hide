@@ -49,24 +49,54 @@ public class Obj {
 		return false;
 	}
 	
-	public static void collisionTwo(GameObject A) {
-		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
-			for(int j=(int)A.getSolidArea().getX();j<=(int)A.getSolidArea().getX()+(int)A.getSolidArea().getWidth();j++) {
+	public static boolean collisionTwo(GameObject A) {
+		boolean result = false;
+		for(int i=(int)((Person)A).getRenderArea().getY();i<=(int)((Person)A).getRenderArea().getY()+(int)((Person)A).getRenderArea().getHeight();i++) {
+			for(int j=(int)((Person)A).getRenderArea().getX();j<=(int)((Person)A).getRenderArea().getX()+(int)((Person)A).getRenderArea().getWidth();j++) {
 				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
+					result = true;
 					int j1 = (int)j/TILE_SIZE;
 					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
 						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
 						j1++;
 					}
-					
+						
 					j1 = (int)j/TILE_SIZE-1;
 					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
 						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
 						j1--;
 					}
 				}
 			}
 		}
+		return result;
+	}
+	
+	public static boolean collisionTwo_sculpture(Sculpture A) {
+		boolean result = false;
+		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight();i++) {
+			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth();j++) {
+				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
+					result = true;
+					int j1 = (int)j/TILE_SIZE;
+					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
+						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+						j1++;
+					}
+						
+					j1 = (int)j/TILE_SIZE-1;
+					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
+						j1--;
+					}
+				}
+			}
+		}
+		return result;
 	}
 	
 	public static boolean collisionZeroRect(Rectangle A) {
@@ -80,7 +110,7 @@ public class Obj {
 	
 	public static void collision(GameObject A) {
 		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
-			if(Handler.getInstance().allObjects.get(i).getCode() == A.getCode()) continue;
+			if(Handler.getInstance().allObjects.get(i).getCode() == A.getCode() || (Handler.getInstance().allObjects.get(i) instanceof Sculpture)) continue;
 			if(A.getSolidArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
 				action(A, Handler.getInstance().allObjects.get(i));
 			}
@@ -99,27 +129,27 @@ public class Obj {
 						break;
 					}
 					case Computer : {
-						if(((Player)A).getKey().E && time > 15) ((Computer)B).interact(((Player)A));
+						if(((Player)A).getKey().E && time > 30) ((Computer)B).interact(((Player)A));
 						break;
 					}
 					case Helicopter : {
-						if(((Player)A).getKey().E && time > 15) ((Helicopter)B).interact(((Player)A));
+						if(((Player)A).getKey().E && time > 30) ((Helicopter)B).interact(((Player)A));
 						break;
 					}
 					case Label1 : {
-						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
 						break;
 					}
 					case Label2 : {
-						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
 						break;
 					}
 					case Label3 : {
-						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
 						break;
 					}
 					case Label4 : {
-						if(((Player)A).getKey().E && time > 15) ((Label)B).interact(((Player)A));
+						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
 						break;
 					}
 					case Lazer1 : {
@@ -195,15 +225,19 @@ public class Obj {
 	}
 	
 	public static void pushOffWall(GameObject A) {
-		if(!Obj.collisionZeroRect(A.getSolidArea())) return ;
+		Rectangle rStart;
+		if(A instanceof Person) rStart = ((Person) A).getFootArea();
+		else rStart = A.getSolidArea();
+		
+		if(!Obj.collisionZeroRect(rStart)) return ;
 		
 		for(int i = 0; i < 240; i++) {
 			for(int j = 0; j < 240; j++) {
 				vit[i][j] = false;
 			}
 		}
-
-		Rectangle RA = new Rectangle(A.getSolidArea().getX(), A.getSolidArea().getY(), A.getSolidArea().getWidth(), A.getSolidArea().getHeight());
+		
+		Rectangle RA = new Rectangle(rStart.getX(), rStart.getY(), rStart.getWidth(), rStart.getHeight());
 		int Tx = (int) (RA.getX() - 120);
 		int Ty = (int) (RA.getY() - 120);
 		queue.add(RA);
@@ -221,10 +255,12 @@ public class Obj {
 				if(newX < 0 || (newX + RT.getWidth()) / 48 > 109 || newY < 0 || (newY + RT.getHeight()) / 48 > 59) continue;
 				if(newX - Tx < 0 || newX - Tx >= 240 || newY - Ty < 0 || newY - Ty >= 240 || vit[newX - Tx][newY - Ty]) continue;
 				Rectangle RX = new Rectangle(newX, newY, RT.getWidth(), RT.getHeight());
+				System.out.println(newX + " " + newY);
 				if(!Obj.collisionZeroRect(RX)) {
-					A.setxPos(RX.getX() - A.getSolidArea().getX() + A.getxPos());
-					A.setyPos(RX.getY() - A.getSolidArea().getY() + A.getyPos());
-					A.setSolidArea(RX);
+					A.setxPos(RX.getX() - rStart.getX() + A.getxPos());
+					A.setyPos(RX.getY() - rStart.getY() + A.getyPos());
+					if(A instanceof Person) ((Person) A).setFootArea(RX);
+					else A.setSolidArea(RX);
 					queue.clear();
 					return ;
 				}
@@ -234,7 +270,11 @@ public class Obj {
 	}
 	
 	public static void pushOffFrom(GameObject A, GameObject B) {
-		if(!A.getSolidArea().intersects(B.getSolidArea().getBoundsInLocal())) return ;
+		Rectangle rStart;
+		if(A instanceof Person) rStart = ((Person) A).getFootArea();
+		else rStart = A.getSolidArea();
+		
+		if(!rStart.intersects(B.getSolidArea().getBoundsInLocal())) return ;
 		
 		for(int i = 0; i < 240; i++) {
 			for(int j = 0; j < 240; j++) {
@@ -242,7 +282,7 @@ public class Obj {
 			}
 		}
 		
-		Rectangle RA = new Rectangle(A.getSolidArea().getX(), A.getSolidArea().getY(), A.getSolidArea().getWidth(), A.getSolidArea().getHeight());
+		Rectangle RA = new Rectangle(rStart.getX(), rStart.getY(), rStart.getWidth(), rStart.getHeight());
 		int Tx = (int) (RA.getX() - 120);
 		int Ty = (int) (RA.getY() - 120);
 		queue.add(RA);
@@ -261,9 +301,10 @@ public class Obj {
 				if(newX - Tx < 0 || newX - Tx >= 240 || newY - Ty < 0 || newY - Ty >= 240 || vit[newX - Tx][newY - Ty]) continue;
 				Rectangle RX = new Rectangle(newX, newY, RT.getWidth(), RT.getHeight());
 				if(!RX.intersects(B.getSolidArea().getBoundsInLocal())) {
-					A.setxPos(RX.getX() - A.getSolidArea().getX() + A.getxPos());
-					A.setyPos(RX.getY() - A.getSolidArea().getY() + A.getyPos());
-					A.setSolidArea(RX);
+					A.setxPos(RX.getX() - rStart.getX() + A.getxPos());
+					A.setyPos(RX.getY() - rStart.getY() + A.getyPos());
+					if(A instanceof Person) ((Person) A).setFootArea(RX);
+					else A.setSolidArea(RX);
 					queue.clear();
 					return ;
 				}

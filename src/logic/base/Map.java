@@ -96,6 +96,15 @@ public class Map implements Serializable {
 		}
 	}
 	
+	public void render_3(GraphicsContext gc ,int xTile ,int yTile) {
+		for(int y=Math.max(yTile ,8)-8;y<Math.min(yTile, 51)+9;y++) {
+			for(int x=Math.max(xTile, 12)-12;x<Math.min(xTile, 98)+12;x++) {
+				if(mapTile[y][x].getImage3() == null) continue;
+				gc.drawImage(mapTile[y][x].getImage3() ,x*48 ,y*48);
+			}
+		}
+	}
+	
 	public void updateAfterLoadSave() {
 		initImg();
 		for(int y=0;y<60;y++) {

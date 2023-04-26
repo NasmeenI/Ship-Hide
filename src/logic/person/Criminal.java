@@ -12,15 +12,9 @@ import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
 
-import ai.PathFinder;
-import application.GameProcess;
-
-import static utilz.Constants.Debug.*;
-
 public class Criminal extends Person {
 	
 	private static final long serialVersionUID = 1L;
-	
 	private Gun gun;
 
 	public Criminal(int xPos, int yPos, ID id, double xVelo, double yVelo) {
@@ -28,7 +22,7 @@ public class Criminal extends Person {
         setxVelo(xVelo);
         setyVelo(yVelo);
         setHp(100);
-        this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
+        setGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
         
         // Tempt
@@ -38,7 +32,6 @@ public class Criminal extends Person {
 
 	@Override
 	public void update() {
-		
 		Obj.collision(this);
 		if(getHp() == 0) Handler.getInstance().removeObject(this);
 		
@@ -49,18 +42,18 @@ public class Criminal extends Person {
 		}
 		else if(Obj.distance(this, Handler.getInstance().Player) > 450) {
 			chasing = false;
-			setxVelo(1);
-			setyVelo(1);
+			setxVelo(.5f);
+			setyVelo(.5f);
 		}
 		
 		if(chasing) {
-			Point mP = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
+			Point mP = getMiddlePoint(Handler.getInstance().Player.getFootArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().Player));
 		}
 		else randomWalk(120);
 		
-		Obj.pushOffWall(this);
+		setBeforeTwo(Obj.collisionTwo(this));
 		
 		if(getKnifeTime() < 40) setKnifeTime(getKnifeTime() + 1);
 		if(getBulletTime() < 30) setBulletTime(getBulletTime() + 1);
@@ -74,8 +67,9 @@ public class Criminal extends Person {
 			setBulletTime(0);
 		}
 		
-		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getxDif(), getW(), getH()));
-		
+		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH()));
+		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
+		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
 		return ;
 	}
 	
@@ -97,10 +91,11 @@ public class Criminal extends Person {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc);
-		ShowPath(gc);
+//		if(SOLID_SHOW) ShowSolidArea(gc);
+//		showFootArea(gc);
+//		ShowPath(gc);
 		gc.setFill(Color.RED);
-		gc.fillRect(getxPos() + getxDif(), getyPos() + getxDif(), getW(), getH());
+		gc.fillRect(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH());
 		return ;
 	}
 
@@ -133,6 +128,11 @@ public class Criminal extends Person {
 	public void initImg() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setGun() {
+		// TODO Auto-generated method stub
+		this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
 	}
 	
 }
