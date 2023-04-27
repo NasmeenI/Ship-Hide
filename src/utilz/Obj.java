@@ -53,8 +53,8 @@ public class Obj {
 	
 	public static boolean collisionTwo(GameObject A) {
 		boolean result = false;
-		for(int i=(int)((Person)A).getRenderArea().getY();i<=(int)((Person)A).getRenderArea().getY()+(int)((Person)A).getRenderArea().getHeight();i++) {
-			for(int j=(int)((Person)A).getRenderArea().getX();j<=(int)((Person)A).getRenderArea().getX()+(int)((Person)A).getRenderArea().getWidth();j++) {
+		for(int i=(int)((Person)A).getRenderArea().getY();i<=(int)((Person)A).getRenderArea().getY()+(int)((Person)A).getRenderArea().getHeight() && i/TILE_SIZE<110 ;i++) {
+			for(int j=(int)((Person)A).getRenderArea().getX();j<=(int)((Person)A).getRenderArea().getX()+(int)((Person)A).getRenderArea().getWidth() && j/TILE_SIZE<=60 ;j++) {
 				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
@@ -78,8 +78,8 @@ public class Obj {
 	
 	public static boolean collisionTwo_sculpture(Sculpture A) {
 		boolean result = false;
-		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight();i++) {
-			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth();j++) {
+		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight() && i/TILE_SIZE<110 ;i++) {
+			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth() && j/TILE_SIZE<=60 ;j++) {
 				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
@@ -216,6 +216,10 @@ public class Obj {
 						
 						break;
 					}
+					case Sculpture : {
+						((Sculpture)B).interact(((Criminal)A));
+						break;
+					}
 					default : break;
 				}
 				break;
@@ -233,6 +237,10 @@ public class Obj {
 						
 						break;
 					}
+					case Sculpture : {
+						((Sculpture)B).interact(((Commander)A));
+						break;
+					}
 					default : break;
 				}
 				break;
@@ -245,11 +253,24 @@ public class Obj {
 						
 						break;
 					}
+					case Sculpture : {
+						((Sculpture)B).interact(((Captive)A));
+						break;
+					}
 					default : break;
 				}
 				break;
 			}
-			
+			case Sculpture : {
+				switch(B.getId()) {
+					case Sculpture : {
+						((Sculpture)B).interact(((Sculpture)A));
+						break;
+					}
+					default : break;
+				}
+				break;
+			}
 			default : break;
 		}
 		return ;

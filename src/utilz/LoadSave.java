@@ -51,6 +51,8 @@ public class LoadSave {
 	public static final String Player_Animation_Right_6 = "Animation/T_Right_6.png";
 	public static final String Player_Animation_Right_7 = "Animation/T_Right_7.png";
 	
+	public static final String Criminal_Animation_Temp = "Animation/T_Temp_Tar.jpg";
+	
 	public static final String PRESS_E = "Objects/pressE.jpg";
 	public static final String KNIFE = "Objects/knife.png";
 	public static final String KNIFE_USED = "Objects/knifeUsed.png";

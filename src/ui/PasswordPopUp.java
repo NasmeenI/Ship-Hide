@@ -22,6 +22,7 @@ import static utilz.Constants.DoorJail.*;
 public class PasswordPopUp {
 	
 	private String correctPassword;
+	public static boolean accessGranted = false;
 	
 	public PasswordPopUp() {
 		/*
@@ -56,6 +57,7 @@ public class PasswordPopUp {
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             if (passwordField.getText().equals(correctPassword)) {
+            	accessGranted = true;
             	DoorJail.setOpened(true);
             	Map.getInstance().setStageMap(X_POS_DOORJAIL, Y_POS_DOORJAIL+2, 1);
             	GameProcess.save();

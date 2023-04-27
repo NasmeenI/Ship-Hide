@@ -35,7 +35,7 @@ public class MusiumDoor extends GameObject implements StableObject {
 		int cnt = 0;
 		for(int i=0;i<4;i++) {
 			for(int j=0;j<4;j++) {
-				if(Math.abs(sculpture[i].getxPos()/TILE_SIZE - password[i][0]) <= 2 && Math.abs(sculpture[i].getyPos()/TILE_SIZE - password[i][1]) <= 2) {
+				if(Math.abs(sculpture[i].getxPos()/TILE_SIZE - password[j][0]) <= 2 && Math.abs(sculpture[i].getyPos()/TILE_SIZE - password[j][1]) <= 2) {
 					cnt++;
 					break;
 				}				

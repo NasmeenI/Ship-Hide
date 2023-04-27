@@ -19,7 +19,7 @@ public abstract class Person extends GameObject {
 	private static final long serialVersionUID = 1L;
 	protected int Hp, bullets;
 	protected boolean gun, knife;
-	protected int used;
+	protected int used, prvUsed;
 	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime, interval;
 	private int direction = 9;
 	protected String direct, prv_direct = null;
@@ -27,7 +27,7 @@ public abstract class Person extends GameObject {
 	transient protected Rectangle footArea;
 	transient protected Rectangle renderArea;
 	
-	protected boolean chasing 	= false;
+	protected boolean chasing = false;
 	public static PathFinder pathFinder = new PathFinder();
 	private int[][] mapTileNum = Map.getInstance().getMapTileNum();
 
@@ -40,8 +40,9 @@ public abstract class Person extends GameObject {
 	public Person(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
 		super(xPos, yPos, id, xDif, yDif, w, h);
 		setFootArea(new Rectangle(xPos + xDif, yPos + yDif + h - 10, w, 10));
-		setRenderArea(new Rectangle(xPos + xDif, yPos + yDif + 40, w, h-40));
+		setRenderArea(new Rectangle(xPos + xDif, yPos + yDif + 40, w, h - 40));
 		setUsed(1);
+		setPrvUsed(1);
 		setDirect("Z");
 		setPrv_direct("Z");
 		setHp(100);				// default
@@ -249,6 +250,14 @@ public abstract class Person extends GameObject {
 		return ;
 	}
 	
+	public int getPrvUsed() {
+		return prvUsed;
+	}
+
+	public void setPrvUsed(int prvUsed) {
+		this.prvUsed = prvUsed;
+	}
+
 	public int getSpriteCnt() {
 		return SpriteCnt;
 	}

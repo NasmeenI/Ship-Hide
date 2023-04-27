@@ -20,6 +20,7 @@ public class KeyInput implements Serializable{
 		if(keyInt == KeyCode.R) key.R = true;
 		if(keyInt == KeyCode.E) key.E = true;
 		if(keyInt == KeyCode.K) key.K = true;
+		if(keyInt == KeyCode.Q) key.Q = true;
 		if(keyInt == KeyCode.LEFT) key.LEFT = true;
 		if(keyInt == KeyCode.RIGHT) key.RIGHT = true;
 		if(keyInt == KeyCode.UP) key.UP = true;
@@ -50,6 +51,7 @@ public class KeyInput implements Serializable{
 		if(keyInt == KeyCode.R) key.R = false;
 		if(keyInt == KeyCode.E) key.E = false;
 		if(keyInt == KeyCode.K) key.K = false;
+		if(keyInt == KeyCode.Q) key.Q = false;
 		if(keyInt == KeyCode.LEFT) key.LEFT = false;
 		if(keyInt == KeyCode.RIGHT) key.RIGHT = false;
 		if(keyInt == KeyCode.UP) key.UP = false;

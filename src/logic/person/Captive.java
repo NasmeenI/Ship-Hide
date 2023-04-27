@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
+import ui.PasswordPopUp;
 import utilz.Checker;
 import utilz.Obj;
 
@@ -24,7 +25,6 @@ public class Captive extends Person {
         setyVelo(yVelo);
         setHp(100);
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
-       	chasing = true;
         initImg();
 	}
 
@@ -36,17 +36,29 @@ public class Captive extends Person {
 
 	@Override
 	public void update() {
+		Obj.collision(this);
+		if(PasswordPopUp.accessGranted) {
+			chasing = true;
+			setxVelo(3);
+			setyVelo(3);
+		}
+		else {
+			setxVelo(.5f);
+			setyVelo(.5f);
+		}
 		if(chasing) {
 			Point mP = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().Player));
 		}
+		else randomWalk(60);
 		if(Obj.distance(this, Handler.getInstance().Player) <= 100) setReady(true);
 		else setReady(false);
 		
 		setBeforeTwo(Obj.collisionTwo(this));
-		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getxDif(), getW(), getH()));
-		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));
+		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH()));
+		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
+		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));	
 	}
 	
 	@Override
@@ -58,7 +70,7 @@ public class Captive extends Person {
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-		ShowPath(gc);
+
 		gc.setFill(Color.PINK);
 		gc.fillRect(getxPos() + getxDif(), getyPos() + getxDif(), getW(), getH());
 	}

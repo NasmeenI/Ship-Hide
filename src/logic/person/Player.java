@@ -39,6 +39,7 @@ public class Player extends Person {
 	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	private final int defaultAni = 9;
 	transient private Image currentAni, previousAni;
+	private boolean swaped = false;
 	
 	public ArrayList<GameObject> bag;
 	
@@ -49,14 +50,15 @@ public class Player extends Person {
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
 		initImg();
-		setHp(20000);
+		setHp(5000);
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
 		previousAni = T_Up[defaultAni];
+		
 		// Tempt
-		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
-		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
+//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
+//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 	}
 	
 	public void initImg() {
@@ -124,24 +126,35 @@ public class Player extends Person {
 		
 		setKey(input.key);
 		
-		if(key.ONE) {
+		if(key.ONE && getUsed() != 1) {
+			setPrvUsed(getUsed());
 			setUsed(1);
 			if(getUsed() == 1) setAc(.8f, .4f);
 		}
-		if(key.TWO) {
+		if(key.TWO && getUsed() != 2) {
+			setPrvUsed(getUsed());
 			setUsed(2);
 			if(getUsed() == 2) {
 				setAc(.7f, .35f);
 				setKnifeTime(90);
 			}
 		}
-		if(key.THREE) {
+		if(key.THREE && getUsed() != 3) {
+			setPrvUsed(getUsed());
 			setUsed(3);
 			if(getUsed() == 3) {
 				setAc(.5f, .25f);
 				setBulletTime(20);
 			}
 		}
+		
+		if(key.Q && !swaped) {
+			int temp = getUsed();
+			setUsed(getPrvUsed());
+			setPrvUsed(temp);
+			swaped = true;
+		}
+		else if(!key.Q) swaped = false;
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));

@@ -112,8 +112,13 @@ public class GameProcess {
 	private void initial() {
 		ui = new Ui(this);
 		cam = new Camera(0, 0);
+		
+		
+		// * Start Point : 500, 500
+		// * Nearby Captive Room : 2600, 600
+		// * Musium Room : 2700, 2000
 
-		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
+		Handler.getInstance().Player = new Player(2700, 2000, ID.Player, input);
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();
@@ -156,7 +161,7 @@ public class GameProcess {
 		root.getChildren().addAll(box);
 		
 		// HP Bar
-		double hp = (double)Handler.getInstance().Player.getHp()/20000.0;
+		double hp = (double)Handler.getInstance().Player.getHp()/5000.0;
 		pb.setProgress(hp);
 		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
 		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");

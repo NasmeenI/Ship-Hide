@@ -40,6 +40,7 @@ public class Commander extends Person {
 	public void update() {
 		
 		if(getHp() == 0) Handler.getInstance().removeObject(this);
+		Obj.collision(this);
 		
 		if(Obj.distance(this, Handler.getInstance().Player) <= 300) {
 			chasing = true;
@@ -51,8 +52,6 @@ public class Commander extends Person {
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
-		
-		Obj.collision(this);
 		
 		if(chasing) {
 			Point mP = getMiddlePoint(Handler.getInstance().Player.getFootArea());

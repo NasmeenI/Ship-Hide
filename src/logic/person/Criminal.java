@@ -1,6 +1,7 @@
 package logic.person;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.base.Handler;
@@ -8,6 +9,7 @@ import logic.base.ID;
 import logic.base.Point;
 import logic.container.Gun;
 import utilz.Checker;
+import utilz.LoadSave;
 import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
@@ -17,24 +19,32 @@ public class Criminal extends Person {
 	
 	private static final long serialVersionUID = 1L;
 	private Gun gun;
+	
+	transient private Image T_Temp;
 
 	public Criminal(int xPos, int yPos, ID id, double xVelo, double yVelo) {
         super(xPos, yPos, id, 10, 5 , P_WIDTH , P_HEIGHT);
         setxVelo(xVelo);
         setyVelo(yVelo);
-        setHp(1000	);
+        setHp(1000);
         setGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
         
         // Tempt
         setGun(true);
         setUsed(3);
+        initImg();
     }
+	
+	public void initImg() {
+		T_Temp = LoadSave.GetSpriteAtlas(LoadSave.Criminal_Animation_Temp);
+	}
 
 	@Override
 	public void update() {
-		Obj.collision(this);
+
 		if(getHp() == 0) Handler.getInstance().removeObject(this);
+		Obj.collision(this);
 		
 		if(Obj.distance(this, Handler.getInstance().Player) <= 200) {
 			chasing = true;
@@ -95,8 +105,9 @@ public class Criminal extends Person {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 //		showFootArea(gc);
 //		ShowPath(gc);
-		gc.setFill(Color.RED);
-		gc.fillRect(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH());
+//		gc.setFill(Color.RED);
+//		gc.fillRect(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH());
+		gc.drawImage(T_Temp, xPos, yPos);
 		return ;
 	}
 
@@ -123,12 +134,6 @@ public class Criminal extends Person {
 		if(!KnifeAvailable() || !chasing || Handler.getInstance().Player == null) return ;
 		
 		return ;
-	}
-
-	@Override
-	public void initImg() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void setGun() {

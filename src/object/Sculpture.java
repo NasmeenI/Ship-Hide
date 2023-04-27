@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
+import logic.base.Handler;
 import logic.base.ID;
 import logic.person.Person;
 import logic.person.Player;
@@ -22,8 +23,17 @@ public class Sculpture extends GameObject {
 	}
 
 	public void update() {
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 85, 70, 60));
+		Obj.collision(this);
+		
+		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
+            if(Handler.getInstance().allObjects.get(i).getCode() == getCode()) continue;
+            if((Handler.getInstance().allObjects.get(i) instanceof Sculpture) && getSolidArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
+                Obj.action(this, Handler.getInstance().allObjects.get(i));
+            }
+        }
+		
 		Obj.pushOffWall(this);
+		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 85, 70, 60));
 	}
 
 	@Override
@@ -34,7 +44,6 @@ public class Sculpture extends GameObject {
 	}
 	
 	public void interact(GameObject X) {
-		
 		if(X instanceof Person) {
 			Rectangle RA = new Rectangle(getSolidArea().getX() + X.getxVelo(), getSolidArea().getY() + X.getyVelo(), getSolidArea().getWidth(), getSolidArea().getHeight());
 			if(Obj.collisionZeroRect(RA)) {
@@ -43,10 +52,15 @@ public class Sculpture extends GameObject {
 			}else {
 				setxPos(getxPos() + X.getxVelo());
 				setyPos(getyPos() + X.getyVelo());
+//				if(((Person) X).getFootArea().intersects(this.getSolidArea().getBoundsInLocal())) Obj.pushOffFrom(X, this);
 			}
 			setBeforeTwo(Obj.collisionTwo_sculpture(this));
 			X.setxVelo(0);
 			X.setyVelo(0);
+		}
+		if(X instanceof Sculpture) {
+			Obj.pushOffFrom(X, this);
+			System.out.println("Hi");
 		}
 	}
 	

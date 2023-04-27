@@ -29,7 +29,7 @@ public class AssetSetter {
 	public void setObject() {
 		
 		// Captive
-		Handler.getInstance().addObject(new Captive(3000, 600, ID.Captive, 2, 2));
+		Handler.getInstance().addObject(new Captive(3450, 620, ID.Captive, 2, 2));
 		
 		// Criminal
 		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
