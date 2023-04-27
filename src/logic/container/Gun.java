@@ -21,6 +21,9 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	public boolean picked;
 	private boolean visible;
 	transient private Image image ,imageUsed;
+	
+	private double littleMove = 1;
+	private double count = 0;
 
 	public Gun(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 120, 70);
@@ -48,8 +51,12 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		if(littleMove <= -1) count = 0.05f;
+		if(littleMove >= 1) count = -0.05f;
 		
+		littleMove += count;
+		
+		setyPos(getyPos() + littleMove);
 	}
 
 	public void initImg() {

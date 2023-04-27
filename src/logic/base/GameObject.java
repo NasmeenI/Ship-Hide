@@ -54,6 +54,7 @@ public abstract class GameObject implements Serializable {
 	}
 	
 	public abstract void update();
+	public abstract void initImg();
 	public abstract void render(GraphicsContext gc);
 	
 	public void ShowSolidArea(GraphicsContext gc) {
@@ -164,6 +165,4 @@ public abstract class GameObject implements Serializable {
 	public void setBeforeTwo(boolean beforeTwo) {
 		this.beforeTwo = beforeTwo;
 	}
-
-	public abstract void initImg();
 }

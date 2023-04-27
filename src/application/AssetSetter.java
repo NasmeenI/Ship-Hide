@@ -16,7 +16,7 @@ import object.DoorJail;
 import object.Helicopter;
 import object.Label;
 import object.Lazer;
-import object.MusiumDoor;
+import object.MuseumDoor;
 import object.Sculpture;
 import utilz.Checker;
 import static utilz.Constants.GameProcess.*;
@@ -24,6 +24,7 @@ import static utilz.Constants.GameProcess.*;
 public class AssetSetter {
 	
 	public AssetSetter() {
+		
 	}
 	
 	public void setObject() {
@@ -31,19 +32,24 @@ public class AssetSetter {
 		// Captive
 		Handler.getInstance().addObject(new Captive(3450, 620, ID.Captive, 2, 2));
 		
-		// Criminal
-		Handler.getInstance().addObject(new Criminal(600, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(600, 800, ID.Criminal, 2, 2));
+		// Criminal Room 1&2
+		Handler.getInstance().addObject(new Criminal(820, 1200, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(900, 700, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1000, 2200, ID.Criminal, 2, 2));
 		Handler.getInstance().addObject(new Criminal(1200, 1500, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(800, 1200, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(900, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1200, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1300, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1400, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1250, 600, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1450, 650, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(1750, 1550, ID.Criminal, 2, 2));
+		
+		// Criminal Room 3&4
+		Handler.getInstance().addObject(new Criminal(2600, 2000, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(3300, 1150, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(3300, 1200, ID.Criminal, 2, 2));
 		
 		// Commander
 		Handler.getInstance().addObject(new Commander(2600, 600, ID.Commander, 2, 2));
 		Handler.getInstance().addObject(new Commander(1200, 1200, ID.Commander, 2, 2));
+		Handler.getInstance().addObject(new Commander(3700, 1500, ID.Commander, 2, 2));
 		
 		
 		// Sculptures
@@ -57,7 +63,8 @@ public class AssetSetter {
 //		sculpture[0] = new Sculpture(68 * TILE_SIZE ,46 * TILE_SIZE, ID.Sculpture);
 //		sculpture[1] = new Sculpture(52 * TILE_SIZE ,40 * TILE_SIZE, ID.Sculpture); 
 //		sculpture[2] = new Sculpture(72 * TILE_SIZE ,41 * TILE_SIZE, ID.Sculpture); 
-//		sculpture[3] = new Sculpture(58 * TILE_SIZE ,42 * TILE_SIZE, ID.Sculpture); 
+//		sculpture[3] = new Sculpture(58 * TILE_SIZE ,42 * TILE_SIZE, ID.Sculpture);
+		
 		for(int i=0;i<4;i++) Handler.getInstance().allObjects.add(sculpture[i]);	
 		
 		// Computer
@@ -100,7 +107,7 @@ public class AssetSetter {
 		Handler.getInstance().allObjects.add(new Door(31 * TILE_SIZE ,31 * TILE_SIZE, ID.Door1, ID.Key1));
 		Handler.getInstance().allObjects.add(new Door(46 * TILE_SIZE ,45 * TILE_SIZE, ID.Door2, ID.Key2));
 		Handler.getInstance().allObjects.add(new DoorJail(71 * TILE_SIZE,15 * TILE_SIZE, ID.DoorJail));
-		Handler.getInstance().allObjects.add(new MusiumDoor(53 * TILE_SIZE ,31 * TILE_SIZE, ID.MusiumDoor ,sculpture));
+		Handler.getInstance().allObjects.add(new MuseumDoor(53 * TILE_SIZE ,31 * TILE_SIZE, ID.MusiumDoor ,sculpture));
 		
 		// Lazer_1
 		for(int i=48;i<=54;i+=3) {

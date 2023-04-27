@@ -12,7 +12,7 @@ import application.GameProcess;
 import static utilz.Constants.GameProcess.*;
 import static utilz.Constants.Debug.*;
 
-public class MusiumDoor extends GameObject implements StableObject {
+public class MuseumDoor extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	private boolean opened;
@@ -22,7 +22,7 @@ public class MusiumDoor extends GameObject implements StableObject {
 	private int[][] password;
 	private boolean saved = false;
 	
-	public MusiumDoor(int xPos, int yPos, ID id, Sculpture[] sculpture) {
+	public MuseumDoor(int xPos, int yPos, ID id, Sculpture[] sculpture) {
 		super(xPos, yPos, id ,0 ,10 ,100 ,100);
 		setOpened(false);
 		this.sculpture = sculpture;

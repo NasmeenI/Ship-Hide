@@ -18,6 +18,9 @@ public class KeyLocker extends GameObject implements StableObject, Pickable {
 	public boolean picked;
 	transient public Image image;
 	
+	private double littleMove = 1;
+	private double count = 0;
+	
 	public KeyLocker(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 60, 90);
 		initImg();
@@ -37,6 +40,15 @@ public class KeyLocker extends GameObject implements StableObject, Pickable {
 		}
 		
 	}
+	
+	public void update() {
+		if(littleMove <= -1) count = 0.05f;
+		if(littleMove >= 1) count = -0.05f;
+		
+		littleMove += count;
+		
+		setyPos(getyPos() + littleMove);
+	}
 
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
@@ -49,12 +61,6 @@ public class KeyLocker extends GameObject implements StableObject, Pickable {
 		player.addItemInBag(this);
 		Handler.getInstance().removeObject(this);
 		GameProcess.save();
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	// Getters & Setters

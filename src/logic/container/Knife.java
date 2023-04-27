@@ -18,6 +18,9 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 	public boolean picked;
 	private boolean visible;
 	transient private Image image ,imageUsed;
+	
+	private double littleMove = 1;
+	private double count = 0;
 
 	public Knife(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 0, 0, 100, 50);
@@ -35,6 +38,14 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 
 	public void update() {
 		if(!isVisible()) Handler.getInstance().removeObject(this);
+		
+		if(littleMove <= -1) count = 0.05f;
+		if(littleMove >= 1) count = -0.05f;
+		
+		littleMove += count;
+		
+		setyPos(getyPos() + littleMove);
+		
 		return ;
 	}
 

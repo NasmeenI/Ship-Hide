@@ -21,6 +21,9 @@ public class Magazine extends GameObject implements StableObject ,Pickable {
 	transient private Image image;
 	private int numMaxBullet;
 	
+	private double littleMove = 1;
+	private double count = 0;
+	
 	public Magazine(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 50, 50);
 		setPicked(false);
@@ -44,7 +47,12 @@ public class Magazine extends GameObject implements StableObject ,Pickable {
 	}
 
 	public void update() {
-		// TODO Auto-generated method stub
+		if(littleMove <= -1) count = 0.05f;
+		if(littleMove >= 1) count = -0.05f;
+		
+		littleMove += count;
+		
+		setyPos(getyPos() + littleMove);
 		
 	}
 	

@@ -15,6 +15,9 @@ public class HpBottle extends GameObject implements StableObject {
 	private static final long serialVersionUID = 1L;
 	public boolean picked;
 	transient private Image image;
+	
+	private double littleMove = 1;
+	private double count = 0;
 
 	public HpBottle(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 10, 10, 50, 60);
@@ -24,7 +27,12 @@ public class HpBottle extends GameObject implements StableObject {
 	
 	@Override
 	public void update() {
-
+		if(littleMove <= -1) count = 0.05f;
+		if(littleMove >= 1) count = -0.05f;
+		
+		littleMove += count;
+		
+		setyPos(getyPos() + littleMove);
 	}
 
 	@Override

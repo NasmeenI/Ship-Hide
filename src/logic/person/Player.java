@@ -129,23 +129,16 @@ public class Player extends Person {
 		if(key.ONE && getUsed() != 1) {
 			setPrvUsed(getUsed());
 			setUsed(1);
-			if(getUsed() == 1) setAc(.8f, .4f);
 		}
 		if(key.TWO && getUsed() != 2) {
 			setPrvUsed(getUsed());
 			setUsed(2);
-			if(getUsed() == 2) {
-				setAc(.7f, .35f);
-				setKnifeTime(90);
-			}
+			if(getUsed() == 2) setKnifeTime(90);
 		}
 		if(key.THREE && getUsed() != 3) {
 			setPrvUsed(getUsed());
 			setUsed(3);
-			if(getUsed() == 3) {
-				setAc(.5f, .25f);
-				setBulletTime(20);
-			}
+			if(getUsed() == 3) setBulletTime(20);
 		}
 		
 		if(key.Q && !swaped) {
@@ -155,6 +148,10 @@ public class Player extends Person {
 			swaped = true;
 		}
 		else if(!key.Q) swaped = false;
+		
+		if(getUsed() == 1) setAc(.8f, .4f);
+		if(getUsed() == 2) setAc(.7f, .35f);
+		if(getUsed() == 3) setAc(.5f, .25f);
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));
@@ -224,7 +221,7 @@ public class Player extends Person {
 		
 		int newXPos = 0 ,newYPos = 0;
 		if(_Vx >= 0) newXPos = ((int)((getxPos() + _Vx - 10)/48));			
-		else newXPos = ((int)((getxPos() + _Vx - 20)/48));	
+		else newXPos = ((int)((getxPos() + _Vx - 20)/48));
 		
 		if(_Vy >= 0) newYPos = ((int)((getyPos() + _Vy - 4)/48)) + 2;		 	
 		else newYPos = ((int)((getyPos() + _Vy - 20)/48)) + 2;
@@ -235,7 +232,7 @@ public class Player extends Person {
 
 //		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
-		
+//		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //			setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
