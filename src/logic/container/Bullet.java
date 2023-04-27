@@ -1,6 +1,7 @@
 package logic.container;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.base.Attackable;
@@ -8,6 +9,9 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Map;
+import utilz.Checker;
+import utilz.LoadSave;
+
 import static utilz.Constants.Debug.*;
 
 public class Bullet extends GameObject implements Attackable {
@@ -15,39 +19,55 @@ public class Bullet extends GameObject implements Attackable {
 	private static final long serialVersionUID = 1L;
 	private int maxDamage, minDamage;
 	
+//	private Image[] animationBullet;
+//	private Image currentAni = null;
+	
 	public Bullet(double xPos, double yPos, ID id) {
-		super(xPos, yPos, id, 0, 0, 12, 12);
+		super(xPos, yPos, id, 7, 3, 16, 16);
 		setxVelo(0);
 		setyVelo(0);
 		setMinDamage(30);
 		setMaxDamage(120);
+		initImg();
 	}
 	
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo) {
-		super(xPos, yPos, id, 0, 0, 12, 12);
+		super(xPos, yPos, id, 7, 3, 16, 16);
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(30);
 		setMaxDamage(120);
+		initImg();
 	}
 
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo, int MxD, int MnD) {
-		super(xPos, yPos, id, 0, 0, 12, 12);
+		super(xPos, yPos, id, 7, 3, 16, 16);
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(MxD);
 		setMaxDamage(MnD);
+		initImg();
 	}
 	
 	public Bullet(double xPos, double yPos, ID id, int MxD, int MnD) {
-		super(xPos, yPos, id, 0, 0, 12, 12);
+		super(xPos, yPos, id, 7, 3, 16, 16);
 		setMinDamage(MxD);
 		setMaxDamage(MnD);
+		initImg();
+	}
+	
+	public void initImg() {
+//		animationBullet = new Image[12];
+//		animationBullet[0] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
+//		animationBullet[1] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
+//		animationBullet[2] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
+//		animationBullet[3] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
+//		
+//		currentAni = animationBullet[0];
 	}
 
 	@Override
 	public void update() {
-//		move();
 		
 		double _Vx = getxVelo();
 		double _Vy = getyVelo();
@@ -71,7 +91,7 @@ public class Bullet extends GameObject implements Attackable {
 		setxVelo(_Vx);
 		setyVelo(_Vy);
 		
-		setSolidArea(new Rectangle((int)getxPos(), (int)getyPos(), 12, 12));
+		setSolidArea(new Rectangle((int)getxPos() + 7, (int)getyPos() + 3, 16, 16));
 		return ;
 	}
 
@@ -79,8 +99,16 @@ public class Bullet extends GameObject implements Attackable {
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
-		gc.setFill(Color.BLACK);
-		gc.fillOval((int)getxPos(), (int)getyPos(), 8, 8);
+		switch(Checker.GetDirectionByVelo(getxVelo(), getyVelo())) {
+			case "L" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left), xPos, yPos); break;
+			case "R" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Right), xPos, yPos); break;
+			case "U" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Up), xPos, yPos); break;
+			case "D" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Down), xPos, yPos); break;
+			default : break;
+		}
+		
+//		gc.setFill(Color.BLACK);
+//		gc.fillOval((int)getxPos() + 7, (int)getyPos() + 3, 16, 16);
 		return ;
 	}
 	
@@ -93,13 +121,6 @@ public class Bullet extends GameObject implements Attackable {
 	public int dps_damage() {
 		return 0;
 	}
-	
-	@Override
-	public void initImg() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	// Getters & Setters
 	public int getMaxDamage() {

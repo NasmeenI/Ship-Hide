@@ -59,6 +59,7 @@ public class Player extends Person {
 		// Tempt
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
+		
 	}
 	
 	public void initImg() {
@@ -230,8 +231,8 @@ public class Player extends Person {
 //		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
 //		else setBeforeTwo(false);
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 //		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -267,22 +268,22 @@ public class Player extends Person {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		}
 		
-		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
-			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
-			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
-			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
-			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
-			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-		}
+//		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
+//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+//		}
+//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+//		}
+//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+//		}
+//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+//		}
+//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+//		}
 		
 		
 		setxVelo(_Vx);
