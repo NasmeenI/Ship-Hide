@@ -42,7 +42,7 @@ public class GameProcess {
 	private long lastUpdateTime;
 		
 	// BASE PROCESS
-	transient private KeyInput input = new KeyInput();
+	transient private static KeyInput input = new KeyInput();
 	private Camera cam;
 	
 	// SETTING MAP
@@ -72,12 +72,15 @@ public class GameProcess {
 	public static boolean load = false;
 	
 	public GameProcess(Stage stage) {
+
 		GameProcess.stage = stage;
 		Canvas canvas = new Canvas(960, 640);
 		root = new StackPane(canvas);
 		scene = new Scene(root);
 		gc = canvas.getGraphicsContext2D();
 		
+		initial();
+
 		run(gc);
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
 			input.keyPressed(key);
@@ -85,7 +88,6 @@ public class GameProcess {
 		scene.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
 			input.keyReleased(key);
 		});
-		initial();
 	}
 	
 	public void run(GraphicsContext gc) {
@@ -112,7 +114,7 @@ public class GameProcess {
 	private void initial() {
 		ui = new Ui(this);
 		cam = new Camera(0, 0);
-		
+		Map.getInstance();
 		
 		// * Start Point : 500, 500
 		// * Knife Room : 1000, 2200
@@ -144,8 +146,7 @@ public class GameProcess {
 		save();
 	}	
 	
-	private void update() {	
-		if(load) loadSave();
+	private void update() {			
 		setKey(input.key);
 		checkPress();
 		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {
@@ -225,7 +226,7 @@ public class GameProcess {
 		}
 	}
 	
-	public void loadSave() {
+	public static void loadSave() {
 		load = false;
 		try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("res/LoadSave/handler.ser"))) {
 		    Handler newHandler = (Handler) objectInputStream.readObject();
@@ -236,7 +237,6 @@ public class GameProcess {
 		    KeyInput inputTemp = input;
 		    inputTemp.key = new Keys();
 		    Handler.getInstance().updateAfterLoadSave(inputTemp);
-		    System.out.println(Handler.instance.Player.getBag());
 		}catch (Exception e){
 		    e.printStackTrace();
 		} 
@@ -251,25 +251,29 @@ public class GameProcess {
 	}
 	
 	public static void save() {
-		try{
-			FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/handler.ser");
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(Handler.getInstance());
-			objectOutputStream.close();
-		}catch(IOException e){
+		Thread save = new Thread(() -> {
+			// saving handler
+			try{
+				FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/handler.ser");
+				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+				objectOutputStream.writeObject(Handler.getInstance());
+				objectOutputStream.close();
+			}catch(IOException e){
 
-		}
-		
-		try{
-			FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/map.ser");
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(Map.getInstance());
-			objectOutputStream.close();
-		}catch(IOException e){
+			}
+			
+			// saving map
+			try{
+				FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/map.ser");
+				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+				objectOutputStream.writeObject(Map.getInstance());
+				objectOutputStream.close();
+			}catch(IOException e){
 
-		}
+			}	
+		});
+		save.start();
 	}
-	
 	
 	// Getters & Setters
 	public void setKey(Keys key) {

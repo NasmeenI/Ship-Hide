@@ -100,7 +100,6 @@ public class Door extends GameObject implements StableObject {
 				Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 2);
 			}
 		}
-		System.out.println("213");
 	}
 	
 	// Getters & Setters

@@ -18,6 +18,7 @@ public class Computer extends GameObject implements StableObject {
 	private static final long serialVersionUID = 1L;
 	transient private Image imageInteract;
 	private boolean interacted;
+	private boolean saved = false;
 	
 	public Computer(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -50, 0, 150, 150);
@@ -42,6 +43,11 @@ public class Computer extends GameObject implements StableObject {
 		PasswordPopUp ppu = new PasswordPopUp();
 		Obj.gridPane = ppu.ShowPasswordScene();
 		GameProcess.getRoot().getChildren().addAll(Obj.gridPane);
+		
+		if(!saved) {
+			GameProcess.save();
+			saved = true;
+		}
 	}
 	
 	public void initImg() {

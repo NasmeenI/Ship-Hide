@@ -33,6 +33,11 @@ public class MenuScene {
 		this.stage = stage;
 		MenuScene.start = false;
 		initStartScene();
+		
+		new CustomScene(stage);
+		new TutorialScene(stage);
+		new SettingScene(stage);
+		new LoadingScene(stage);
 	}
 
 	public void initStartScene() {
@@ -47,25 +52,31 @@ public class MenuScene {
 		VBox box = new VBox(
 			10,
 			new MenuItem("Start" ,() -> {
-				try {
-					MenuScene.start = true;
-					GameProcess gameProcess = new GameProcess(stage);
-					stage.setScene(GameProcess.scene);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				LoadingScene.loading();
+				MenuScene.start = true;
+				Thread loadGame = new Thread(() -> {
+					new GameProcess(stage);
+				});
+				loadGame.start();
+				
+				new Thread(() -> {
+					try {
+						loadGame.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					Platform.runLater(() -> stage.setScene(GameProcess.scene));
+				}).start();
 			}),
 			new MenuItem("Custom" ,() -> {
-				CustomScene customScene = new CustomScene(stage);
-				stage.setScene(customScene.getScene());
+				stage.setScene(CustomScene.scene);
 			}),
 			new MenuItem("Tutorial" ,() -> {
-				TutorialScene tutorialScene = new TutorialScene(stage);
-				stage.setScene(tutorialScene.getScene());
+				stage.setScene(TutorialScene.scene);
 			}),
 			new MenuItem("Setting" ,() -> {
-				SettingScene settingScene = new SettingScene(stage);
-				stage.setScene(settingScene.getScene());
+				stage.setScene(SettingScene.scene);
 			}),
 			new MenuItem("Exit" ,() -> Platform.exit())
 		);
@@ -98,16 +109,13 @@ public class MenuScene {
 				}
 			}),
 			new MenuItem("Custom" ,() -> {
-				CustomScene customScene = new CustomScene(GameProcess.stage);
-				GameProcess.stage.setScene(customScene.getScene());
+				GameProcess.stage.setScene(CustomScene.scene);
 			}),
 			new MenuItem("Tutorial" ,() -> {
-				TutorialScene tutorialScene = new TutorialScene(GameProcess.stage);
-				GameProcess.stage.setScene(tutorialScene.getScene());
+				GameProcess.stage.setScene(TutorialScene.scene);
 			}),
 			new MenuItem("Setting" ,() -> {
-				SettingScene settingScene = new SettingScene(GameProcess.stage);
-				GameProcess.stage.setScene(settingScene.getScene());
+				GameProcess.stage.setScene(SettingScene.scene);
 			}),
 			new MenuItem("Exit" ,() -> Platform.exit())
 		);

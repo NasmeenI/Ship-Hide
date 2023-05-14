@@ -40,7 +40,7 @@ public class Obj {
 	public static int dx[] = {-1, 0, 1, 0};
 	public static int dy[] = {0, -1, 0, 1};
 	private static boolean vit[][] = new boolean[240][240];
-	private static ArrayList<Rectangle> queue = new ArrayList();
+	private static ArrayList<Rectangle> queue = new ArrayList<Rectangle>();
 	
 	public static boolean collisionZero(GameObject A) {
 		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
@@ -307,7 +307,6 @@ public class Obj {
 				if(newX < 0 || (newX + RT.getWidth()) / 48 > 109 || newY < 0 || (newY + RT.getHeight()) / 48 > 59) continue;
 				if(newX - Tx < 0 || newX - Tx >= 240 || newY - Ty < 0 || newY - Ty >= 240 || vit[newX - Tx][newY - Ty]) continue;
 				Rectangle RX = new Rectangle(newX, newY, RT.getWidth(), RT.getHeight());
-				System.out.println(newX + " " + newY);
 				if(!Obj.collisionZeroRect(RX)) {
 					A.setxPos(RX.getX() - rStart.getX() + A.getxPos());
 					A.setyPos(RX.getY() - rStart.getY() + A.getyPos());

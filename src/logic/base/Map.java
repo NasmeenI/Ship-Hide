@@ -80,7 +80,6 @@ public class Map implements Serializable {
 	
 	public void render_1(GraphicsContext gc) {
 		gc.drawImage(map_1 , 0, 0);
-		
 	}
 
 	public void render_2(GraphicsContext gc ,int xTile ,int yTile) {

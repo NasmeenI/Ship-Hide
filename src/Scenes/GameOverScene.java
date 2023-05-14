@@ -31,12 +31,27 @@ public class GameOverScene {
 		HBox box = new HBox(
 			10,
 			new MenuScene.MenuItem("New Game" ,() -> {
-				MenuScene.start = false;
+				new MenuScene(stage);			
 				stage.setScene(MenuScene.startScene);
 			}),
 			new MenuScene.MenuItem("Load Save" ,() -> {
-				GameProcess.setLoad(true);
-				stage.setScene(MenuScene.continueScene);
+				LoadingScene.loading();
+			
+				Thread loadSave = new Thread(() -> {
+					GameProcess.loadSave();	
+				});
+				loadSave.start();
+				
+				new Thread(() ->{
+					try {
+						loadSave.join();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Platform.runLater(() -> stage.setScene(MenuScene.continueScene));
+				}).start();;
 			}),
 			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())
 		);

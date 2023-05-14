@@ -47,7 +47,6 @@ public class Handler implements Serializable {
 	public void render(GraphicsContext gc) {
 		for(int i = 0; i < allObjects.size(); i++) {
 			if(!Checker.IsStableObject(allObjects.get(i).getId())) {
-//				System.out.println(allObjects.get(i));
 				allObjects.get(i).render(gc);
 			}
 		}

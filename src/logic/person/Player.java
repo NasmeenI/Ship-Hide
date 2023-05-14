@@ -11,7 +11,6 @@ import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
 import logic.container.Gun;
-import logic.container.KeyLocker;
 import logic.container.Knife;
 import object.Sculpture;
 import utilz.Checker;
@@ -268,23 +267,22 @@ public class Player extends Person {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		}
 		
-//		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//		}
-//		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//		}
-		
+		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+		}
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+		}
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+		}
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+		}
+		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+		}
 		
 		setxVelo(_Vx);
 		setyVelo(_Vy);
