@@ -24,13 +24,13 @@ import application.GameProcess;
 import static utilz.Constants.GameState.*;
 
 public class MenuScene {
-	private Stage stage;
+	private static Stage stage;
 	public static Scene startScene;
 	public static Scene continueScene;
 	public static boolean start;
 	
 	public MenuScene(Stage stage) {
-		this.stage = stage;
+		MenuScene.stage = stage;
 		MenuScene.start = false;
 		initStartScene();
 		
@@ -55,7 +55,7 @@ public class MenuScene {
 				LoadingScene.loading();
 				MenuScene.start = true;
 				Thread loadGame = new Thread(() -> {
-					new GameProcess(stage);
+					new GameProcess(MenuScene.stage);
 					GameProcess.save();
 				});
 				loadGame.start();
@@ -67,7 +67,7 @@ public class MenuScene {
 						e.printStackTrace();
 					}
 					
-					Platform.runLater(() -> stage.setScene(GameProcess.scene));
+					Platform.runLater(() -> MenuScene.stage.setScene(GameProcess.scene));
 				}).start();
 			}),
 			new MenuItem("Load Save" ,() -> {
@@ -87,14 +87,14 @@ public class MenuScene {
 						e.printStackTrace();
 					}
 					
-					Platform.runLater(() -> stage.setScene(GameProcess.scene));
+					Platform.runLater(() -> MenuScene.stage.setScene(GameProcess.scene));
 				}).start();
 			}),
 			new MenuItem("Tutorial" ,() -> {
-				stage.setScene(TutorialScene.scene);
+				MenuScene.stage.setScene(TutorialScene.scene);
 			}),
 			new MenuItem("Setting" ,() -> {
-				stage.setScene(SettingScene.scene);
+				MenuScene.stage.setScene(SettingScene.scene);
 			}),
 			new MenuItem("Exit" ,() -> Platform.exit())
 		);
@@ -126,8 +126,34 @@ public class MenuScene {
 					e.printStackTrace();
 				}
 			}),
-			new MenuItem("Custom" ,() -> {
-				GameProcess.stage.setScene(CustomScene.scene);
+			new MenuItem("Load Save" ,() -> {
+				LoadingScene.loading();
+				
+				Thread loadSave = new Thread(() -> {
+					GameProcess.loadSave();	
+				});
+				loadSave.start();
+				
+				new Thread(() ->{
+					try {
+						loadSave.join();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Platform.runLater(() -> {
+						try {
+							GameProcess.setGameState(PLAY_STATE); 
+							gameProcess.run(gameProcess.getGc());
+							gameProcess.setESCState(false);
+							gameProcess.setFalseKeyESC();
+							GameProcess.stage.setScene(GameProcess.scene);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
+				}).start();
 			}),
 			new MenuItem("Tutorial" ,() -> {
 				GameProcess.stage.setScene(TutorialScene.scene);
