@@ -129,7 +129,7 @@ public class GameProcess {
 		
 		// INITIAL SCENE
 		MenuScene.initContinueScene(this);
-		gameOverScene = new GameOverScene(stage);
+		gameOverScene = new GameOverScene(stage, this);
 		gameComplete = new GameComplete(stage);
 		
 		// CHECK POINT
@@ -142,8 +142,6 @@ public class GameProcess {
 		pb.setPrefHeight(30);
 		pb.setStyle("-fx-accent: green;");
 		root.getChildren().addAll(pb);
-		
-		save();
 	}	
 	
 	private void update() {			

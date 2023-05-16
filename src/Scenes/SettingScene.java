@@ -1,10 +1,11 @@
 package Scenes;
 
+import Scenes.MenuScene.MenuItem;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utilz.LoadSave;
 
@@ -20,16 +21,20 @@ public class SettingScene {
 		root.getChildren().add(canvas);
 		
 		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MENU_SCENE) ,0 ,0 ,960 ,640);
+        
+        VBox box = new VBox(
+    			10,
+    			new MenuItem("Desperate" ,() -> {
+    				stage.setScene(MenuScene.getScene());
+    			}),
+    			new MenuItem("Detective" ,() -> {
+    				stage.setScene(MenuScene.getScene());
+    			})
+    		);
+    		box.setTranslateX(100);
+    		box.setTranslateY(200);
 		
-		Button backButton = new Button("Back");
-		backButton.setTranslateX(-370);
-		backButton.setTranslateY(-250);
-        backButton.setOnAction(event -> {
-        	if(!MenuScene.start) stage.setScene(MenuScene.startScene);
-        	else stage.setScene(MenuScene.continueScene);
-        });
-		
-		root.getChildren().addAll(backButton);	
+		root.getChildren().addAll(box);	
 	}
 	
 	public Scene getScene() {

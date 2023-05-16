@@ -1,5 +1,7 @@
 package Scenes;
 
+import Scenes.MenuScene.MenuItem;
+import application.GameProcess;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -15,10 +17,10 @@ public class GameComplete {
 	
 	public GameComplete(Stage stage) {
 		this.stage = stage;
-		initStartScene();
+		initScene();
 	}
 
-	public void initStartScene() {
+	public void initScene() {
 		StackPane root = new StackPane();
 		scene = new Scene(root);
 		Canvas canvas = new Canvas(960 ,640);
@@ -29,9 +31,23 @@ public class GameComplete {
 		
 		HBox box = new HBox(
 			10,
-			new MenuScene.MenuItem("New Game" ,() -> {
-				MenuScene.start = false;
-				stage.setScene(MenuScene.startScene);
+			new MenuItem("New Game" ,() -> {
+				LoadingScene.loading();
+				MenuScene.start = true;
+				Thread loadGame = new Thread(() -> {
+					new GameProcess(stage);
+				});
+				loadGame.start();
+				
+				new Thread(() -> {
+					try {
+						loadGame.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					Platform.runLater(() -> stage.setScene(GameProcess.scene));
+				}).start();
 			}),
 			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())
 		);

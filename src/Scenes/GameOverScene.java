@@ -1,5 +1,8 @@
 package Scenes;
 
+import static utilz.Constants.GameState.PLAY_STATE;
+
+import Scenes.MenuScene.MenuItem;
 import application.GameProcess;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -12,14 +15,16 @@ import utilz.LoadSave;
 
 public class GameOverScene {
 	private Stage stage;
+	private GameProcess gameProcess;
 	public static Scene scene;
 	
-	public GameOverScene(Stage stage) {
+	public GameOverScene(Stage stage, GameProcess gameProcess) {
 		this.stage = stage;
-		initStartScene();
+		this.gameProcess = gameProcess;
+		initScene();
 	}
 
-	public void initStartScene() {
+	public void initScene() {
 		StackPane root = new StackPane();
 		scene = new Scene(root);
 		Canvas canvas = new Canvas(960 ,640);
@@ -30,13 +35,27 @@ public class GameOverScene {
 		
 		HBox box = new HBox(
 			10,
-			new MenuScene.MenuItem("New Game" ,() -> {
-				new MenuScene(stage);			
-				stage.setScene(MenuScene.startScene);
-			}),
-			new MenuScene.MenuItem("Load Save" ,() -> {
+			new MenuItem("New Game" ,() -> {
 				LoadingScene.loading();
-			
+				MenuScene.start = true;
+				Thread loadGame = new Thread(() -> {
+					new GameProcess(stage);
+				});
+				loadGame.start();
+				
+				new Thread(() -> {
+					try {
+						loadGame.join();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					Platform.runLater(() -> stage.setScene(GameProcess.scene));
+				}).start();
+			}),
+			new MenuItem("Load Save" ,() -> {
+				LoadingScene.loading();
+				
 				Thread loadSave = new Thread(() -> {
 					GameProcess.loadSave();	
 				});
@@ -50,8 +69,18 @@ public class GameOverScene {
 						e.printStackTrace();
 					}
 					
-					Platform.runLater(() -> stage.setScene(MenuScene.continueScene));
-				}).start();;
+					Platform.runLater(() -> {
+						try {
+							GameProcess.setGameState(PLAY_STATE); 
+							gameProcess.run(gameProcess.getGc());
+							gameProcess.setESCState(false);
+							gameProcess.setFalseKeyESC();
+							GameProcess.stage.setScene(GameProcess.scene);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
+				}).start();
 			}),
 			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())
 		);

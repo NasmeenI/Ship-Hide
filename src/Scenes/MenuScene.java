@@ -51,11 +51,12 @@ public class MenuScene {
 		
 		VBox box = new VBox(
 			10,
-			new MenuItem("Start" ,() -> {
+			new MenuItem("New Game" ,() -> {
 				LoadingScene.loading();
 				MenuScene.start = true;
 				Thread loadGame = new Thread(() -> {
 					new GameProcess(stage);
+					GameProcess.save();
 				});
 				loadGame.start();
 				
@@ -69,8 +70,25 @@ public class MenuScene {
 					Platform.runLater(() -> stage.setScene(GameProcess.scene));
 				}).start();
 			}),
-			new MenuItem("Custom" ,() -> {
-				stage.setScene(CustomScene.scene);
+			new MenuItem("Load Save" ,() -> {
+				LoadingScene.loading();
+				
+				Thread loadSave = new Thread(() -> {
+					new GameProcess(stage);
+					GameProcess.loadSave();	
+				});
+				loadSave.start();
+				
+				new Thread(() ->{
+					try {
+						loadSave.join();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Platform.runLater(() -> stage.setScene(GameProcess.scene));
+				}).start();
 			}),
 			new MenuItem("Tutorial" ,() -> {
 				stage.setScene(TutorialScene.scene);
@@ -181,5 +199,10 @@ public class MenuScene {
 			
 			getChildren().addAll(bg0 ,bg1 ,box);
 		}
+	}
+	
+	public static Scene getScene() {
+		if(!MenuScene.start) return MenuScene.startScene;
+    	return MenuScene.continueScene;
 	}
 }
