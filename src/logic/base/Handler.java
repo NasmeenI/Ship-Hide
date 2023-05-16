@@ -97,6 +97,21 @@ public class Handler implements Serializable {
 				A.setFootArea(new Rectangle(A.getxPos() + A.getxDif(), A.getyPos() + A.getyDif() + P_HEIGHT - 10, A.getW(), 10));
 				A.setRenderArea(new Rectangle(A.getxPos() + A.getxDif(), A.getyPos() + A.getyDif() + 40, A.getW(), A.getH()-40));	
 			}
+			
+			if(allObjects.get(i) instanceof Gun) {
+	    		ArrayList<Bullet> bullets = ((Gun)allObjects.get(i)).getMagazine().getMagazine();
+	    		for(int j=0;j<bullets.size();j++) {
+	    			Bullet A = bullets.get(j);
+	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
+	    		}
+	    	}
+	    	if(allObjects.get(i) instanceof Magazine) {
+	    		ArrayList<Bullet> bullets = ((Magazine)allObjects.get(i)).getMagazine();
+	    		for(int j=0;j<bullets.size();j++) {
+	    			Bullet A = bullets.get(j);
+	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
+	    		}
+	    	}
 		}
 		return ;
 	}
