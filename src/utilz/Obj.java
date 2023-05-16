@@ -53,12 +53,12 @@ public class Obj {
 	
 	public static boolean collisionTwo(GameObject A) {
 		boolean result = false;
-		for(int i=(int)((Person)A).getRenderArea().getY();i<=(int)((Person)A).getRenderArea().getY()+(int)((Person)A).getRenderArea().getHeight() && i/TILE_SIZE<110 ;i++) {
-			for(int j=(int)((Person)A).getRenderArea().getX();j<=(int)((Person)A).getRenderArea().getX()+(int)((Person)A).getRenderArea().getWidth() && j/TILE_SIZE<=60 ;j++) {
+		for(int i=(int)((Person)A).getRenderArea().getY();i<=(int)((Person)A).getRenderArea().getY()+(int)((Person)A).getRenderArea().getHeight() && (int)i/TILE_SIZE<=MAX_SCREEN_ROW ;i++) {
+			for(int j=(int)((Person)A).getRenderArea().getX();j<=(int)((Person)A).getRenderArea().getX()+(int)((Person)A).getRenderArea().getWidth() && j/TILE_SIZE<=MAX_SCREEN_COL ;j++) {
 				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
-					while(j1 <= 60 && Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
+					while(j1 <= MAX_SCREEN_COL && Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
 						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
 						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
 						j1++;
