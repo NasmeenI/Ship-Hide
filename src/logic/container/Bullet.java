@@ -1,8 +1,6 @@
 package logic.container;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.base.Attackable;
 import logic.base.GameObject;

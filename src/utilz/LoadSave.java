@@ -10,6 +10,7 @@ public class LoadSave {
 	public static final String MISSION_FAIL = "Scenes/missionFail.jpg";
 	public static final String MISSION_COMPLETE = "Scenes/missionComplete.png";
 	public static final String MENU_SCENE = "Scenes/menuScene.jpg";
+	public static final String TUTORIAL_SCENE = "Scenes/tutorialScene.jpg";
 	
 	public static final String Player_Animation_Up_Default = "Animation/T_Up_9.png";
 	public static final String Player_Animation_Up_0 = "Animation/T_Up_0.png";

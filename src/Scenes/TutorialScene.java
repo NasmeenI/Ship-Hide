@@ -19,7 +19,7 @@ public class TutorialScene {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		
-		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.MENU_SCENE) ,0 ,0 ,960 ,640);
+		gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.TUTORIAL_SCENE) ,0 ,0 ,960 ,640);
 
 		Button backButton = new Button("Back");
 		backButton.setTranslateX(-370);

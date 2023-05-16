@@ -8,7 +8,6 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.person.Person;
-import logic.person.Player;
 import utilz.LoadSave;
 import utilz.Obj;
 

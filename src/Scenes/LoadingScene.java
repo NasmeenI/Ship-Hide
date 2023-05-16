@@ -4,7 +4,6 @@ import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Background;
@@ -25,7 +24,6 @@ public class LoadingScene {
 
 	public void initScene() {
 		Canvas canvas = new Canvas(960 ,640);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		progressBar = new ProgressBar();
         progressBar.setPrefWidth(200);
@@ -66,7 +64,7 @@ public class LoadingScene {
 
         // When the task is complete, close the loading screen and do further processing
         task.setOnSucceeded(event -> {
-//        	stage.close();
+ //        	stage.close();
             // Perform additional operations after the loading screen
             // For example, you can open a new window or start your main application logic
         });
