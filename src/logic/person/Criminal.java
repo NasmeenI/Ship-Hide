@@ -2,6 +2,7 @@ package logic.person;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.base.Handler;
 import logic.base.ID;
@@ -102,12 +103,10 @@ public class Criminal extends Person {
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-//		showFootArea(gc);
-//		ShowPath(gc);
-//		gc.setFill(Color.RED);
-//		gc.fillRect(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH());
+
 		gc.drawImage(T_Temp, xPos, yPos);
-		return ;
+		gc.setFill(Color.RED);
+		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/1000, 10);
 	}
 
 	@Override

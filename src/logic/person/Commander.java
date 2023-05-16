@@ -104,9 +104,10 @@ public class Commander extends Person {
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-
+		
 		gc.setFill(Color.PURPLE);
 		gc.fillRect(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH());
+		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/5000, 10);
 		return ;
 	}
 

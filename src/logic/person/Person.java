@@ -192,6 +192,15 @@ public abstract class Person extends GameObject {
 		gc.fillRect((int)footArea.getX(), (int)footArea.getY(), footArea.getWidth(), footArea.getHeight());
 	}
 	
+	public void HealthBar(GraphicsContext gc) {
+
+        
+//        gc.getCanvas().setWidth(scene.getWidth());
+//        gc.getCanvas().setHeight(scene.getHeight());
+//		gc.setFill(Color.RED);
+//		gc.fillRect((int)getxPos() + getxDif() - 10, (int)getyPos() + getyDif() -10, solidArea.getWidth() + 20, 10);
+	}
+	
 	// Getters & Setters
 	
 	public PathFinder getPathFinder() {

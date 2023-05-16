@@ -49,7 +49,7 @@ public class Player extends Person {
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
 		initImg();
-		setHp(5000);
+		setHp(500000);
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
