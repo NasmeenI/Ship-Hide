@@ -39,6 +39,7 @@ public class Player extends Person {
 	private final int defaultAni = 9;
 	transient private Image currentAni, previousAni;
 	private boolean swaped = false;
+	public boolean forceStop = false;
 	
 	public ArrayList<GameObject> bag;
 	
@@ -149,9 +150,9 @@ public class Player extends Person {
 		}
 		else if(!key.Q) swaped = false;
 		
-		if(getUsed() == 1) setAc(.8f, .4f);
-		if(getUsed() == 2) setAc(.7f, .35f);
-		if(getUsed() == 3) setAc(.5f, .25f);
+		if(!forceStop && getUsed() == 1) setAc(.8f, .4f);
+		if(!forceStop && getUsed() == 2) setAc(.7f, .35f);
+		if(!forceStop && getUsed() == 3) setAc(.5f, .25f);
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));
@@ -544,4 +545,12 @@ public class Player extends Person {
 	public ArrayList<GameObject> getBag(){
 		return this.bag;
 	}	
+	
+	public void setForceStop(boolean forceStop) {
+		this.forceStop = forceStop;
+	}
+	
+	public boolean isForceStop() {
+		return this.forceStop;
+	}
 }

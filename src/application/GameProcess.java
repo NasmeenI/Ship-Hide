@@ -122,7 +122,7 @@ public class GameProcess {
 		// * Nearby Captive Room : 2600, 600
 		// * Museum Room : 2700, 2000
 
-		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
+		Handler.getInstance().Player = new Player(2500, 600, ID.Player, input);
 
 		aSetter = new AssetSetter();
 		aSetter.setObject();

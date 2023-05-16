@@ -48,7 +48,8 @@ public class Label extends GameObject implements StableObject {
 			Obj.stackPane = new StackPane();
 			Obj.temp1 = ((Player)player).get_ac();
 			Obj.temp2 = ((Player)player).get_dc();
-			((Player)player).setAc(0, 0);
+			player.setAc(0, 0);
+			player.setForceStop(true);
 
 	        ImageView imageView = new ImageView(getImagePuzzle());
 			Obj.stackPane.getChildren().addAll(imageView);
@@ -58,7 +59,8 @@ public class Label extends GameObject implements StableObject {
 		else {
 			Obj.time = 0;
 			Obj.pressed = false;
-			((Player)player).setAc(Obj.temp1, Obj.temp2);
+			player.setAc(Obj.temp1, Obj.temp2);
+			player.setForceStop(false);
 			GameProcess.removeStackRoot(Obj.stackPane);
 		}
 	}
