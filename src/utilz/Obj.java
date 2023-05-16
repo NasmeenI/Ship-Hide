@@ -78,8 +78,8 @@ public class Obj {
 	
 	public static boolean collisionTwo_sculpture(Sculpture A) {
 		boolean result = false;
-		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight() && i/TILE_SIZE<110 ;i++) {
-			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth() && j/TILE_SIZE<=60 ;j++) {
+		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight() && i/TILE_SIZE<=MAX_SCREEN_ROW ;i++) {
+			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth() && j/TILE_SIZE<=MAX_SCREEN_COL ;j++) {
 				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
