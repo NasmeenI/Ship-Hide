@@ -37,8 +37,7 @@ public class KeyInput implements Serializable{
 		if(keyInt == KeyCode.DIGIT7) key.SEVEN = true;
 		if(keyInt == KeyCode.DIGIT8) key.EIGHT = true;
 		if(keyInt == KeyCode.DIGIT9) key.NINE = true;
-		if(keyInt == KeyCode.ESCAPE) key.ESC = true;
-		
+		if(keyInt == KeyCode.ESCAPE) key.ESC = true;	
 	}
 	
 	public void keyReleased(KeyEvent x) {
@@ -71,4 +70,31 @@ public class KeyInput implements Serializable{
 		if(keyInt == KeyCode.ESCAPE) key.ESC = false;
 	}
 	
+	public void setFalse() {
+		key.W = false;
+		key.A = false;
+		key.S = false;
+		key.D = false;
+		key.R = false;
+		key.E = false;
+		key.K = false;
+		key.Q = false;
+		key.LEFT = false;
+		key.RIGHT = false;
+		key.UP = false;
+		key.DOWN = false;
+		key.SHIFT = false;
+		key.SPACE = false;
+		key.ZERO = false;
+		key.ONE = false;
+		key.TWO = false;
+		key.THREE = false;
+		key.FOUR = false;
+		key.FIVE = false;
+		key.SIX = false;
+		key.SEVEN = false;
+		key.EIGHT = false;
+		key.NINE = false;
+		key.ESC = false;
+	}
 }

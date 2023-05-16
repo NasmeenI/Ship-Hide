@@ -121,6 +121,7 @@ public class MenuScene {
 					gameProcess.run(gameProcess.getGc());
 					gameProcess.setESCState(false);
 					gameProcess.setFalseKeyESC();
+					GameProcess.input.setFalse();
 					GameProcess.stage.setScene(GameProcess.scene);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -42,7 +42,7 @@ public class GameProcess {
 	private long lastUpdateTime;
 		
 	// BASE PROCESS
-	transient private static KeyInput input = new KeyInput();
+	transient public static KeyInput input = new KeyInput();
 	private Camera cam;
 	
 	// SETTING MAP
