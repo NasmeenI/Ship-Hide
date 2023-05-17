@@ -1,6 +1,7 @@
 package Scenes;
 
 import Scenes.MenuScene.MenuItem;
+import application.sound.Click;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,13 +26,13 @@ public class SettingScene {
         VBox box = new VBox(
     			10,
     			new MenuItem("Detective" ,() -> {
+    				new Click();
     				MenuScene.mode = 0;
-    				System.out.println(MenuScene.mode);
     				stage.setScene(MenuScene.getScene());
     			}),
     			new MenuItem("Desperate" ,() -> {
+    				new Click();
     				MenuScene.mode = 1;
-    				System.out.println(MenuScene.mode);
     				stage.setScene(MenuScene.getScene());
     			})
     		);

@@ -4,6 +4,7 @@ import static utilz.Constants.GameState.PLAY_STATE;
 
 import Scenes.MenuScene.MenuItem;
 import application.GameProcess;
+import application.sound.Click;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -36,10 +37,12 @@ public class GameOverScene {
 		HBox box = new HBox(
 			10,
 			new MenuItem("New Game" ,() -> {
+				new Click();
 				new MenuScene(stage);
 				stage.setScene(MenuScene.startScene);
 			}),
 			new MenuItem("Load Save" ,() -> {
+				new Click();
 				LoadingScene.loading();
 				
 				Thread loadSave = new Thread(() -> {
@@ -69,7 +72,10 @@ public class GameOverScene {
 					});
 				}).start();
 			}),
-			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())
+			new MenuScene.MenuItem("Exit" ,() -> {
+				new Click();
+				Platform.exit();
+			})
 		);
 		box.setTranslateX(100);
 		box.setTranslateY(200);

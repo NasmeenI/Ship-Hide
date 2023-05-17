@@ -1,5 +1,6 @@
 package Scenes;
 
+import application.sound.Click;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,6 +26,7 @@ public class TutorialScene {
 		backButton.setTranslateX(-370);
 		backButton.setTranslateY(-250);
         backButton.setOnAction(event -> {
+        	new Click();
         	if(!MenuScene.start) stage.setScene(MenuScene.startScene);
         	else stage.setScene(MenuScene.continueScene);
         });

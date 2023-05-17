@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilz.LoadSave;
 import application.GameProcess;
+import application.sound.Click;
+
 import static utilz.Constants.GameState.*;
 
 public class MenuScene {
@@ -36,7 +38,6 @@ public class MenuScene {
 		MenuScene.mode = 0;
 		initStartScene();
 		
-		new CustomScene(stage);
 		new TutorialScene(stage);
 		new SettingScene(stage);
 		new LoadingScene(stage);
@@ -54,6 +55,7 @@ public class MenuScene {
 		VBox box = new VBox(
 			10,
 			new MenuItem("New Game" ,() -> {
+				new Click();
 				LoadingScene.loading();
 				MenuScene.start = true;
 				Thread loadGame = new Thread(() -> {
@@ -73,6 +75,7 @@ public class MenuScene {
 				}).start();
 			}),
 			new MenuItem("Load Save" ,() -> {
+				new Click();
 				LoadingScene.loading();
 				MenuScene.start = true;
 				Thread loadSave = new Thread(() -> {
@@ -93,12 +96,17 @@ public class MenuScene {
 				}).start();
 			}),
 			new MenuItem("Tutorial" ,() -> {
+				new Click();
 				MenuScene.stage.setScene(TutorialScene.scene);
 			}),
 			new MenuItem("Setting" ,() -> {
+				new Click();
 				MenuScene.stage.setScene(SettingScene.scene);
 			}),
-			new MenuItem("Exit" ,() -> Platform.exit())
+			new MenuItem("Exit" ,() -> {
+				new Click();
+				Platform.exit();
+			})
 		);
 		box.setTranslateX(100);
 		box.setTranslateY(200);
@@ -118,6 +126,8 @@ public class MenuScene {
 		VBox box = new VBox(
 			10,
 			new MenuItem("Continue" ,() -> {
+				new Click();
+				Platform.exit();
 				try {
 					GameProcess.setGameState(PLAY_STATE); 
 					gameProcess.run(gameProcess.getGc());
@@ -130,6 +140,7 @@ public class MenuScene {
 				}
 			}),
 			new MenuItem("Load Save" ,() -> {
+				new Click();
 				LoadingScene.loading();
 				
 				Thread loadSave = new Thread(() -> {
@@ -159,9 +170,13 @@ public class MenuScene {
 				}).start();
 			}),
 			new MenuItem("Tutorial" ,() -> {
+				new Click();
 				GameProcess.stage.setScene(TutorialScene.scene);
 			}),
-			new MenuItem("Exit" ,() -> Platform.exit())
+			new MenuItem("Exit" ,() -> {
+				new Click();
+				Platform.exit();
+			})
 		);
 		box.setTranslateX(100);
 		box.setTranslateY(200);

@@ -1,6 +1,7 @@
 package Scenes;
 
 import Scenes.MenuScene.MenuItem;
+import application.sound.Click;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -31,10 +32,14 @@ public class GameComplete {
 		HBox box = new HBox(
 			10,
 			new MenuItem("New Game" ,() -> {
+				new Click();
 				new MenuScene(stage);
 				stage.setScene(MenuScene.startScene);
 			}),
-			new MenuScene.MenuItem("Exit" ,() -> Platform.exit())
+			new MenuScene.MenuItem("Exit" ,() -> {
+				new Click();
+				Platform.exit();
+			})
 		);
 		box.setTranslateX(225);
 		box.setTranslateY(200);
