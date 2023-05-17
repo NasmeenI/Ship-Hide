@@ -29,7 +29,7 @@ public class Label extends GameObject implements StableObject {
 	}
 
 	public void update() {
-		double dis = Obj.distance(this, Handler.getInstance().Player);
+		double dis = Obj.distance(this, Handler.getInstance().player);
 		if(dis < 4*48) setInteracted(true);
 		else setInteracted(false);
 	}

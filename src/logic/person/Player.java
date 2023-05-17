@@ -319,7 +319,7 @@ public class Player extends Person {
 	}
 	
 	public void shoot() {
-		if(!GunAvailable() || Handler.getInstance().Player == null) return ;
+		if(!GunAvailable() || Handler.getInstance().player == null) return ;
 		
 		Gun gun = null;
 		ArrayList<GameObject> bag = this.getBag();
@@ -337,7 +337,7 @@ public class Player extends Person {
 	}
 	
 	public void slash() {
-		if(!KnifeAvailable() || Handler.getInstance().Player == null) return ;
+		if(!KnifeAvailable() || Handler.getInstance().player == null) return ;
 		
 		Handler.getInstance().addObject(new Knife(getxPos(), getyPos(), ID.Knife, false));
 		new Slash();

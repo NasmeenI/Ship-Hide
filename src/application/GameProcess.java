@@ -122,13 +122,13 @@ public class GameProcess {
 		// * Nearby Captive Room : 2600, 600
 		// * Museum Room : 2700, 2000
 
-		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
+		Handler.getInstance().player = new Player(500, 500, ID.Player, input);
 		
 		// INITIAL OBJECT
 		aSetter = new AssetSetter();
 		aSetter.setObject();
 		if(MenuScene.mode == 0) aSetter.setForDetective();
-		else if(MenuScene.mode == 1) aSetter.setForDesperate(Handler.getInstance().Player);
+		else if(MenuScene.mode == 1) aSetter.setForDesperate(Handler.getInstance().player);
 		
 		// INITIAL SCENE
 		MenuScene.initContinueScene(this);
@@ -159,7 +159,7 @@ public class GameProcess {
 		
 		// Inventory box
 		root.getChildren().remove(box);
-		box = ui.draw(cam ,Handler.getInstance().Player);
+		box = ui.draw(cam ,Handler.getInstance().player);
 		box.setTranslateX(50);
 		box.setTranslateY(530);
 		root.getChildren().addAll(box);
@@ -183,8 +183,8 @@ public class GameProcess {
 	}
 	
 	public void render_format() {
-		int xTile = (int) (Handler.getInstance().Player.getxPos()/48);
-		int yTile = (int) (Handler.getInstance().Player.getyPos()/48);
+		int xTile = (int) (Handler.getInstance().player.getxPos()/48);
+		int yTile = (int) (Handler.getInstance().player.getyPos()/48);
 		Map.getInstance().render_1(gc);
 		Map.getInstance().render_0(gc ,xTile ,yTile);
 		Handler.getInstance().renderStable(gc);
@@ -197,7 +197,7 @@ public class GameProcess {
 			else if(object instanceof Sculpture A && object.isBeforeTwo() == true) A.render(gc);
 			else object.render(gc);
 		}
-		if(Handler.getInstance().Player.isBeforeTwo() == true) Handler.getInstance().Player.render(gc);
+		if(Handler.getInstance().player.isBeforeTwo() == true) Handler.getInstance().player.render(gc);
 		
 		Map.getInstance().render_2(gc ,xTile ,yTile);
 		
@@ -210,7 +210,7 @@ public class GameProcess {
 			else if(object instanceof Label A)  A.render(gc);
 			else if(object instanceof Helicopter A)  A.render(gc);
 		}
-		if(Handler.getInstance().Player.isBeforeTwo() == false) Handler.getInstance().Player.render(gc);	
+		if(Handler.getInstance().player.isBeforeTwo() == false) Handler.getInstance().player.render(gc);	
 	}
 		
 	public void checkPress() {
@@ -275,7 +275,7 @@ public class GameProcess {
 	}
 	
 	public void setHpBar() {
-		double hp = (double)Handler.getInstance().Player.getHp()/(double)Handler.getInstance().Player.getHpMax();
+		double hp = (double)Handler.getInstance().player.getHp()/(double)Handler.getInstance().player.getHpMax();
 		pb.setProgress(hp);
 		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
 		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");

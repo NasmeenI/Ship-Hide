@@ -88,7 +88,7 @@ public abstract class Person extends GameObject {
 			 
 		}
 		else {
-			Point mPz = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
+			Point mPz = getMiddlePoint(Handler.getInstance().player.getSolidArea());
 			
 			pathFinder.setNode(startRow, startCol,(int) mPz.y / TILESIZE,(int) mPz.x / TILESIZE);
 			

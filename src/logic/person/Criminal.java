@@ -49,21 +49,21 @@ public class Criminal extends Person {
 		if(getHp() == 0) Handler.getInstance().removeObject(this);
 		Obj.collision(this);
 		
-		if(Obj.distance(this, Handler.getInstance().Player) <= 200) {
+		if(Obj.distance(this, Handler.getInstance().player) <= 200) {
 			chasing = true;
 			setxVelo(2);
 			setyVelo(2);
 		}
-		else if(Obj.distance(this, Handler.getInstance().Player) > 450) {
+		else if(Obj.distance(this, Handler.getInstance().player) > 450) {
 			chasing = false;
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
 		
 		if(chasing) {
-			Point mP = getMiddlePoint(Handler.getInstance().Player.getFootArea());
+			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
-			setDirect(Obj.getDirection(this, Handler.getInstance().Player));
+			setDirect(Obj.getDirection(this, Handler.getInstance().player));
 		}
 		else randomWalk(120);
 		
@@ -114,15 +114,15 @@ public class Criminal extends Person {
 
 	@Override
 	public void shoot() {
-		if(!GunAvailable() || !chasing || Handler.getInstance().Player == null) return ;
+		if(!GunAvailable() || !chasing || Handler.getInstance().player == null) return ;
 		
 		if(!gun.shootAble()) return ;
 		
-		if(Checker.InRange(getSolidArea().getX() - 20, getSolidArea().getX() + getSolidArea().getWidth() + 20, Handler.getInstance().Player.getSolidArea().getX() + Handler.getInstance().Player.getSolidArea().getWidth()/2)) {
+		if(Checker.InRange(getSolidArea().getX() - 20, getSolidArea().getX() + getSolidArea().getWidth() + 20, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
 			new ShotCriminal();
 		}
-		else if(Checker.InRange(getSolidArea().getY() - 20, getSolidArea().getY() + getSolidArea().getHeight() + 20, Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
+		else if(Checker.InRange(getSolidArea().getY() - 20, getSolidArea().getY() + getSolidArea().getHeight() + 20, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
 			new ShotCriminal();
 		}
@@ -130,7 +130,7 @@ public class Criminal extends Person {
 
 	@Override
 	public void slash() {
-		if(!KnifeAvailable() || !chasing || Handler.getInstance().Player == null) return ;
+		if(!KnifeAvailable() || !chasing || Handler.getInstance().player == null) return ;
 		
 		return ;
 	}

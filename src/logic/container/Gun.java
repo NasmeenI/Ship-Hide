@@ -87,12 +87,12 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
  	}
 	
 	public boolean reload() { // More to fix (Delay)
-		ArrayList<GameObject> bag = Handler.getInstance().Player.getBag();
+		ArrayList<GameObject> bag = Handler.getInstance().player.getBag();
 		boolean isReload = false;
 		for(int i=0;i<bag.size();i++) {
 			if(bag.get(i) instanceof Magazine) {
 				magazine = ((Magazine)bag.get(i));
-				Handler.getInstance().Player.getBag().remove(bag.get(i));
+				Handler.getInstance().player.getBag().remove(bag.get(i));
 				isReload = true;
 				break;
 			}
@@ -161,7 +161,7 @@ public class Gun extends GameObject implements Attackable, StableObject, Pickabl
 	
 	public int getNumMagazine() {
 		int numMagazine = 0;
-		ArrayList<GameObject> bag = Handler.getInstance().Player.getBag();
+		ArrayList<GameObject> bag = Handler.getInstance().player.getBag();
 		for(int i=0;i<bag.size();i++) {
 			if(bag.get(i) instanceof Magazine) {
 				numMagazine ++ ;

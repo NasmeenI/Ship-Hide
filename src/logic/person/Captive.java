@@ -47,12 +47,12 @@ public class Captive extends Person {
 			setyVelo(.5f);
 		}
 		if(chasing) {
-			Point mP = getMiddlePoint(Handler.getInstance().Player.getSolidArea());
+			Point mP = getMiddlePoint(Handler.getInstance().player.getSolidArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
-			setDirect(Obj.getDirection(this, Handler.getInstance().Player));
+			setDirect(Obj.getDirection(this, Handler.getInstance().player));
 		}
 		else randomWalk(60);
-		if(Obj.distance(this, Handler.getInstance().Player) <= 100) setReady(true);
+		if(Obj.distance(this, Handler.getInstance().player) <= 100) setReady(true);
 		else setReady(false);
 		
 		setBeforeTwo(Obj.collisionTwo(this));

@@ -18,13 +18,15 @@ import utilz.Checker;
 public class Handler implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	public LinkedList<GameObject> allObjects = new LinkedList<GameObject>();
-	public Player Player;
-	public static int progress = 0;
-	public static int Code = 10000;
+	public static int progress;
+	public static int Code;
+	public Player player;
 	public static Handler instance;
+	public LinkedList<GameObject> allObjects;
 	
 	public Handler() {
+		Handler.progress = 0;
+		Handler.Code = 10000;
 		allObjects = new LinkedList<GameObject>();
 	}	
 	
@@ -34,7 +36,7 @@ public class Handler implements Serializable {
     }
 	
 	public void replace(Handler handler) {
-		instance.Player = handler.Player;
+		instance.player = handler.player;
 		instance.allObjects = handler.allObjects;
 	}
 	
@@ -42,7 +44,7 @@ public class Handler implements Serializable {
 		for(int i = 0; i < allObjects.size(); i++) {
 			allObjects.get(i).update();
 		}
-		Player.update();
+		player.update();
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -51,13 +53,13 @@ public class Handler implements Serializable {
 				allObjects.get(i).render(gc);
 			}
 		}
-		Player.render(gc);
+		player.render(gc);
 		return ;
 	}
 	
 	public void updateAfterLoadSave(KeyInput input) {
 		// Player
-		Player player = Handler.getInstance().Player;
+		Player player = Handler.getInstance().player;
 		player.setSolidArea(new Rectangle(player.getxPos()+player.getxDif() ,player.getyPos()+player.getyDif() ,player.getW() ,player.getH()));
 		player.setFootArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + P_HEIGHT - 10, player.getW(), 10));
 		player.setRenderArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + 40, player.getW(), player.getH()-40));	
