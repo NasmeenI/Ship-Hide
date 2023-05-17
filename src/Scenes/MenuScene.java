@@ -127,7 +127,6 @@ public class MenuScene {
 			10,
 			new MenuItem("Continue" ,() -> {
 				new Click();
-				Platform.exit();
 				try {
 					GameProcess.setGameState(PLAY_STATE); 
 					gameProcess.run(gameProcess.getGc());

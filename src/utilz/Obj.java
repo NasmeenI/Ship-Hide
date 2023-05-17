@@ -36,7 +36,6 @@ public class Obj {
 	public static double time = 0; 
 	public static StackPane stackPane = new StackPane();
 	public static GridPane gridPane = new GridPane();
-	
 	public static int dx[] = {-1, 0, 1, 0};
 	public static int dy[] = {0, -1, 0, 1};
 	private static boolean vit[][] = new boolean[240][240];

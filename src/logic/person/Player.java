@@ -2,8 +2,10 @@ package logic.person;
 
 import application.GameProcess;
 import application.Music;
+import application.sound.Reload;
 import application.sound.ShotPlayer;
 import application.sound.Slash;
+import application.sound.outOfBullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -186,6 +188,7 @@ public class Player extends Person {
 		}
 		
 		if(key.R && GunAvailable() && getUsed() == 3 && getReloadTime() == 30) { // Reload Option (Press R)
+			new Reload();
 			ArrayList<GameObject> bag = this.getBag();
 			for(int i=0;i<bag.size();i++) {
 				if(bag.get(i) instanceof Gun) {
@@ -330,7 +333,10 @@ public class Player extends Person {
 			}
 		}
 		
-		if(!gun.shootAble()) return ;
+		if(!gun.shootAble()) {
+			new outOfBullet();
+			return ;
+		}
 		
 		gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
 		new ShotPlayer();
