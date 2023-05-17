@@ -1,10 +1,12 @@
 package object;
 
 import java.util.ArrayList;
+import application.Music;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
+import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Map;
 import logic.base.StableObject;
@@ -95,8 +97,16 @@ public class Door extends GameObject implements StableObject {
 				doorCount = 0;
 				setOpened(true);
 				int x = 0;
-				if(getId() == ID.Door1) x = 0;
-				else if(getId() == ID.Door2) x = 1;
+				if(getId() == ID.Door1) {
+					x = 0;
+					Handler.progress = 1;
+					Music.play();
+				}
+				else if(getId() == ID.Door2) {
+					x = 1;
+					Handler.progress = 2;
+					Music.play();
+				}
 				Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 2);
 			}
 		}

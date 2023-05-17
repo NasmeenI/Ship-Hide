@@ -1,6 +1,9 @@
 package logic.person;
 
 import application.GameProcess;
+import application.Music;
+import application.sound.ShotPlayer;
+import application.sound.Slash;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -120,6 +123,8 @@ public class Player extends Person {
 		if(getHp() == 0) {
 			GameProcess.stage.setScene(GameOverScene.scene);
 			GameProcess.setGameState(GAME_OVER_STATE);
+			Music.stop();
+			Music.gameOver.play();
 		}
 		Obj.collision(this);
 		
@@ -236,8 +241,8 @@ public class Player extends Person {
 //		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
 //		else setBeforeTwo(false);
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 //		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -328,16 +333,14 @@ public class Player extends Person {
 		if(!gun.shootAble()) return ;
 		
 		gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-		
-		return ;
+		new ShotPlayer();
 	}
 	
 	public void slash() {
 		if(!KnifeAvailable() || Handler.getInstance().Player == null) return ;
 		
 		Handler.getInstance().addObject(new Knife(getxPos(), getyPos(), ID.Knife, false));
-		
-		return ;
+		new Slash();
 	}
 	
 	private double cut(double val, double low, double high) {

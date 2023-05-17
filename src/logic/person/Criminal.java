@@ -13,6 +13,9 @@ import utilz.LoadSave;
 import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
+
+import application.sound.ShotCriminal;
+
 import static utilz.Constants.Debug.*;
 
 public class Criminal extends Person {
@@ -117,14 +120,12 @@ public class Criminal extends Person {
 		
 		if(Checker.InRange(getSolidArea().getX() - 20, getSolidArea().getX() + getSolidArea().getWidth() + 20, Handler.getInstance().Player.getSolidArea().getX() + Handler.getInstance().Player.getSolidArea().getWidth()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-			return ;
+			new ShotCriminal();
 		}
-		if(Checker.InRange(getSolidArea().getY() - 20, getSolidArea().getY() + getSolidArea().getHeight() + 20, Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
+		else if(Checker.InRange(getSolidArea().getY() - 20, getSolidArea().getY() + getSolidArea().getHeight() + 20, Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-			return ;
+			new ShotCriminal();
 		}
-		
-		return ;
 	}
 
 	@Override

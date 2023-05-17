@@ -245,6 +245,8 @@ public class GameProcess {
 		}catch (Exception e){
 		    e.printStackTrace();
 		}
+		
+		Music.play();
 	}
 	
 	public static void save() {

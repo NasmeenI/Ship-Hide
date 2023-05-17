@@ -62,6 +62,7 @@ public class GameOverScene {
 							gameProcess.setESCState(false);
 							gameProcess.setFalseKeyESC();
 							GameProcess.stage.setScene(GameProcess.scene);
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

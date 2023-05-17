@@ -1,6 +1,7 @@
 package ui;
 
 import application.GameProcess;
+import application.Music;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import logic.base.Handler;
 import logic.base.Map;
 import object.DoorJail;
 import static utilz.Constants.DoorJail.*;
@@ -73,6 +75,9 @@ public class PasswordPopUp {
                 GridPane.setFillWidth(passwordCorrectLabel, true);
                 GridPane.setConstraints(passwordCorrectLabel, 0, 0, 3, 6);
                 ((GridPane) submitButton.getParent()).getChildren().add(passwordCorrectLabel);
+                
+                Handler.progress = 4;
+				Music.play();
             }
             passwordField.clear();
         });

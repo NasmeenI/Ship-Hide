@@ -5,6 +5,7 @@ import static utilz.Constants.Player.P_HEIGHT;
 import static utilz.Constants.Player.P_WIDTH;
 import static utilz.Constants.Tile.TILESIZE;
 
+import application.sound.ShotCommander;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -119,14 +120,13 @@ public class Commander extends Person {
 		
 		if(Checker.InRange(getSolidArea().getX() - 50, getSolidArea().getX() + getSolidArea().getWidth() + 50, Handler.getInstance().Player.getSolidArea().getX() + Handler.getInstance().Player.getSolidArea().getWidth()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-			return ;
+			new ShotCommander();
 		}
-		if(Checker.InRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
+		else if(Checker.InRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().Player.getSolidArea().getY() + Handler.getInstance().Player.getSolidArea().getHeight()/2)) {
 			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-			return ;
+			new ShotCommander();
 		}
-		
-		return ;
+
 	}
 
 	@Override

@@ -3,12 +3,15 @@ package object;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.base.GameObject;
+import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Map;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
 import application.GameProcess;
+import application.Music;
+
 import static utilz.Constants.GameProcess.*;
 import static utilz.Constants.Debug.*;
 
@@ -51,6 +54,8 @@ public class MuseumDoor extends GameObject implements StableObject {
 				GameProcess.save();
 				saved = true;
 			}
+			Handler.progress = 3;
+			Music.play();
 		}
 		else {
 			Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1, 0);

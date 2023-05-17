@@ -20,6 +20,7 @@ public class Handler implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public LinkedList<GameObject> allObjects = new LinkedList<GameObject>();
 	public Player Player;
+	public static int progress = 0;
 	public static int Code = 10000;
 	public static Handler instance;
 	
