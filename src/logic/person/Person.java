@@ -17,7 +17,7 @@ import static utilz.Constants.Tile.*;
 public abstract class Person extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
-	protected int Hp, bullets;
+	protected int Hp, HpMax, bullets;
 	protected boolean gun, knife;
 	protected int used, prvUsed;
 	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime, interval;
@@ -217,6 +217,15 @@ public abstract class Person extends GameObject {
 
 	public void setHp(int hp) {
 		Hp = Math.max(hp, 0);
+		return ;
+	}
+	
+	public int getHpMax() {
+		return HpMax;
+	}
+
+	public void setHpMax(int hpMax) {
+		HpMax = Math.max(hpMax, 0);
 		return ;
 	}
 

@@ -36,22 +36,8 @@ public class GameOverScene {
 		HBox box = new HBox(
 			10,
 			new MenuItem("New Game" ,() -> {
-				LoadingScene.loading();
-				MenuScene.start = true;
-				Thread loadGame = new Thread(() -> {
-					new GameProcess(stage);
-				});
-				loadGame.start();
-				
-				new Thread(() -> {
-					try {
-						loadGame.join();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					
-					Platform.runLater(() -> stage.setScene(GameProcess.scene));
-				}).start();
+				new MenuScene(stage);
+				stage.setScene(MenuScene.startScene);
 			}),
 			new MenuItem("Load Save" ,() -> {
 				LoadingScene.loading();

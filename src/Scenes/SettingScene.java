@@ -24,10 +24,14 @@ public class SettingScene {
         
         VBox box = new VBox(
     			10,
-    			new MenuItem("Desperate" ,() -> {
+    			new MenuItem("Detective" ,() -> {
+    				MenuScene.mode = 0;
+    				System.out.println(MenuScene.mode);
     				stage.setScene(MenuScene.getScene());
     			}),
-    			new MenuItem("Detective" ,() -> {
+    			new MenuItem("Desperate" ,() -> {
+    				MenuScene.mode = 1;
+    				System.out.println(MenuScene.mode);
     				stage.setScene(MenuScene.getScene());
     			})
     		);

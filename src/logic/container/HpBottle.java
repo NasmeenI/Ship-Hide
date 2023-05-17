@@ -10,12 +10,15 @@ import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
+import Scenes.MenuScene;
+
 public class HpBottle extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	public boolean picked;
 	transient private Image image;
 	
+	private int efficiency;
 	private double littleMove = 1;
 	private double count = 0;
 
@@ -23,6 +26,8 @@ public class HpBottle extends GameObject implements StableObject {
 		super(xPos, yPos, id, 10, 10, 50, 60);
 		this.picked = false;
 		initImg();
+		if(MenuScene.mode == 0) efficiency = 1000;
+		else if(MenuScene.mode == 1) efficiency = 10000;
 	}
 	
 	@Override
@@ -47,7 +52,7 @@ public class HpBottle extends GameObject implements StableObject {
 	public void interact(Player player) {
 		setPicked(true);
 		//player.addItemInBag(this);
-		player.setHp(player.getHp() + 1000);
+		player.setHp(player.getHp() + getEfficiency());
 		Handler.getInstance().removeObject(this);
 	}
 	
@@ -69,5 +74,9 @@ public class HpBottle extends GameObject implements StableObject {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+	
+	public int getEfficiency() {
+		return efficiency;
 	}
 }

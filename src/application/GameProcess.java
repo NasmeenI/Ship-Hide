@@ -122,10 +122,13 @@ public class GameProcess {
 		// * Nearby Captive Room : 2600, 600
 		// * Museum Room : 2700, 2000
 
-		Handler.getInstance().Player = new Player(2500, 600, ID.Player, input);
-
+		Handler.getInstance().Player = new Player(500, 500, ID.Player, input);
+		
+		// INITIAL OBJECT
 		aSetter = new AssetSetter();
 		aSetter.setObject();
+		if(MenuScene.mode == 0) aSetter.setForDetective();
+		else if(MenuScene.mode == 1) aSetter.setForDesperate(Handler.getInstance().Player);
 		
 		// INITIAL SCENE
 		MenuScene.initContinueScene(this);
@@ -135,7 +138,7 @@ public class GameProcess {
 		// CHECK POINT
 		gameState = PLAY_STATE;
 
-		// initial HP Bar
+		// INITIAL HP BAR
 		pb.setTranslateX(300);
 		pb.setTranslateY(270);
 		pb.setPrefWidth(300);
@@ -162,11 +165,7 @@ public class GameProcess {
 		root.getChildren().addAll(box);
 		
 		// HP Bar
-		double hp = (double)Handler.getInstance().Player.getHp()/5000.0;
-		pb.setProgress(hp);
-		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
-		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
-		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
+		setHpBar();
 
 		Handler.getInstance().update();
 		cam.update();
@@ -271,6 +270,14 @@ public class GameProcess {
 			}	
 		});
 		save.start();
+	}
+	
+	public void setHpBar() {
+		double hp = (double)Handler.getInstance().Player.getHp()/(double)Handler.getInstance().Player.getHpMax();
+		pb.setProgress(hp);
+		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
+		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
+		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
 	}
 	
 	// Getters & Setters

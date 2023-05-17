@@ -18,6 +18,8 @@ import utilz.LoadSave;
 import utilz.Obj;
 import java.util.ArrayList;
 import Scenes.GameOverScene;
+import Scenes.MenuScene;
+
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 import static utilz.Constants.GameState.*;
@@ -50,7 +52,10 @@ public class Player extends Person {
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
 		initImg();
-		setHp(5000);
+		
+		if(MenuScene.mode == 0) setHpMax(5000);
+		else if(MenuScene.mode == 1) setHpMax(50000);
+		setHp(getHpMax());
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());

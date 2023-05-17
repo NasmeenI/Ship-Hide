@@ -28,10 +28,12 @@ public class MenuScene {
 	public static Scene startScene;
 	public static Scene continueScene;
 	public static boolean start;
+	public static int mode; // 0: Detective, 1: Desperate
 	
 	public MenuScene(Stage stage) {
 		MenuScene.stage = stage;
 		MenuScene.start = false;
+		MenuScene.mode = 0;
 		initStartScene();
 		
 		new CustomScene(stage);
@@ -72,7 +74,7 @@ public class MenuScene {
 			}),
 			new MenuItem("Load Save" ,() -> {
 				LoadingScene.loading();
-				
+				MenuScene.start = true;
 				Thread loadSave = new Thread(() -> {
 					new GameProcess(stage);
 					GameProcess.loadSave();	
@@ -158,9 +160,6 @@ public class MenuScene {
 			}),
 			new MenuItem("Tutorial" ,() -> {
 				GameProcess.stage.setScene(TutorialScene.scene);
-			}),
-			new MenuItem("Setting" ,() -> {
-				GameProcess.stage.setScene(SettingScene.scene);
 			}),
 			new MenuItem("Exit" ,() -> Platform.exit())
 		);
