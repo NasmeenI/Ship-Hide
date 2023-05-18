@@ -62,6 +62,12 @@ public abstract class GameObject implements Serializable {
 		gc.fillRect((int)getxPos() + getxDif(), (int)getyPos() + getyDif(), solidArea.getWidth(), solidArea.getHeight());
 	}
 	
+	public Point getMiddlePoint(Rectangle A) {
+		int xMid = (int) (A.getX() + A.getWidth() / 2);
+		int yMid = (int) (A.getY() + A.getHeight() / 2);
+		return new Point(xMid, yMid);
+	}
+	
 	// Getters & Setters
 	
 	public Rectangle getSolidArea() {

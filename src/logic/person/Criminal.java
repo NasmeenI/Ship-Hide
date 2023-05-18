@@ -14,6 +14,7 @@ import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
 
+import application.sound.ShotCommander;
 import application.sound.ShotCriminal;
 
 import static utilz.Constants.Debug.*;
@@ -30,7 +31,7 @@ public class Criminal extends Person {
         setxVelo(xVelo);
         setyVelo(yVelo);
         setHp(1000);
-        setGun();
+        initGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
         
         // Tempt
@@ -38,6 +39,11 @@ public class Criminal extends Person {
         setUsed(3);
         initImg();
     }
+	
+	public void initGun() {
+		// TODO Auto-generated method stub
+		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
+	}
 	
 	public void initImg() {
 		T_Temp = LoadSave.GetSpriteAtlas(LoadSave.Criminal_Animation_Temp);
@@ -53,14 +59,17 @@ public class Criminal extends Person {
 			chasing = true;
 			setxVelo(2);
 			setyVelo(2);
+			setChasingTime(0);
 		}
-		else if(Obj.distance(this, Handler.getInstance().player) > 450) {
+		else if(Obj.distance(this, Handler.getInstance().player) > 450 && getChasingTime() == 300) {
 			chasing = false;
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
 		
 		if(chasing) {
+			setChasingTime(getChasingTime() + 1);
+			setChasingTime(Math.min(300, getChasingTime()));
 			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().player));
@@ -118,13 +127,15 @@ public class Criminal extends Person {
 		
 		if(!gun.shootAble()) return ;
 		
-		if(Checker.InRange(getSolidArea().getX() - 20, getSolidArea().getX() + getSolidArea().getWidth() + 20, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
-			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-			new ShotCriminal();
+		Point middlePos = getMiddlePoint(this.getSolidArea());
+		
+		if(Checker.InRange(getSolidArea().getX() - 50, getSolidArea().getX() + getSolidArea().getWidth() + 50, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
+			gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
+			new ShotCommander();
 		}
-		else if(Checker.InRange(getSolidArea().getY() - 20, getSolidArea().getY() + getSolidArea().getHeight() + 20, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
-			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-			new ShotCriminal();
+		else if(Checker.InRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
+			gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
+			new ShotCommander();
 		}
 	}
 
@@ -133,11 +144,6 @@ public class Criminal extends Person {
 		if(!KnifeAvailable() || !chasing || Handler.getInstance().player == null) return ;
 		
 		return ;
-	}
-
-	public void setGun() {
-		// TODO Auto-generated method stub
-		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
 	}
 	
 }

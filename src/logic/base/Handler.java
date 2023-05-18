@@ -112,8 +112,8 @@ public class Handler implements Serializable {
 			
 			if(allObjects.get(i) instanceof Person) {
 				Person A = ((Person)allObjects.get(i));
-				if(A instanceof Commander B) B.setGun();	
-				if(A instanceof Criminal B) B.setGun();
+				if(A instanceof Commander B) B.initGun();	
+				if(A instanceof Criminal B) B.initGun();
 				A.setSolidArea(new Rectangle(A.getxPos() + A.getxDif(), A.getyPos() + A.getyDif(), A.getW(), A.getH()));
 				A.setFootArea(new Rectangle(A.getxPos() + A.getxDif(), A.getyPos() + A.getyDif() + P_HEIGHT - 10, A.getW(), 10));
 				A.setRenderArea(new Rectangle(A.getxPos() + A.getxDif(), A.getyPos() + A.getyDif() + 40, A.getW(), A.getH()-40));	

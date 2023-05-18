@@ -29,13 +29,24 @@ public class Commander extends Person {
         setxVelo(xVelo);
         setyVelo(yVelo);
         setHp(5000);
-        setGun();
+        initGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
         
         // Tempt
         setGun(true);
         setUsed(3);
     }
+	
+	@Override
+	public void initImg() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void initGun() {
+		// TODO Auto-generated method stub
+		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
+	}
 
 	@Override
 	public void update() {
@@ -50,14 +61,17 @@ public class Commander extends Person {
 			chasing = true;
 			setxVelo(1);
 			setyVelo(1);
+			setChasingTime(0);
 		}
-		else if(Obj.distance(this, Handler.getInstance().player) > 600) {
+		else if(Obj.distance(this, Handler.getInstance().player) > 600 && getChasingTime() == 300) {
 			chasing = false;
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
 		
 		if(chasing) {
+			setChasingTime(getChasingTime() + 1);
+			setChasingTime(Math.min(300, getChasingTime()));
 			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().player));
@@ -121,12 +135,14 @@ public class Commander extends Person {
 		
 		if(!gun.shootAble()) return ;
 		
+		Point middlePos = getMiddlePoint(this.getSolidArea());
+		
 		if(Checker.InRange(getSolidArea().getX() - 50, getSolidArea().getX() + getSolidArea().getWidth() + 50, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
-			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
+			gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
 			new ShotCommander();
 		}
 		else if(Checker.InRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
-			gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
+			gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
 			new ShotCommander();
 		}
 
@@ -138,15 +154,5 @@ public class Commander extends Person {
 		
 		return ;
 	}
-
-	@Override
-	public void initImg() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setGun() {
-		// TODO Auto-generated method stub
-		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
-	}
+	
 }

@@ -16,6 +16,7 @@ public class Bullet extends GameObject implements Attackable {
 	
 	private static final long serialVersionUID = 1L;
 	private int maxDamage, minDamage;
+	private ID owner = null;
 	
 //	private Image[] animationBullet;
 //	private Image currentAni = null;
@@ -25,7 +26,7 @@ public class Bullet extends GameObject implements Attackable {
 		setxVelo(0);
 		setyVelo(0);
 		setMinDamage(30);
-		setMaxDamage(120);
+		setMaxDamage(50);
 		initImg();
 	}
 	
@@ -34,7 +35,7 @@ public class Bullet extends GameObject implements Attackable {
 		setxVelo(xVelo);
 		setyVelo(yVelo);
 		setMinDamage(30);
-		setMaxDamage(120);
+		setMaxDamage(50);
 		initImg();
 	}
 
@@ -138,4 +139,13 @@ public class Bullet extends GameObject implements Attackable {
 		this.minDamage = minDamage;
 		return ;
 	}
+
+	public ID getOwner() {
+		return owner;
+	}
+
+	public void setOwner(ID owner) {
+		this.owner = owner;
+	}
+	
 }

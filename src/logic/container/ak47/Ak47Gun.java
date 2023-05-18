@@ -107,27 +107,28 @@ public class Ak47Gun extends GameObject implements Attackable, StableObject, Pic
 		return magazine.getMagazine().get(0).damage();
 	}
 	
-	public void shoot(int xPos, int yPos, String direct) {
+	public void shoot(int xPos, int yPos, String direct, ID owner) {
 		if(!shootAble()) return ;
 		Bullet bullet = getBullet();
+		bullet.setOwner(owner);
 		reduceBullet();
 		
 		switch(direct) {
-			case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos + 40); bullet.setxVelo(-20); break;
-			case "RIGHT" : bullet.setxPos(xPos + 70); bullet.setyPos(yPos + 40); bullet.setxVelo(20); break;
-			case "UP" : bullet.setxPos(xPos + 50); bullet.setyPos(yPos - 10); bullet.setyVelo(-20); break;
-			case "DOWN" : bullet.setxPos(xPos + 10); bullet.setyPos(yPos + 90); bullet.setyVelo(20); break;
-			default : {
-				switch(direct) {
-					case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos + 40); bullet.setxVelo(-20); break;
-					case "RIGHT" : bullet.setxPos(xPos + 70); bullet.setyPos(yPos + 40); bullet.setxVelo(20); break;
-					case "UP" : bullet.setxPos(xPos + 50); bullet.setyPos(yPos - 10); bullet.setyVelo(-20); break;
-					case "DOWN" : bullet.setxPos(xPos + 10); bullet.setyPos(yPos + 90); bullet.setyVelo(20); break;
-					default : break;
-				}
-				break;
+		case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
+		case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
+		case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
+		case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
+		default : {
+			switch(direct) {
+				case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
+				case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
+				case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
+				case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
+				default : break;
 			}
+			break;
 		}
+	}
 		
 		Handler.getInstance().addObject(bullet);
 		

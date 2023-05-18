@@ -15,6 +15,7 @@ import logic.base.ID;
 import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
+import logic.base.Point;
 import logic.container.Knife;
 import logic.container.ak47.Ak47Gun;
 import logic.container.ak47.Ak47Magazine;
@@ -60,7 +61,7 @@ public class Player extends Person {
 		this.bag = new ArrayList<>();
 		initImg();
 		
-		if(MenuScene.mode == 0) setHpMax(5000);
+		if(MenuScene.mode == 0) setHpMax(5000000);
 		else if(MenuScene.mode == 1) setHpMax(50000);
 		setHp(getHpMax());
 		setDirect("U");
@@ -352,6 +353,8 @@ public class Player extends Person {
 	public void shoot() {
 		if(!GunAvailable() || Handler.getInstance().player == null) return ;
 		
+		Point middlePos = getMiddlePoint(this.getSolidArea());
+		
 		PistolGun pistolGun = null;
 		Ak47Gun ak47Gun = null;
 		
@@ -369,7 +372,7 @@ public class Player extends Person {
 				new outOfBullet();
 				return ;
 			}
-			pistolGun.shoot((int)getxPos(), (int)getyPos(), getDirect());
+			pistolGun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
 			new ShotPlayer();
 		}
 		else if(getUsed() == 4 && ak47Gun != null) {
@@ -377,7 +380,7 @@ public class Player extends Person {
 				new outOfBullet();
 				return ;
 			}
-			ak47Gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
+			ak47Gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
 			new ShotPlayer();
 		}
 	}

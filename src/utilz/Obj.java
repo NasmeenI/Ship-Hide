@@ -5,6 +5,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
+import logic.base.ID;
 import logic.base.Map;
 import logic.person.Captive;
 import logic.person.Commander;
@@ -126,6 +127,7 @@ public class Obj {
 			case Player : {
 				switch(B.getId()) {
 					case Bullet : {
+						if(((Bullet)B).getOwner() == A.getId()) break;
 						((Player)A).setHp(((Player)A).getHp() - ((Bullet)B).damage());
 						Handler.getInstance().removeObject(B);
 						break;
@@ -210,14 +212,22 @@ public class Obj {
 			case Criminal : {
 				switch(B.getId()) {
 					case Bullet : {
+						if(((Bullet)B).getOwner() == A.getId()) break;
+						else if(((Bullet)B).getOwner() == ID.Commander) break;
 						((Criminal)A).setHp(((Criminal)A).getHp() - ((Bullet)B).damage());
 						Handler.getInstance().removeObject(B);
-						
+						((Criminal)A).setChasing(true);
+						((Criminal)A).setChasingTime(0);
+						((Criminal)A).setxVelo(2);
+						((Criminal)A).setyVelo(2);
 						break;
 					}
 					case Knife : {
 						((Criminal)A).setHp(((Criminal)A).getHp() - ((Knife)B).damage());
-						
+						((Criminal)A).setChasing(true);
+						((Criminal)A).setChasingTime(0);
+						((Criminal)A).setxVelo(2);
+						((Criminal)A).setyVelo(2);
 						break;
 					}
 					case Sculpture : {
@@ -231,14 +241,22 @@ public class Obj {
 			case Commander : {
 				switch(B.getId()) {
 					case Bullet : {
+						if(((Bullet)B).getOwner() == A.getId()) break;
+						else if(((Bullet)B).getOwner() == ID.Criminal) break;
 						((Commander)A).setHp(((Commander)A).getHp() - ((Bullet)B).damage());
 						Handler.getInstance().removeObject(B);
-						
+						((Commander)A).setChasing(true);
+						((Commander)A).setChasingTime(0);
+						((Commander)A).setxVelo(1);
+						((Commander)A).setyVelo(1);
 						break;
 					}
 					case Knife : {
 						((Commander)A).setHp(((Commander)A).getHp() - ((Knife)B).damage());
-						
+						((Commander)A).setChasing(true);
+						((Commander)A).setChasingTime(0);
+						((Commander)A).setxVelo(1);
+						((Commander)A).setyVelo(1);
 						break;
 					}
 					case Sculpture : {
@@ -252,6 +270,7 @@ public class Obj {
 			case Captive : {
 				switch(B.getId()) {
 					case Bullet : {
+						if(((Bullet)B).getOwner() == A.getId()) break;
 						((Captive)A).setHp(((Captive)A).getHp() - ((Bullet)B).damage());
 						Handler.getInstance().removeObject(B);
 						

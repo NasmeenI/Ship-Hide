@@ -20,7 +20,7 @@ public abstract class Person extends GameObject {
 	protected int Hp, HpMax, bullets;
 	protected boolean gun, knife;
 	protected int used, prvUsed;
-	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime, interval;
+	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime, chasingTime, interval;
 	private int direction = 9;
 	protected String direct, prv_direct = null;
 	
@@ -54,6 +54,7 @@ public abstract class Person extends GameObject {
 		setKnifeTime(0);
 		setReloadTime(0);
 		setRandWalkTime(0);
+		setChasingTime(300);
 		setInterval(0);
 	}
 
@@ -125,12 +126,6 @@ public abstract class Person extends GameObject {
 	
 	public boolean KnifeAvailable() {
 		return knife;
-	}
-	
-	public Point getMiddlePoint(Rectangle A) {
-		int xMid = (int) (A.getX() + A.getWidth() / 2);
-		int yMid = (int) (A.getY() + A.getHeight() / 2);
-		return new Point(xMid, yMid);
 	}
 	
 	public void moveX() { movePass(getxVelo(), 0); }
@@ -277,6 +272,14 @@ public abstract class Person extends GameObject {
 		this.prvUsed = prvUsed;
 	}
 
+	public boolean isChasing() {
+		return chasing;
+	}
+
+	public void setChasing(boolean chasing) {
+		this.chasing = chasing;
+	}
+
 	public int getSpriteCnt() {
 		return SpriteCnt;
 	}
@@ -318,6 +321,14 @@ public abstract class Person extends GameObject {
 
 	public void setRandWalkTime(int randWalkTime) {
 		this.randWalkTime = Math.max(0, randWalkTime);
+	}
+	
+	public int getChasingTime() {
+		return chasingTime;
+	}
+
+	public void setChasingTime(int chasingTime) {
+		this.chasingTime = Math.max(0, chasingTime);
 	}
 
 	public int getInterval() {
