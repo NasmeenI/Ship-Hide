@@ -2,11 +2,11 @@ package application;
 
 import logic.base.Handler;
 import logic.base.ID;
-import logic.container.Gun;
 import logic.container.HpBottle;
 import logic.container.KeyLocker;
 import logic.container.Knife;
-import logic.container.Magazine;
+import logic.container.pistol.PistolMagazine;
+import logic.container.pistol.PistolGun;
 import logic.person.Captive;
 import logic.person.Commander;
 import logic.person.Criminal;
@@ -19,6 +19,7 @@ import object.Label;
 import object.Lazer;
 import object.MuseumDoor;
 import object.Sculpture;
+import object.Trader;
 import utilz.Checker;
 import static utilz.Constants.GameProcess.*;
 
@@ -49,6 +50,9 @@ public class AssetSetter {
 		
 		// Helicopter
 		Handler.getInstance().allObjects.add(new Helicopter(86 * TILE_SIZE ,30 * TILE_SIZE, ID.Helicopter));	
+		
+		// Trader
+		Handler.getInstance().allObjects.add(new Trader(34 * TILE_SIZE ,46 * TILE_SIZE, ID.Trader));	
 		
 		// Labels
 		Handler.getInstance().allObjects.add(new Label(58 * TILE_SIZE ,46 * TILE_SIZE, ID.Label1));	
@@ -104,15 +108,15 @@ public class AssetSetter {
 		Handler.getInstance().addObject(new Commander(3700, 1500, ID.Commander, 2, 2));
 		
 		// Weapons
-		Handler.getInstance().allObjects.add(new Gun(26 * TILE_SIZE ,13 * TILE_SIZE, ID.Gun ,true));
+		Handler.getInstance().allObjects.add(new PistolGun(26 * TILE_SIZE ,13 * TILE_SIZE, ID.PistolGun ,true));
 		Handler.getInstance().allObjects.add(new Knife(16 * TILE_SIZE ,38 * TILE_SIZE, ID.Knife ,true));
-		Handler.getInstance().allObjects.add(new Magazine(16 * TILE_SIZE ,20 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(60 * TILE_SIZE ,38 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(59 * TILE_SIZE ,13 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(59 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(61 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(63 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(65 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(16 * TILE_SIZE ,20 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(60 * TILE_SIZE ,38 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(59 * TILE_SIZE ,13 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(59 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(61 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(63 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(65 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
 				
 		// HP Bottles
 		Handler.getInstance().allObjects.add(new HpBottle(32 * TILE_SIZE ,47 * TILE_SIZE, ID.HpBottle));
@@ -191,15 +195,15 @@ public class AssetSetter {
 		Handler.getInstance().addObject(new Commander(4211, 1143, ID.Commander, 2, 2));
 		
 		// Weapons
-		Handler.getInstance().allObjects.add(new Gun(26 * TILE_SIZE ,13 * TILE_SIZE, ID.Gun ,true));
+		Handler.getInstance().allObjects.add(new PistolGun(26 * TILE_SIZE ,13 * TILE_SIZE, ID.PistolGun ,true));
 		Handler.getInstance().allObjects.add(new Knife(16 * TILE_SIZE ,38 * TILE_SIZE, ID.Knife ,true));
-		Handler.getInstance().allObjects.add(new Magazine(16 * TILE_SIZE ,20 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(60 * TILE_SIZE ,38 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(59 * TILE_SIZE ,13 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(59 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(61 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(63 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
-		Handler.getInstance().allObjects.add(new Magazine(65 * TILE_SIZE ,33 * TILE_SIZE, ID.Magazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(16 * TILE_SIZE ,20 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(60 * TILE_SIZE ,38 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(59 * TILE_SIZE ,13 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(59 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(61 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(63 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
+		Handler.getInstance().allObjects.add(new PistolMagazine(65 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
 				
 		// HP Bottles
 		Handler.getInstance().allObjects.add(new HpBottle(32 * TILE_SIZE ,47 * TILE_SIZE, ID.HpBottle));

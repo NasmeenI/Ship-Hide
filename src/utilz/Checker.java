@@ -87,14 +87,14 @@ public class Checker {
 	
 	public static boolean IsGun(ID id) {
 		switch(id) {
-			case Gun : return true; 
+			case PistolGun : return true; 
 			default : return false;
 		}
 	}
 	
 	public static boolean IsMagazine(ID id) {
 		switch(id) {
-			case Magazine : return true; 
+			case PistolMagazine : return true; 
 			default : return false;
 		}
 	}

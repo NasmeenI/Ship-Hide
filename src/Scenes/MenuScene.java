@@ -56,6 +56,7 @@ public class MenuScene {
 		VBox box = new VBox(
 			10,
 			new MenuItem("New Game" ,() -> {
+				stage.setScene(Shop.scene);
 				new Click();
 				LoadingScene.loading();
 				MenuScene.start = true;

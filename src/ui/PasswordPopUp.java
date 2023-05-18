@@ -20,6 +20,8 @@ import javafx.scene.text.TextAlignment;
 import logic.base.Handler;
 import logic.base.Map;
 import object.DoorJail;
+import utilz.Obj;
+
 import static utilz.Constants.DoorJail.*;
 
 public class PasswordPopUp {
@@ -127,7 +129,11 @@ public class PasswordPopUp {
 		backButton.setFont(Font.font("Arial", 24));
 		backButton.setPadding(new Insets(8));
 		backButton.setStyle("-fx-background-color: #000080; -fx-text-fill: white;");
-		backButton.setOnAction(event -> GameProcess.removeGridRoot(gridPane));
+		backButton.setOnAction(event -> {
+			Handler.getInstance().player.setAc(Obj.temp1, Obj.temp2);
+			Handler.getInstance().player.setForceStop(false);
+			GameProcess.removeGridRoot(gridPane);
+		});
 		GridPane.setConstraints(backButton, 2, 0, 1, 1, HPos.RIGHT, VPos.TOP);
 		gridPane.getChildren().add(backButton);
 		

@@ -7,8 +7,10 @@ import java.util.LinkedList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 import logic.container.Bullet;
-import logic.container.Gun;
-import logic.container.Magazine;
+import logic.container.ak47.Ak47Gun;
+import logic.container.ak47.Ak47Magazine;
+import logic.container.pistol.PistolMagazine;
+import logic.container.pistol.PistolGun;
 import logic.person.Commander;
 import logic.person.Criminal;
 import logic.person.Person;
@@ -23,11 +25,13 @@ public class Handler implements Serializable {
 	public Player player;
 	public static Handler instance;
 	public LinkedList<GameObject> allObjects;
+	private int coins;
 	
 	public Handler() {
 		Handler.progress = 0;
 		Handler.Code = 10000;
 		allObjects = new LinkedList<GameObject>();
+		this.coins = 0;
 	}	
 	
 	public static Handler getInstance() {
@@ -70,15 +74,29 @@ public class Handler implements Serializable {
 	    	player.getBag().get(i).initImg();
 	    }
 	    for(int i=0;i<player.getBag().size();i++) {
-	    	if(player.getBag().get(i) instanceof Gun) {
-	    		ArrayList<Bullet> bullets = ((Gun)player.getBag().get(i)).getMagazine().getMagazine();
+	    	if(player.getBag().get(i) instanceof Ak47Gun) {
+	    		ArrayList<Bullet> bullets = ((Ak47Gun)player.getBag().get(i)).getMagazine().getMagazine();
 	    		for(int j=0;j<bullets.size();j++) {
 	    			Bullet A = bullets.get(j);
 	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
 	    		}
 	    	}
-	    	if(player.getBag().get(i) instanceof Magazine) {
-	    		ArrayList<Bullet> bullets = ((Magazine)player.getBag().get(i)).getMagazine();
+	    	else if(player.getBag().get(i) instanceof Ak47Magazine) {
+	    		ArrayList<Bullet> bullets = ((Ak47Magazine)player.getBag().get(i)).getMagazine();
+	    		for(int j=0;j<bullets.size();j++) {
+	    			Bullet A = bullets.get(j);
+	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
+	    		}
+	    	}
+	    	else if(player.getBag().get(i) instanceof PistolGun) {
+	    		ArrayList<Bullet> bullets = ((PistolGun)player.getBag().get(i)).getMagazine().getMagazine();
+	    		for(int j=0;j<bullets.size();j++) {
+	    			Bullet A = bullets.get(j);
+	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
+	    		}
+	    	}
+	    	else if(player.getBag().get(i) instanceof PistolMagazine) {
+	    		ArrayList<Bullet> bullets = ((PistolMagazine)player.getBag().get(i)).getMagazine();
 	    		for(int j=0;j<bullets.size();j++) {
 	    			Bullet A = bullets.get(j);
 	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
@@ -101,15 +119,15 @@ public class Handler implements Serializable {
 				A.setRenderArea(new Rectangle(A.getxPos() + A.getxDif(), A.getyPos() + A.getyDif() + 40, A.getW(), A.getH()-40));	
 			}
 			
-			if(allObjects.get(i) instanceof Gun) {
-	    		ArrayList<Bullet> bullets = ((Gun)allObjects.get(i)).getMagazine().getMagazine();
+			if(allObjects.get(i) instanceof PistolGun) {
+	    		ArrayList<Bullet> bullets = ((PistolGun)allObjects.get(i)).getMagazine().getMagazine();
 	    		for(int j=0;j<bullets.size();j++) {
 	    			Bullet A = bullets.get(j);
 	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
 	    		}
 	    	}
-	    	if(allObjects.get(i) instanceof Magazine) {
-	    		ArrayList<Bullet> bullets = ((Magazine)allObjects.get(i)).getMagazine();
+	    	if(allObjects.get(i) instanceof PistolMagazine) {
+	    		ArrayList<Bullet> bullets = ((PistolMagazine)allObjects.get(i)).getMagazine();
 	    		for(int j=0;j<bullets.size();j++) {
 	    			Bullet A = bullets.get(j);
 	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));

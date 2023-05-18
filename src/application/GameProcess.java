@@ -26,6 +26,7 @@ import object.Sculpture;
 import ui.Ui;
 import Scenes.GameOverScene;
 import Scenes.MenuScene;
+import Scenes.Shop;
 import Scenes.GameComplete;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -72,9 +73,9 @@ public class GameProcess {
 	public static boolean load = false;
 	
 	public GameProcess(Stage stage) {
-
 		GameProcess.stage = stage;
 		Canvas canvas = new Canvas(960, 640);
+		new Shop(stage ,this);
 		root = new StackPane(canvas);
 		scene = new Scene(root);
 		gc = canvas.getGraphicsContext2D();

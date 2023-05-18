@@ -42,6 +42,10 @@ public class Computer extends GameObject implements StableObject {
 	public void interact(Player player) {
 		PasswordPopUp ppu = new PasswordPopUp();
 		Obj.gridPane = ppu.ShowPasswordScene();
+		Obj.temp1 = ((Player)player).get_ac();
+		Obj.temp2 = ((Player)player).get_dc();
+		player.setAc(0, 0);
+		player.setForceStop(true);
 		GameProcess.getRoot().getChildren().addAll(Obj.gridPane);
 		
 		if(!saved) {

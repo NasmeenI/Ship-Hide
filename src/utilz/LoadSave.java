@@ -60,11 +60,6 @@ public class LoadSave {
 	public static final String Criminal_Animation_Temp = "Animation/T_Temp_Tar.jpg";
 	
 	public static final String PRESS_E = "Objects/pressE.jpg";
-	public static final String KNIFE = "Objects/knife.png";
-	public static final String KNIFE_USED = "Objects/knifeUsed.png";
-	public static final String GUN = "Objects/gun.png";
-	public static final String GUN_USED = "Objects/gunUsed.png";
-	public static final String MAGAZINE = "Objects/magazine.png";
 	public static final String KEY1 = "Objects/key1.png";
 	public static final String KEY2 = "Objects/key2.png";
 	public static final String HPBOTTLE = "Objects/hpBottle.png";
@@ -85,6 +80,15 @@ public class LoadSave {
 	public static final String PUZZLE4 = "Objects/puzzle4.png";
 
 	public static final String SPIDER = "Objects/spider.png";
+	
+	public static final String KNIFE = "Objects/knife.png";
+	public static final String KNIFE_USED = "Objects/knifeUsed.png";
+	public static final String GUN = "Objects/gun.png";
+	public static final String GUN_USED = "Objects/gunUsed.png";
+	public static final String MAGAZINE = "Objects/magazine.png";
+	public static final String AK47 = "Objects/ak47.png";
+	public static final String AK47_USED = "Objects/ak47Used.png";
+	public static final String AK47MAGAZINE = "Objects/magazine.png";
 	
 	public static Image GetSpriteAtlas(String fileName) {
 		Image image = new Image("/" + fileName);

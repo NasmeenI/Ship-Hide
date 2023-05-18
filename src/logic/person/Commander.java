@@ -4,7 +4,6 @@ import static utilz.Constants.Debug.SOLID_SHOW;
 import static utilz.Constants.Player.P_HEIGHT;
 import static utilz.Constants.Player.P_WIDTH;
 import static utilz.Constants.Tile.TILESIZE;
-
 import application.sound.KillCommander;
 import application.sound.ShotCommander;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
-import logic.container.Gun;
+import logic.container.pistol.PistolGun;
 import utilz.Checker;
 import utilz.Obj;
 
@@ -21,7 +20,7 @@ public class Commander extends Person {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Gun gun;
+	private PistolGun gun;
 	
 	private int gunMod = 5;
 
@@ -148,6 +147,6 @@ public class Commander extends Person {
 
 	public void setGun() {
 		// TODO Auto-generated method stub
-		this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
+		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
 	}
 }

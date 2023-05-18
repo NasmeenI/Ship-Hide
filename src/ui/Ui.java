@@ -13,10 +13,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import logic.base.GameObject;
-import logic.container.Gun;
 import logic.container.KeyLocker;
 import logic.container.Knife;
-import logic.container.Magazine;
+import logic.container.ak47.Ak47Gun;
+import logic.container.pistol.PistolMagazine;
+import logic.container.pistol.PistolGun;
 import logic.person.Player;
 
 public class Ui {
@@ -30,15 +31,26 @@ public class Ui {
 		Image image;
 		ArrayList<GameObject> bag = player.getBag();
 		for(int i=0;i<bag.size();i++) {
-			if(bag.get(i) instanceof Gun) {
-				if(player.getUsed() == 3) image = ((Gun)bag.get(i)).getImageUsed();
-				else image = ((Gun)bag.get(i)).getImage();
+			if(bag.get(i) instanceof Ak47Gun) {
+				if(player.getUsed() == 4) image = ((Ak47Gun)bag.get(i)).getImageUsed();
+				else image = ((Ak47Gun)bag.get(i)).getImage();
 				box.getChildren().add(new ImageView(image));
 				
-				Magazine currentMagazine = ((Gun)bag.get(i)).getMagazine();
+//				PistolMagazine currentMagazine = ((PistolGun)bag.get(i)).getMagazine();
+//				int maxBullet;
+//				if(((PistolGun)bag.get(i)).getNumMagazine() == 0) maxBullet = currentMagazine.getNumBullet();
+//				else maxBullet = currentMagazine.getNumMaxBullet() + ((PistolGun)bag.get(i)).getNumMagazine() * currentMagazine.getNumMaxBullet();
+//				numBullet(box ,currentMagazine.getNumBullet(), maxBullet);	
+			}
+			if(bag.get(i) instanceof PistolGun) {
+				if(player.getUsed() == 3) image = ((PistolGun)bag.get(i)).getImageUsed();
+				else image = ((PistolGun)bag.get(i)).getImage();
+				box.getChildren().add(new ImageView(image));
+				
+				PistolMagazine currentMagazine = ((PistolGun)bag.get(i)).getMagazine();
 				int maxBullet;
-				if(((Gun)bag.get(i)).getNumMagazine() == 0) maxBullet = currentMagazine.getNumBullet();
-				else maxBullet = currentMagazine.getNumMaxBullet() + ((Gun)bag.get(i)).getNumMagazine() * currentMagazine.getNumMaxBullet();
+				if(((PistolGun)bag.get(i)).getNumMagazine() == 0) maxBullet = currentMagazine.getNumBullet();
+				else maxBullet = currentMagazine.getNumMaxBullet() + ((PistolGun)bag.get(i)).getNumMagazine() * currentMagazine.getNumMaxBullet();
 				numBullet(box ,currentMagazine.getNumBullet(), maxBullet);	
 			}
 		}

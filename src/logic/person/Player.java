@@ -15,8 +15,10 @@ import logic.base.ID;
 import logic.base.KeyInput;
 import logic.base.Keys;
 import logic.base.Map;
-import logic.container.Gun;
 import logic.container.Knife;
+import logic.container.ak47.Ak47Gun;
+import logic.container.ak47.Ak47Magazine;
+import logic.container.pistol.PistolGun;
 import object.Sculpture;
 import utilz.Checker;
 import utilz.LoadSave;
@@ -67,6 +69,10 @@ public class Player extends Person {
 		previousAni = T_Up[defaultAni];
 		
 		// Tempt
+		this.addItemInBag(new Ak47Gun(0, 0 ,ID.Ak47Gun));
+		this.setGun(true);
+		this.addItemInBag(new Ak47Magazine(0, 0 ,ID.Ak47Magazine));
+		
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 		
@@ -129,7 +135,7 @@ public class Player extends Person {
 			Music.gameOver.play();
 		}
 		Obj.collision(this);
-		
+
 		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
             if(Handler.getInstance().allObjects.get(i).getCode() == getCode()) continue;
             if((Handler.getInstance().allObjects.get(i) instanceof Sculpture) && getFootArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
@@ -146,12 +152,17 @@ public class Player extends Person {
 		if(key.TWO && getUsed() != 2) {
 			setPrvUsed(getUsed());
 			setUsed(2);
-			if(getUsed() == 2) setKnifeTime(90);
+			setKnifeTime(90);
 		}
 		if(key.THREE && getUsed() != 3) {
 			setPrvUsed(getUsed());
 			setUsed(3);
-			if(getUsed() == 3) setBulletTime(20);
+			setBulletTime(20);
+		}
+		if(key.FOUR && getUsed() != 4) {
+			setPrvUsed(getUsed());
+			setUsed(4);
+			setBulletTime(5);
 		}
 		
 		if(key.Q && !swaped) {
@@ -165,6 +176,8 @@ public class Player extends Person {
 		if(!forceStop && getUsed() == 1) setAc(.8f, .4f);
 		if(!forceStop && getUsed() == 2) setAc(.7f, .35f);
 		if(!forceStop && getUsed() == 3) setAc(.5f, .25f);
+		if(!forceStop && getUsed() == 4) setAc(.5f, .25f);
+		
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));
@@ -185,14 +198,29 @@ public class Player extends Person {
 				shoot();
 				setBulletTime(0);
 			}
+			if((key.LEFT || key.RIGHT || key.UP || key.DOWN) && getUsed() == 4 && getBulletTime() >= 5) {
+				shoot();
+				setBulletTime(0);
+			}
 		}
 		
 		if(key.R && GunAvailable() && getUsed() == 3 && getReloadTime() == 30) { // Reload Option (Press R)
 			new Reload();
 			ArrayList<GameObject> bag = this.getBag();
 			for(int i=0;i<bag.size();i++) {
-				if(bag.get(i) instanceof Gun) {
-					((Gun)bag.get(i)).reload();
+				if(bag.get(i) instanceof PistolGun) {
+					((PistolGun)bag.get(i)).reload();
+					break;
+				}
+			}
+			setReloadTime(0);
+		}
+		if(key.R && GunAvailable() && getUsed() == 4 && getReloadTime() == 30) { // Reload Option (Press R)
+			new Reload();
+			ArrayList<GameObject> bag = this.getBag();
+			for(int i=0;i<bag.size();i++) {
+				if(bag.get(i) instanceof Ak47Gun) {
+					((Ak47Gun)bag.get(i)).reload();
 					break;
 				}
 			}
@@ -324,22 +352,34 @@ public class Player extends Person {
 	public void shoot() {
 		if(!GunAvailable() || Handler.getInstance().player == null) return ;
 		
-		Gun gun = null;
+		PistolGun pistolGun = null;
+		Ak47Gun ak47Gun = null;
+		
 		ArrayList<GameObject> bag = this.getBag();
 		for(int i=0;i<bag.size();i++) {
-			if(bag.get(i) instanceof Gun) {
-				gun = ((Gun)bag.get(i));
-				break;
+			if(bag.get(i) instanceof PistolGun) {
+				pistolGun = ((PistolGun)bag.get(i));
+			}
+			if(bag.get(i) instanceof Ak47Gun) {
+				ak47Gun = ((Ak47Gun)bag.get(i));
 			}
 		}
-		
-		if(!gun.shootAble()) {
-			new outOfBullet();
-			return ;
+		if(getUsed() == 3 && pistolGun != null) {
+			if(!pistolGun.shootAble()) {
+				new outOfBullet();
+				return ;
+			}
+			pistolGun.shoot((int)getxPos(), (int)getyPos(), getDirect());
+			new ShotPlayer();
 		}
-		
-		gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
-		new ShotPlayer();
+		else if(getUsed() == 4 && ak47Gun != null) {
+			if(!ak47Gun.shootAble()) {
+				new outOfBullet();
+				return ;
+			}
+			ak47Gun.shoot((int)getxPos(), (int)getyPos(), getDirect());
+			new ShotPlayer();
+		}
 	}
 	
 	public void slash() {

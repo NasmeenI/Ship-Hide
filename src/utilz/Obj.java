@@ -13,11 +13,12 @@ import logic.person.Person;
 import logic.person.Player;
 import logic.container.Bullet;
 import logic.container.Knife;
-import logic.container.Gun;
-import logic.container.Magazine;
+import logic.container.pistol.PistolMagazine;
 import logic.container.KeyLocker;
 import logic.container.HpBottle;
+import logic.container.pistol.PistolGun;
 import object.Computer;
+import object.Trader;
 import object.Label;
 import object.Helicopter;
 import object.Door;
@@ -129,6 +130,10 @@ public class Obj {
 						Handler.getInstance().removeObject(B);
 						break;
 					}
+					case Trader : {
+						if(((Player)A).getKey().E && time > 30) ((Trader)B).interact(((Player)A));
+						break;
+					}
 					case Computer : {
 						if(((Player)A).getKey().E && time > 30) ((Computer)B).interact(((Player)A));
 						break;
@@ -165,12 +170,12 @@ public class Obj {
 						((Knife)B).interact(((Player)A));
 						break;
 					}
-					case Gun : {
-						((Gun)B).interact(((Player)A));
+					case PistolGun : {
+						((PistolGun)B).interact(((Player)A));
 						break;
 					}
-					case Magazine : {
-						((Magazine)B).interact(((Player)A));
+					case PistolMagazine : {
+						((PistolMagazine)B).interact(((Player)A));
 						break;
 					}
 					case Door1 : {

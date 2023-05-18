@@ -261,9 +261,10 @@ public abstract class Person extends GameObject {
 	}
 
 	public void setUsed(int used) {
-		if(used < 1 || used > 3) this.used = 1;
+		if(used < 1 || used > 4) this.used = 1;
 		else if(used == 2 && this.knife) this.used = 2;
 		else if(used == 3 && this.gun) this.used = 3;
+		else if(used == 4 && this.gun) this.used = 4;
 		else this.used = 1;
 		return ;
 	}

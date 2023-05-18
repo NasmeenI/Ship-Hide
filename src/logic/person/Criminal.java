@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
-import logic.container.Gun;
+import logic.container.pistol.PistolGun;
 import utilz.Checker;
 import utilz.LoadSave;
 import utilz.Obj;
@@ -21,7 +21,7 @@ import static utilz.Constants.Debug.*;
 public class Criminal extends Person {
 	
 	private static final long serialVersionUID = 1L;
-	private Gun gun;
+	private PistolGun gun;
 	
 	transient private Image T_Temp;
 
@@ -137,7 +137,7 @@ public class Criminal extends Person {
 
 	public void setGun() {
 		// TODO Auto-generated method stub
-		this.gun = new Gun(xPos, yPos, ID.Gun, 10000);
+		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
 	}
 	
 }
