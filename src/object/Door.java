@@ -99,13 +99,17 @@ public class Door extends GameObject implements StableObject {
 				int x = 0;
 				if(getId() == ID.Door1) {
 					x = 0;
-					Handler.progress = 1;
-					Music.play();
+					if(Handler.progress == 0) {
+						Handler.progress = 1;
+						Music.play();
+					}
 				}
 				else if(getId() == ID.Door2) {
 					x = 1;
-					Handler.progress = 2;
-					Music.play();
+					if(Handler.progress == 1) {
+						Handler.progress = 2;
+						Music.play();
+					}
 				}
 				Map.getInstance().setStageMap((int)getxPos()/48-1, (int)getyPos()/48+1+x, 2);
 			}
