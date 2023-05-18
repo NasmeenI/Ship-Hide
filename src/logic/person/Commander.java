@@ -5,6 +5,7 @@ import static utilz.Constants.Player.P_HEIGHT;
 import static utilz.Constants.Player.P_WIDTH;
 import static utilz.Constants.Tile.TILESIZE;
 
+import application.sound.KillCommander;
 import application.sound.ShotCommander;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -40,7 +41,10 @@ public class Commander extends Person {
 	@Override
 	public void update() {
 		
-		if(getHp() == 0) Handler.getInstance().removeObject(this);
+		if(getHp() == 0) {
+			new KillCommander();
+			Handler.getInstance().removeObject(this);
+		}
 		Obj.collision(this);
 		
 		if(Obj.distance(this, Handler.getInstance().player) <= 300) {

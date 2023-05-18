@@ -22,6 +22,7 @@ import javafx.util.Duration;
 import utilz.LoadSave;
 import application.GameProcess;
 import application.sound.Click;
+import application.sound.StartGame;
 
 import static utilz.Constants.GameState.*;
 
@@ -72,6 +73,7 @@ public class MenuScene {
 					}
 					
 					Platform.runLater(() -> MenuScene.stage.setScene(GameProcess.scene));
+					new StartGame();
 				}).start();
 			}),
 			new MenuItem("Load Save" ,() -> {

@@ -2,6 +2,7 @@ package ui;
 
 import application.GameProcess;
 import application.Music;
+import application.sound.CorrectPassword;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -76,6 +77,7 @@ public class PasswordPopUp {
                 GridPane.setConstraints(passwordCorrectLabel, 0, 0, 3, 6);
                 ((GridPane) submitButton.getParent()).getChildren().add(passwordCorrectLabel);
                 
+                new CorrectPassword();
                 Handler.progress = 4;
 				Music.play();
             }

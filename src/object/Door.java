@@ -2,6 +2,8 @@ package object;
 
 import java.util.ArrayList;
 import application.Music;
+import application.sound.OpenDoor1;
+import application.sound.OpenDoor2;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
@@ -100,6 +102,7 @@ public class Door extends GameObject implements StableObject {
 				if(getId() == ID.Door1) {
 					x = 0;
 					if(Handler.progress == 0) {
+						new OpenDoor1();
 						Handler.progress = 1;
 						Music.play();
 					}
@@ -107,6 +110,7 @@ public class Door extends GameObject implements StableObject {
 				else if(getId() == ID.Door2) {
 					x = 1;
 					if(Handler.progress == 1) {
+						new OpenDoor2();
 						Handler.progress = 2;
 						Music.play();
 					}

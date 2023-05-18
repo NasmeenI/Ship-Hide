@@ -11,6 +11,7 @@ import logic.person.Player;
 import utilz.LoadSave;
 import application.GameProcess;
 import application.Music;
+import application.sound.OpenMusiumDoor;
 
 import static utilz.Constants.GameProcess.*;
 import static utilz.Constants.Debug.*;
@@ -53,6 +54,7 @@ public class MuseumDoor extends GameObject implements StableObject {
 			if(!saved) {
 				GameProcess.save();
 				saved = true;
+				new OpenMusiumDoor();
 			}
 			Handler.progress = 3;
 			Music.play();
