@@ -90,22 +90,22 @@ public class AssetSetter {
 	public void setForDetective() {
 		
 		// Criminal Room 1&2
-		Handler.getInstance().addObject(new Criminal(820, 1200, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(900, 700, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1000, 2200, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1250, 600, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1450, 650, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(1750, 1550, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(820, 1200, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(900, 700, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(1000, 2200, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(1250, 600, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(1450, 650, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(1750, 1550, ID.Criminal, .5f, .5f));
 				
 		// Criminal Room 3&4
-		Handler.getInstance().addObject(new Criminal(2600, 2000, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(3300, 1150, ID.Criminal, 2, 2));
-		Handler.getInstance().addObject(new Criminal(3300, 1200, ID.Criminal, 2, 2));
+		Handler.getInstance().addObject(new Criminal(2600, 2000, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(3300, 1150, ID.Criminal, .5f, .5f));
+		Handler.getInstance().addObject(new Criminal(3300, 1200, ID.Criminal, .5f, .5f));
 				
 		// Commander
-		Handler.getInstance().addObject(new Commander(2600, 600, ID.Commander, 2, 2));
-		Handler.getInstance().addObject(new Commander(1200, 1200, ID.Commander, 2, 2));
-		Handler.getInstance().addObject(new Commander(3700, 1500, ID.Commander, 2, 2));
+		Handler.getInstance().addObject(new Commander(2600, 600, ID.Commander, .5f, .5f));
+		Handler.getInstance().addObject(new Commander(1200, 1200, ID.Commander, .5f, .5f));
+		Handler.getInstance().addObject(new Commander(3700, 1500, ID.Commander, .5f, .5f));
 		
 		// Weapons
 		Handler.getInstance().allObjects.add(new PistolGun(26 * TILE_SIZE ,13 * TILE_SIZE, ID.PistolGun ,true));

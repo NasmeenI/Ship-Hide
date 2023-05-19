@@ -169,6 +169,7 @@ public class Obj {
 						break;
 					}
 					case Knife : {
+						if(!((Knife)B).isVisible()) break;
 						((Knife)B).interact(((Player)A));
 						break;
 					}
@@ -223,6 +224,7 @@ public class Obj {
 						break;
 					}
 					case Knife : {
+						if(((Knife)B).isVisible()) break;
 						((Criminal)A).setHp(((Criminal)A).getHp() - ((Knife)B).damage());
 						((Criminal)A).setChasing(true);
 						((Criminal)A).setChasingTime(0);
@@ -252,6 +254,7 @@ public class Obj {
 						break;
 					}
 					case Knife : {
+						if(((Knife)B).isVisible()) break;
 						((Commander)A).setHp(((Commander)A).getHp() - ((Knife)B).damage());
 						((Commander)A).setChasing(true);
 						((Commander)A).setChasingTime(0);

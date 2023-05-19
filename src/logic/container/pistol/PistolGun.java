@@ -10,11 +10,12 @@ import logic.base.ID;
 import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.container.Bullet;
+import logic.container.Gun;
 import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
-public class PistolGun extends GameObject implements Attackable, StableObject, Pickable {
+public class PistolGun extends Gun implements Attackable, StableObject, Pickable {
 	
 	private static final long serialVersionUID = 1L;
 	private PistolMagazine magazine;

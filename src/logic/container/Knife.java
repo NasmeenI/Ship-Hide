@@ -70,7 +70,7 @@ public class Knife extends GameObject implements Attackable, StableObject, Picka
 	}
 	
 	public int damage() {
-		return 1200;
+		return 700;
 	}
 	
 	public int dps_damage() {
