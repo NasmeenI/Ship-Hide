@@ -6,14 +6,13 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.container.Bullet;
 import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
-public class PistolMagazine extends GameObject implements StableObject ,Pickable {
+public class PistolMagazine extends GameObject implements StableObject {
 	private static final long serialVersionUID = 1L;
 	public ArrayList<Bullet> magazine;
 	public boolean picked;

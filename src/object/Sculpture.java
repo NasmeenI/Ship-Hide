@@ -20,6 +20,10 @@ public class Sculpture extends GameObject {
 		super(xPos, yPos, id ,10 ,85 ,70 ,60);
 		initImg();
 	}
+	
+	public void initImg() {
+		image = LoadSave.GetSpriteAtlas(LoadSave.SCULPTURE);
+	}
 
 	public void update() {
 		Obj.collision(this);
@@ -51,9 +55,8 @@ public class Sculpture extends GameObject {
 			}else {
 				setxPos(getxPos() + X.getxVelo());
 				setyPos(getyPos() + X.getyVelo());
-//				if(((Person) X).getFootArea().intersects(this.getSolidArea().getBoundsInLocal())) Obj.pushOffFrom(X, this);
 			}
-			setBeforeTwo(Obj.collisionTwo_sculpture(this));
+			setBeforeTwo(Obj.collisionTwoSculpture(this));
 			X.setxVelo(0);
 			X.setyVelo(0);
 		}
@@ -61,10 +64,6 @@ public class Sculpture extends GameObject {
 			Obj.pushOffFrom(X, this);
 			System.out.println("Hi");
 		}
-	}
-	
-	public void initImg() {
-		image = LoadSave.GetSpriteAtlas(LoadSave.SCULPTURE);
 	}
 
 	// Getter & Setter

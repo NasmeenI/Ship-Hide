@@ -33,20 +33,17 @@ public class Criminal extends Person {
         setHp(1000);
         initGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
-        
-        // Tempt
-        setGun(true);
-        setUsed(3);
         initImg();
     }
 	
-	public void initGun() {
-		// TODO Auto-generated method stub
-		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
-	}
-	
 	public void initImg() {
 		T_Temp = LoadSave.GetSpriteAtlas(LoadSave.Criminal_Animation_Temp);
+	}
+	
+	public void initGun() {
+		gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
+		setGun(true);
+        setUsed(3);
 	}
 
 	@Override
@@ -56,18 +53,18 @@ public class Criminal extends Person {
 		Obj.collision(this);
 		
 		if(Obj.distance(this, Handler.getInstance().player) <= 200) {
-			chasing = true;
+			setChasing(true);
 			setxVelo(2);
 			setyVelo(2);
 			setChasingTime(0);
 		}
 		else if(Obj.distance(this, Handler.getInstance().player) > 450 && getChasingTime() == 300) {
-			chasing = false;
+			setChasing(false);
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
 		
-		if(chasing) {
+		if(isChasing()) {
 			setChasingTime(getChasingTime() + 1);
 			setChasingTime(Math.min(300, getChasingTime()));
 			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());

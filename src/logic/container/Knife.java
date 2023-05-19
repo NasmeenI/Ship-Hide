@@ -6,13 +6,12 @@ import logic.base.Attackable;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
-public class Knife extends GameObject implements Attackable, StableObject, Pickable {
+public class Knife extends GameObject implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	public boolean picked;

@@ -26,6 +26,10 @@ public class Helicopter extends GameObject implements StableObject {
 		interacted = false;
 		initImg();
 	}
+	
+	public void initImg() {
+		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
+	}
 
 	public void update() {
 		double dis = Obj.distance(this, Handler.getInstance().player);
@@ -44,10 +48,6 @@ public class Helicopter extends GameObject implements StableObject {
 		if(!Captive.isReady()) return;
 		GameProcess.stage.setScene(GameComplete.scene);
 		GameProcess.setGameState(GAME_COMPLETE_STATE);
-	}
-	
-	public void initImg() {
-		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
 	}
 	
 	

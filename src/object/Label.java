@@ -27,6 +27,29 @@ public class Label extends GameObject implements StableObject {
 		interacted = false;
 		initImg();
 	}
+	
+	public void initImg() {
+		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
+		switch(getId()) {
+			case Label1 : {
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE1);
+				break;
+			}
+			case Label2 : {
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE2);
+				break;
+			}
+			case Label3 : {
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE3);
+				break;
+			}
+			case Label4 : {
+				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE4);
+				break;
+			}
+			default : break;
+		}
+	}
 
 	public void update() {
 		double dis = Obj.distance(this, Handler.getInstance().player);
@@ -62,29 +85,6 @@ public class Label extends GameObject implements StableObject {
 			player.setAc(Obj.temp1, Obj.temp2);
 			player.setForceStop(false);
 			GameProcess.removeStackRoot(Obj.stackPane);
-		}
-	}
-	
-	public void initImg() {
-		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
-		switch(getId()) {
-			case Label1 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE1);
-				break;
-			}
-			case Label2 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE2);
-				break;
-			}
-			case Label3 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE3);
-				break;
-			}
-			case Label4 : {
-				imagePuzzle = LoadSave.GetSpriteAtlas(LoadSave.PUZZLE4);
-				break;
-			}
-			default : break;
 		}
 	}
 

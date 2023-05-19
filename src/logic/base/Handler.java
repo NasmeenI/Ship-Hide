@@ -64,12 +64,16 @@ public class Handler implements Serializable {
 	public void updateAfterLoadSave(KeyInput input) {
 		// Player
 		Player player = Handler.getInstance().player;
-		player.setSolidArea(new Rectangle(player.getxPos()+player.getxDif() ,player.getyPos()+player.getyDif() ,player.getW() ,player.getH()));
+		player.setSolidArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif(), player.getW(), player.getH()));
 		player.setFootArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + P_HEIGHT - 10, player.getW(), 10));
-		player.setRenderArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + 40, player.getW(), player.getH()-40));	
+		player.setRenderArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + 40, player.getW(), player.getH() - 40));	
+
 		player.setKey(new Keys());
+		player.setxVelo(0);
+		player.setyVelo(0);
 		player.setInput(input);
 		player.initImg();
+		
 	    for(int i=0;i<player.getBag().size();i++) {
 	    	player.getBag().get(i).initImg();
 	    }

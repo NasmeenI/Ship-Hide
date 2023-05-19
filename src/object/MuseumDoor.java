@@ -34,6 +34,17 @@ public class MuseumDoor extends GameObject implements StableObject {
 		initImg();
 	}
 	
+	public void initImg() {
+		switch(getId()) {
+			case MusiumDoor : {
+				imageOpen = LoadSave.GetSpriteAtlas(LoadSave.MUSIUM_DOOR_OPEN);
+				imageClose = LoadSave.GetSpriteAtlas(LoadSave.MUSIUM_DOOR_CLOSE);
+				break;
+			}
+			default : break;
+		}
+	}
+	
 	@Override
 	public void update() {
 		int cnt = 0;
@@ -78,18 +89,7 @@ public class MuseumDoor extends GameObject implements StableObject {
 	}
 	
 	public void interact(Player player) {
-		
-	}
-	
-	public void initImg() {
-		switch(getId()) {
-			case MusiumDoor : {
-				imageOpen = LoadSave.GetSpriteAtlas(LoadSave.MUSIUM_DOOR_OPEN);
-				imageClose = LoadSave.GetSpriteAtlas(LoadSave.MUSIUM_DOOR_CLOSE);
-				break;
-			}
-			default : break;
-		}
+		// Nothing happened
 	}
 	
 	private void initPassword() {

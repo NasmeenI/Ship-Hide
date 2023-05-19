@@ -48,7 +48,7 @@ public class Player extends Person {
 	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	private final int defaultAni = 9;
 	transient private Image currentAni, previousAni;
-	private boolean swaped = false;
+	private boolean swaped = false; // for Q button
 	public boolean forceStop = false;
 	
 	public ArrayList<GameObject> bag;
@@ -61,7 +61,7 @@ public class Player extends Person {
 		this.bag = new ArrayList<>();
 		initImg();
 		
-		if(MenuScene.mode == 0) setHpMax(5000000);
+		if(MenuScene.mode == 0) setHpMax(5000);
 		else if(MenuScene.mode == 1) setHpMax(50000);
 		setHp(getHpMax());
 		setDirect("U");
@@ -232,6 +232,7 @@ public class Player extends Person {
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
 		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
 		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
+		
 		Animation();
 		
 		return ;

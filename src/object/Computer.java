@@ -25,6 +25,10 @@ public class Computer extends GameObject implements StableObject {
 		interacted = false;
 		initImg();
 	}
+	
+	public void initImg() {
+		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
+	}
 
 	public void update() {
 		double dis = Obj.distance(this, Handler.getInstance().player);
@@ -52,10 +56,6 @@ public class Computer extends GameObject implements StableObject {
 			GameProcess.save();
 			saved = true;
 		}
-	}
-	
-	public void initImg() {
-		imageInteract = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
 	}
 
 	// Getter & Setter

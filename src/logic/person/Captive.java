@@ -38,7 +38,7 @@ public class Captive extends Person {
 	public void update() {
 		Obj.collision(this);
 		if(PasswordPopUp.accessGranted) {
-			chasing = true;
+			setChasing(true);
 			setxVelo(3);
 			setyVelo(3);
 		}
@@ -46,7 +46,7 @@ public class Captive extends Person {
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
-		if(chasing) {
+		if(isChasing()) {
 			Point mP = getMiddlePoint(Handler.getInstance().player.getSolidArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().player));

@@ -7,7 +7,6 @@ import logic.base.Attackable;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.container.Bullet;
 import logic.container.Gun;
@@ -15,7 +14,7 @@ import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
-public class Ak47Gun extends Gun implements Attackable, StableObject, Pickable {
+public class Ak47Gun extends Gun implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	private Ak47Magazine magazine;

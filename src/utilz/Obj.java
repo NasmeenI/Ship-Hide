@@ -77,7 +77,7 @@ public class Obj {
 		return result;
 	}
 	
-	public static boolean collisionTwo_sculpture(Sculpture A) {
+	public static boolean collisionTwoSculpture(Sculpture A) {
 		boolean result = false;
 		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight() && i/TILE_SIZE<=MAX_SCREEN_ROW ;i++) {
 			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth() && j/TILE_SIZE<=MAX_SCREEN_COL ;j++) {
@@ -459,11 +459,6 @@ public class Obj {
 		}
 		
 		return ;
-	}
-	
-	public static void follow(GameObject A, GameObject B) {
-		// More Function
-		getClose(A, B);
 	}
 	
 	public static double distance(GameObject A, GameObject B) {

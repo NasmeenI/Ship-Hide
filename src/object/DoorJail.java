@@ -29,7 +29,7 @@ public class DoorJail extends GameObject implements StableObject {
 	
 	@Override
 	public void update() {
-
+		// Nothing to update
 	}
 
 	@Override

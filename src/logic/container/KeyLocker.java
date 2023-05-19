@@ -5,14 +5,13 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.Pickable;
 import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
 import application.GameProcess;
 import static utilz.Constants.Debug.*;
 
-public class KeyLocker extends GameObject implements StableObject, Pickable {
+public class KeyLocker extends GameObject implements StableObject {
 
 	private static final long serialVersionUID = 1L;
 	public boolean picked;

@@ -31,10 +31,6 @@ public class Commander extends Person {
         setHp(5000);
         initGun();
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
-        
-        // Tempt
-        setGun(true);
-        setUsed(3);
     }
 	
 	@Override
@@ -44,8 +40,9 @@ public class Commander extends Person {
 	}
 
 	public void initGun() {
-		// TODO Auto-generated method stub
-		this.gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
+		gun = new PistolGun(xPos, yPos, ID.PistolGun, 10000);
+		setGun(true);
+        setUsed(3);
 	}
 
 	@Override
@@ -58,18 +55,18 @@ public class Commander extends Person {
 		Obj.collision(this);
 		
 		if(Obj.distance(this, Handler.getInstance().player) <= 300) {
-			chasing = true;
+			setChasing(true);
 			setxVelo(1);
 			setyVelo(1);
 			setChasingTime(0);
 		}
 		else if(Obj.distance(this, Handler.getInstance().player) > 600 && getChasingTime() == 300) {
-			chasing = false;
+			setChasing(false);
 			setxVelo(.5f);
 			setyVelo(.5f);
 		}
 		
-		if(chasing) {
+		if(isChasing()) {
 			setChasingTime(getChasingTime() + 1);
 			setChasingTime(Math.min(300, getChasingTime()));
 			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());

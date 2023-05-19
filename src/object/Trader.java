@@ -25,6 +25,10 @@ public class Trader extends GameObject implements StableObject {
 		interacted = false;
 		initImg();
 	}
+	
+	public void initImg() {
+		image = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
+	}
 
 	public void update() {
 		double dis = Obj.distance(this, Handler.getInstance().player);
@@ -41,10 +45,6 @@ public class Trader extends GameObject implements StableObject {
 	public void interact(Player player) {
 		GameProcess.setGameState(PAUSE_STATE);
 	    GameProcess.stage.setScene(Shop.scene);
-	}
-	
-	public void initImg() {
-		image = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
 	}
 
 	// Getter & Setter
