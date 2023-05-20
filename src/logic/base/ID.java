@@ -35,4 +35,5 @@ public enum ID {
 	Lazer1(),
 	Lazer2(),
 	Sculpture(),
+	Coin()
 }

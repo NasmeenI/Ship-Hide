@@ -18,6 +18,7 @@ import logic.container.pistol.PistolMagazine;
 import logic.container.KeyLocker;
 import logic.container.HpBottle;
 import logic.container.pistol.PistolGun;
+import object.Coin;
 import object.Computer;
 import object.Trader;
 import object.Label;
@@ -130,6 +131,10 @@ public class Obj {
 						if(((Bullet)B).getOwner() == A.getId()) break;
 						((Player)A).setHp(((Player)A).getHp() - ((Bullet)B).damage());
 						Handler.getInstance().removeObject(B);
+						break;
+					}
+					case Coin : {
+						((Coin)B).interact(((Player)A));
 						break;
 					}
 					case Trader : {

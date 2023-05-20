@@ -13,6 +13,7 @@ import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
 import logic.container.pistol.PistolGun;
+import object.Coin;
 import utilz.Checker;
 import utilz.Obj;
 
@@ -51,6 +52,11 @@ public class Commander extends Person {
 		if(getHp() == 0) {
 			new KillCommander();
 			Handler.getInstance().removeObject(this);
+			Handler.getInstance().allObjects.add(new Coin((int)getxPos()+20 ,(int)getyPos()+50, ID.Coin));
+			Handler.getInstance().allObjects.add(new Coin((int)getxPos() ,(int)getyPos()+50, ID.Coin));
+			Handler.getInstance().allObjects.add(new Coin((int)getxPos()-20 ,(int)getyPos()+40, ID.Coin));
+			Handler.getInstance().allObjects.add(new Coin((int)getxPos() ,(int)getyPos(), ID.Coin));
+			Handler.getInstance().allObjects.add(new Coin((int)getxPos()+10 ,(int)getyPos()+20, ID.Coin));
 		}
 		Obj.collision(this);
 		

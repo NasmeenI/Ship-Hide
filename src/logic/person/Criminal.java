@@ -1,5 +1,6 @@
 package logic.person;
 
+import application.sound.ShotCommander;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -8,15 +9,12 @@ import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
 import logic.container.pistol.PistolGun;
+import object.Coin;
 import utilz.Checker;
 import utilz.LoadSave;
 import utilz.Obj;
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
-
-import application.sound.ShotCommander;
-import application.sound.ShotCriminal;
-
 import static utilz.Constants.Debug.*;
 
 public class Criminal extends Person {
@@ -49,7 +47,10 @@ public class Criminal extends Person {
 	@Override
 	public void update() {
 
-		if(getHp() == 0) Handler.getInstance().removeObject(this);
+		if(getHp() == 0) {
+			Handler.getInstance().removeObject(this);
+			Handler.getInstance().allObjects.add(new Coin((int)getxPos() ,(int)getyPos()+50, ID.Coin));
+		}
 		Obj.collision(this);
 		
 		if(Obj.distance(this, Handler.getInstance().player) <= 200) {

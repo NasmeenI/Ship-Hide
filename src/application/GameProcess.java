@@ -4,10 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -66,8 +64,6 @@ public class GameProcess {
 	private AssetSetter aSetter;
 	public Ui ui;
 	public static StackPane root;
-	private HBox box = new HBox();
-	private ProgressBar pb = new ProgressBar(1);
 	
 	// LOAD SAVE
 	public static boolean load = false;
@@ -75,7 +71,6 @@ public class GameProcess {
 	public GameProcess(Stage stage) {
 		GameProcess.stage = stage;
 		Canvas canvas = new Canvas(960, 640);
-		new Shop(stage ,this);
 		root = new StackPane(canvas);
 		scene = new Scene(root);
 		gc = canvas.getGraphicsContext2D();
@@ -113,7 +108,7 @@ public class GameProcess {
 	}
 	
 	private void initial() {
-		ui = new Ui(this);
+		ui = new Ui(root);
 		cam = new Camera(0, 0);
 		Map.getInstance();
 		
@@ -122,8 +117,8 @@ public class GameProcess {
 		// * Captive Room : 3450, 620
 		// * Nearby Captive Room : 2600, 600
 		// * Museum Room : 2700, 2000
-
 		Handler.getInstance().player = new Player(500, 500, ID.Player, input);
+		new Shop(stage ,this, Handler.getInstance().player);
 		
 		// INITIAL OBJECT
 		aSetter = new AssetSetter();
@@ -138,14 +133,6 @@ public class GameProcess {
 		
 		// CHECK POINT
 		gameState = PLAY_STATE;
-
-		// INITIAL HP BAR
-		pb.setTranslateX(300);
-		pb.setTranslateY(270);
-		pb.setPrefWidth(300);
-		pb.setPrefHeight(30);
-		pb.setStyle("-fx-accent: green;");
-		root.getChildren().addAll(pb);
 	}	
 	
 	private void update() {			
@@ -157,21 +144,11 @@ public class GameProcess {
 		
 		// Render State
 		GameProcess.renderState = new boolean[60][110];
-		
-		// Inventory box
-		root.getChildren().remove(box);
-		box = ui.draw(cam ,Handler.getInstance().player);
-		box.setTranslateX(50);
-		box.setTranslateY(530);
-		root.getChildren().addAll(box);
-		
-		// HP Bar
-		setHpBar();
 
 		Handler.getInstance().update();
+		ui.update(cam);
 		cam.update();
-
-		return;
+		new Shop(stage ,this, Handler.getInstance().player);
 	}
 
 	private void render(GraphicsContext gc) {
@@ -273,14 +250,6 @@ public class GameProcess {
 			}	
 		});
 		save.start();
-	}
-	
-	public void setHpBar() {
-		double hp = (double)Handler.getInstance().player.getHp()/(double)Handler.getInstance().player.getHpMax();
-		pb.setProgress(hp);
-		if(hp >= 0.7) pb.setStyle("-fx-accent: green;");
-		else if(hp < 0.7 && hp > 0.3) pb.setStyle("-fx-accent: orange;");
-		else if(hp <= 0.3) pb.setStyle("-fx-accent: red;");
 	}
 	
 	// Getters & Setters

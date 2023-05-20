@@ -46,7 +46,7 @@ public class AssetSetter {
 		for(int i=0;i<4;i++) Handler.getInstance().allObjects.add(sculpture[i]);	
 		
 		// Computer
-		Handler.getInstance().allObjects.add(new Computer(68 * TILE_SIZE ,12 * TILE_SIZE, ID.Computer));	
+		Handler.getInstance().allObjects.add(new Computer(68 * TILE_SIZE ,12 * TILE_SIZE, ID.Computer));		
 		
 		// Helicopter
 		Handler.getInstance().allObjects.add(new Helicopter(86 * TILE_SIZE ,30 * TILE_SIZE, ID.Helicopter));	

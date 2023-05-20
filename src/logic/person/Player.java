@@ -18,7 +18,6 @@ import logic.base.Map;
 import logic.base.Point;
 import logic.container.Knife;
 import logic.container.ak47.Ak47Gun;
-import logic.container.ak47.Ak47Magazine;
 import logic.container.pistol.PistolGun;
 import object.Sculpture;
 import utilz.Checker;
@@ -27,7 +26,6 @@ import utilz.Obj;
 import java.util.ArrayList;
 import Scenes.GameOverScene;
 import Scenes.MenuScene;
-
 import static utilz.Constants.Player.*;
 import static utilz.Constants.Debug.*;
 import static utilz.Constants.GameState.*;
@@ -50,6 +48,7 @@ public class Player extends Person {
 	transient private Image currentAni, previousAni;
 	private boolean swaped = false; // for Q button
 	public boolean forceStop = false;
+	private int coin;
 	
 	public ArrayList<GameObject> bag;
 	
@@ -59,6 +58,7 @@ public class Player extends Person {
 		_CurxPos = xPos;
 		_CuryPos = yPos; 
 		this.bag = new ArrayList<>();
+		this.coin = 30;
 		initImg();
 		
 		if(MenuScene.mode == 0) setHpMax(5000);
@@ -69,11 +69,7 @@ public class Player extends Person {
 		setKey(new Keys());
 		previousAni = T_Up[defaultAni];
 		
-		// Tempt
-		this.addItemInBag(new Ak47Gun(0, 0 ,ID.Ak47Gun));
-		this.setGun(true);
-		this.addItemInBag(new Ak47Magazine(0, 0 ,ID.Ak47Magazine));
-		
+		// Tempt		
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
 //		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
 		
@@ -610,5 +606,13 @@ public class Player extends Person {
 	
 	public boolean isForceStop() {
 		return this.forceStop;
+	}
+	
+	public int getCoin() {
+		return this.coin;
+	}
+	
+	public void setCoin(int coin) {
+		this.coin = coin;
 	}
 }

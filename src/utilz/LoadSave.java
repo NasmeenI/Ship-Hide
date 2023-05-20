@@ -59,6 +59,7 @@ public class LoadSave {
 	
 	public static final String Criminal_Animation_Temp = "Animation/T_Temp_Tar.jpg";
 	
+	public static final String COIN = "Objects/coin.png";
 	public static final String PRESS_E = "Objects/pressE.jpg";
 	public static final String KEY1 = "Objects/key1.png";
 	public static final String KEY2 = "Objects/key2.png";

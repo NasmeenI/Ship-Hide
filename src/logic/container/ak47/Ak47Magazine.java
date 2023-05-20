@@ -17,6 +17,8 @@ public class Ak47Magazine extends GameObject implements StableObject {
 	public ArrayList<Bullet> magazine;
 	public boolean picked;
 	private boolean visible;
+	private String name;
+	private int price;
 
 	transient private Image image;
 	private int numMaxBullet;
@@ -30,6 +32,8 @@ public class Ak47Magazine extends GameObject implements StableObject {
 		setVisible(true);
 		initImg();
 		this.numMaxBullet = 30;
+		this.name = "Ak-47 Magazine";
+		this.price = 5;
 		
 		magazine = new ArrayList<Bullet>();
 		AddBulletsPack(numMaxBullet);
@@ -41,6 +45,8 @@ public class Ak47Magazine extends GameObject implements StableObject {
 		setVisible(false);
 		initImg();
 		this.numMaxBullet = 30;
+		this.name = "Ak-47 Magazine";
+		this.price = 5;
 		
 		magazine = new ArrayList<Bullet>();
 		AddBulletsPack(numBullet);
@@ -136,5 +142,13 @@ public class Ak47Magazine extends GameObject implements StableObject {
 
 	public void setNumMaxBullet(int numBullet) {
 		this.numMaxBullet = numBullet;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public int getPrice() {
+		return this.price;
 	}
 }

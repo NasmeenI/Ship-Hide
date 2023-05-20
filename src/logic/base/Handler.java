@@ -25,13 +25,11 @@ public class Handler implements Serializable {
 	public Player player;
 	public static Handler instance;
 	public LinkedList<GameObject> allObjects;
-	private int coins;
 	
 	public Handler() {
 		Handler.progress = 0;
 		Handler.Code = 10000;
 		allObjects = new LinkedList<GameObject>();
-		this.coins = 0;
 	}	
 	
 	public static Handler getInstance() {
