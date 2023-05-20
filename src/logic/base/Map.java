@@ -4,23 +4,21 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-
 import application.GameProcess;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import object.Tile;
 import utilz.LoadSave;
 
 public class Map implements Serializable {
 
-	public static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 2L;
 	// 0 = wall 
 	// 1 = floor
 	// 2 = superimposed object
 	private int mapTileNum[][];
 	private Tile mapTile[][];
-	transient private Image map_1;
 	public static Map instance;
+	transient private Image map_1;
 	
 	public Map() {
 		initImg();
@@ -69,7 +67,7 @@ public class Map implements Serializable {
 		instance = map;
 	}
 
-	public void render_0(GraphicsContext gc ,int xTile ,int yTile) {
+	public void render_0(GraphicsContext gc, int xTile, int yTile) {
 		for(int y=Math.max(yTile ,8)-8;y<Math.min(yTile, 51)+9;y++) {
 			for(int x=Math.max(xTile, 12)-12;x<Math.min(xTile, 98)+12;x++) {
 				if(mapTile[y][x].getImage0() == null) continue;
@@ -90,7 +88,7 @@ public class Map implements Serializable {
 				}
 				else {
 					gc.drawImage(mapTile[y][x].getImage2() ,x*48 ,y*48);
-				}
+				}	
 			}
 		}
 	}
@@ -136,7 +134,7 @@ public class Map implements Serializable {
 		return map_1;
 	}
 
-	public void setMap_1(Image map_1) {
-		this.map_1 = map_1;
+	public void setMap_1(Image map) {
+		this.map_1 = map;
 	}
 }

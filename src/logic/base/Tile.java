@@ -1,10 +1,7 @@
-package object;
+package logic.base;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import logic.base.GameObject;
-import logic.base.ID;
-import logic.person.Player;
 import utilz.LoadSave;
 
 public class Tile extends GameObject {
@@ -12,7 +9,7 @@ public class Tile extends GameObject {
 	private static final long serialVersionUID = 1L;
 	private int x ,y;
 	private int state;
-	transient private Image image0 ,image2, image2_0, image3;
+	transient private Image image0 ,image2, image2_0;
 	
 	public Tile(int xPos, int yPos, ID id ,int x ,int y ,int state) {
 		super(xPos, yPos, id);
@@ -26,7 +23,6 @@ public class Tile extends GameObject {
 		if(getState() == 1) {
 			image0 = null;
 			image2 = null;
-			image3 = null;
 		}
 		image0 = LoadSave.GetSpriteAtlas("Maps/project_" + 0 +"/tile_" + x + "_" + y + ".png");
 		image2 = LoadSave.GetSpriteAtlas("Maps/project_" + 2 +"/tile_" + x + "_" + y + ".png");
@@ -39,9 +35,6 @@ public class Tile extends GameObject {
 
 	@Override
 	public void render(GraphicsContext gc) {
-	}
-	
-	public void interact(Player player) {
 	}
 	
 	// Getters & Setters
@@ -91,13 +84,5 @@ public class Tile extends GameObject {
 
 	public void setImage2_0(Image image2_0) {
 		this.image2_0 = image2_0;
-	}
-	
-	public Image getImage3() {
-		return image3;
-	}
-
-	public void setImage3(Image image3) {
-		this.image3 = image3;
 	}
 }

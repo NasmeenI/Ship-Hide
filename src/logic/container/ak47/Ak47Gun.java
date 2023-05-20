@@ -13,23 +13,23 @@ import utilz.LoadSave;
 public class Ak47Gun extends Gun implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	private Ak47Magazine magazine;
-	private String name;
 	private int price;
-
+	private String name;
+	private Ak47Magazine magazine;
+	
 	public Ak47Gun(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, false);
 		setMagazine(new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, 30));
 		setName("Ak-47");
-		setPrice(20);
+		setPrice(15);
 		initImg();
 	}
 	
 	public Ak47Gun(double xPos, double yPos, ID id, int bulletNum) {
-		super(xPos, yPos, id, -10, -10, 120, 57, false, false);
+		super(xPos, yPos, id, -10, -10, 120, 70, false, false);
 		setMagazine(new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, bulletNum));
 		setName("Ak-47");
-		setPrice(20);
+		setPrice(15);
 		initImg();
 	}
 	
@@ -37,8 +37,13 @@ public class Ak47Gun extends Gun implements Attackable, StableObject {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, visible);
 		setMagazine(new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, 30));
 		setName("Ak-47");
-		setPrice(20);
+		setPrice(15);
 		initImg();
+	}
+	
+	public void initImg() {
+		image = LoadSave.GetSpriteAtlas(LoadSave.AK47);
+		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.AK47_USED);
 	}
 	
 	public boolean shootAble() {
@@ -113,11 +118,6 @@ public class Ak47Gun extends Gun implements Attackable, StableObject {
 	public int dps_damage() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-	
-	public void initImg() {
-		image = LoadSave.GetSpriteAtlas(LoadSave.AK47);
-		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.AK47_USED);
 	}
 	
 	public int getNumMagazine() {

@@ -12,11 +12,9 @@ public enum ID {
 	Door1(),
 	Door2(),
 	DoorJail(),
-	Door3(),
 	MusiumDoor(),
 	Key1(),
 	Key2(),
-	Key3(),
 	PistolGun(),
 	Ak47Gun(),
 	PistolMagazine(),
@@ -36,4 +34,5 @@ public enum ID {
 	Lazer2(),
 	Sculpture(),
 	Coin()
+	
 }

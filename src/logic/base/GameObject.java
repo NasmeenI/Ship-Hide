@@ -10,15 +10,15 @@ import utilz.Checker;
 public abstract class GameObject implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private double littleMove = 1;
-	private double count = 0;
 	protected double xPos, yPos;
 	protected double xVelo, yVelo;
 	protected double xDif, yDif, w, h;
-	transient protected Rectangle solidArea;
 	protected ID id;
-	protected int Code;
+	protected int code;
 	protected boolean beforeTwo;
+	private double littleMove;
+	private double count;
+	transient protected Rectangle solidArea;
 	
 	public GameObject(double xPos, double yPos, ID id) {
 		setxPos(xPos);
@@ -59,11 +59,6 @@ public abstract class GameObject implements Serializable {
 		setyPos(getyPos() + getyVelo());
 	}
 	
-	public void ShowSolidArea(GraphicsContext gc) {
-		gc.setFill(Color.PINK);
-		gc.fillRect((int)getxPos() + getxDif(), (int)getyPos() + getyDif(), solidArea.getWidth(), solidArea.getHeight());
-	}
-	
 	public Point getMiddlePoint(Rectangle A) {
 		int xMid = (int) (A.getX() + A.getWidth() / 2);
 		int yMid = (int) (A.getY() + A.getHeight() / 2);
@@ -77,6 +72,11 @@ public abstract class GameObject implements Serializable {
 		littleMove += count;
 		
 		setyPos(getyPos() + littleMove);
+	}
+	
+	public void ShowSolidArea(GraphicsContext gc) {
+		gc.setFill(Color.PINK);
+		gc.fillRect((int)getxPos() + getxDif(), (int)getyPos() + getyDif(), solidArea.getWidth(), solidArea.getHeight());
 	}
 	
 	public abstract void update();
@@ -171,12 +171,11 @@ public abstract class GameObject implements Serializable {
 	}
 	
 	public int getCode() {
-		return Code;
+		return this.code;
 	}
 
 	public void setCode(int code) {
-		Code = code;
-		return ;
+		this.code = code;
 	}
 	
 	public boolean isBeforeTwo() {

@@ -16,8 +16,8 @@ import application.sound.Pick;
 public class HpBottle extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	private boolean picked;
 	private int efficiency;
+	private boolean picked;
 	transient private Image image;
 	
 	public HpBottle(double xPos, double yPos, ID id) {
@@ -26,6 +26,10 @@ public class HpBottle extends GameObject implements StableObject {
 		initImg();
 		if(MenuScene.mode == 0) setEfficiency(1000);
 		else if(MenuScene.mode == 1) setEfficiency(10000);
+	}
+	
+	public void initImg() {
+		this.image = LoadSave.GetSpriteAtlas(LoadSave.HPBOTTLE);
 	}
 	
 	@Override
@@ -44,10 +48,6 @@ public class HpBottle extends GameObject implements StableObject {
 		setPicked(true);
 		player.setHp(player.getHp() + getEfficiency());
 		Handler.getInstance().removeObject(this);
-	}
-	
-	public void initImg() {
-		this.image = LoadSave.GetSpriteAtlas(LoadSave.HPBOTTLE);
 	}
 	
 	// Getter & Setter

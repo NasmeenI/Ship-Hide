@@ -29,9 +29,13 @@ public class Magazine extends GameObject implements StableObject {
 		initImg();
 		setNumMaxBullet(numBullet);
 		setMagazine(new ArrayList<Bullet>());
-		AddBulletsPack(numBullet);
+		addBulletsPack(numBullet);
 	}
 
+	public void initImg() {
+		this.image = LoadSave.GetSpriteAtlas(LoadSave.MAGAZINE);
+	}
+	
 	public void update() {
 		shift();
 	}
@@ -51,20 +55,16 @@ public class Magazine extends GameObject implements StableObject {
 		Handler.getInstance().removeObject(this);
 	}
 	
-	public void initImg() {
-		this.image = LoadSave.GetSpriteAtlas(LoadSave.MAGAZINE);
-	}
-	
-	public void AddBullet(Bullet bullet) {
+	public void addBullet(Bullet bullet) {
 		magazine.add(bullet);
 		return ;
 	}
 	
-	public void AddBulletsPack(int count) {
+	public void addBulletsPack(int count) {
 		Bullet bulletTemp;
 		for(int i = 0; i < count; i++) {
 			bulletTemp = new Bullet(getxPos(), getyPos(), ID.Bullet);
-			AddBullet(bulletTemp);
+			addBullet(bulletTemp);
 		}
 	}
 	

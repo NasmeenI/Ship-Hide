@@ -52,10 +52,8 @@ public class Checker {
 		switch(id) {
 			case Door1 : return true; 
 			case Door2 : return true;
-			case Door3 : return true;
 			case Key1 : return true;
 			case Key2 : return true;
-			case Key3 : return true;
 			default : return false;
 		}
 	}
@@ -64,7 +62,6 @@ public class Checker {
 		switch(id) {
 			case Door1 : return true; 
 			case Door2 : return true;
-			case Door3 : return true;
 			default : return false;
 		}
 	}
@@ -73,7 +70,6 @@ public class Checker {
 		switch(id) {
 			case Key1 : return true; 
 			case Key2 : return true;
-			case Key3 : return true;
 			default : return false;
 		}
 	}

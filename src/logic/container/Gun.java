@@ -13,9 +13,9 @@ import application.sound.Pick;
 public abstract class Gun extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
-	transient protected Image image ,imageUsed;
 	private boolean picked;
 	private boolean visible;
+	transient protected Image image ,imageUsed;
 	
 	public Gun(double xPos, double yPos, ID id, boolean picked, boolean visible) {
 		super(xPos, yPos, id);
@@ -33,6 +33,13 @@ public abstract class Gun extends GameObject {
 		shift();
 	}
 	
+	public void render(GraphicsContext gc) {
+		if(!isVisible()) return;
+		if(SOLID_SHOW) ShowSolidArea(gc);
+		
+		gc.drawImage(image ,getxPos() ,getyPos());
+	}
+	
 	public void interact(Player player) {
 		new Pick();
 		setPicked(true);
@@ -41,20 +48,13 @@ public abstract class Gun extends GameObject {
 		Handler.getInstance().removeObject(this);
 	}
 	
-	public void render(GraphicsContext gc) {
-		if(!isVisible()) return;
-		if(SOLID_SHOW) ShowSolidArea(gc);
-		
-		gc.drawImage(image ,getxPos() ,getyPos());
-	}
-
 	public abstract void shoot(int xPos, int yPos, String direct, ID owner);
 	public abstract void initImg();
+	public abstract void reduceBullet();
+	public abstract int getNumMagazine();
 	public abstract boolean shootAble();
 	public abstract boolean reload();
-	public abstract void reduceBullet();
 	public abstract Bullet getBullet();
-	public abstract int getNumMagazine();
 	
 	// Getter & Setter
 	

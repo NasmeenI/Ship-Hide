@@ -8,7 +8,11 @@ import javafx.scene.input.KeyEvent;
 public class KeyInput implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	public Keys key = new Keys();
+	public Keys key;
+	
+	public KeyInput() {
+		key = new Keys();
+	}
 	
 	public void keyPressed(KeyEvent x) {
 		KeyCode keyInt = x.getCode();

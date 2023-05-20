@@ -1,6 +1,7 @@
 package logic.base;
 
 public class Keys {
+	
 	public boolean Q, W, E, R, T, Y, U, I, O, P;
 	public boolean A, S, D, F, G, H, J, K, L;
 	public boolean Z, X, C, V, B, N, M;

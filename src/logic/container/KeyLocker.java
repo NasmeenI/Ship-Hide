@@ -17,8 +17,7 @@ public class KeyLocker extends GameObject implements StableObject {
 
 	private static final long serialVersionUID = 1L;
 	private boolean picked;
-	
-	transient public Image image;
+	transient private Image image;
 	
 	public KeyLocker(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 60, 90);
@@ -27,7 +26,7 @@ public class KeyLocker extends GameObject implements StableObject {
 	
 	public void initImg() {
 		switch(getId()) {
-			case Key1 : {
+			case Key1 : { 
 				image = LoadSave.GetSpriteAtlas(LoadSave.KEY1);
 				break;
 			}

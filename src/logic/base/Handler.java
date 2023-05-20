@@ -19,8 +19,7 @@ import utilz.Checker;
 public class Handler implements Serializable {
 
 	public static final long serialVersionUID = 1L;
-	public static int code;
-	public static int progress;
+	public static int code, progress;
 	public static Handler instance;
 	public Player player;
 	private LinkedList<GameObject> allObjects;
@@ -55,6 +54,14 @@ public class Handler implements Serializable {
 			}
 		}
 		player.render(gc);
+	}
+	
+	public void renderStable(GraphicsContext gc) {
+		for(int i = 0; i < allObjects.size(); i++) {
+			if(Checker.isStableObject(allObjects.get(i).getId())) {
+				allObjects.get(i).render(gc);
+			}
+		}
 	}
 	
 	public void updateAfterLoadSave(KeyInput input) {
@@ -133,14 +140,6 @@ public class Handler implements Serializable {
 	    			A.setSolidArea(new Rectangle(A.getxPos()+A.getxDif(), A.getyPos()+A.getyDif(), A.getW(), A.getH()));
 	    		}
 	    	}
-		}
-	}
-	
-	public void renderStable(GraphicsContext gc) {
-		for(int i = 0; i < allObjects.size(); i++) {
-			if(Checker.isStableObject(allObjects.get(i).getId())) {
-				allObjects.get(i).render(gc);
-			}
 		}
 	}
 	
