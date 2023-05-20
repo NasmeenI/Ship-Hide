@@ -27,6 +27,7 @@ public class Coin extends GameObject implements StableObject {
 	}
 
 	public void update() {
+		shift();
 	}
 
 	@Override

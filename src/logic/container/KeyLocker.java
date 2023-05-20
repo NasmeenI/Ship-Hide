@@ -17,8 +17,7 @@ public class KeyLocker extends GameObject implements StableObject {
 
 	private static final long serialVersionUID = 1L;
 	private boolean picked;
-	private double littleMove = 1;
-	private double count = 0;
+	
 	transient public Image image;
 	
 	public KeyLocker(int xPos, int yPos, ID id) {
@@ -42,12 +41,7 @@ public class KeyLocker extends GameObject implements StableObject {
 	}
 	
 	public void update() {
-		if(littleMove <= -1) count = 0.05f;
-		if(littleMove >= 1) count = -0.05f;
-		
-		littleMove += count;
-		
-		setyPos(getyPos() + littleMove);
+		shift();
 	}
 
 	public void render(GraphicsContext gc) {

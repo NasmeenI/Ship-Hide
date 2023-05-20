@@ -1,6 +1,6 @@
 package Scenes;
 
-import static utilz.Constants.GameState.PLAY_STATE;
+import java.util.ArrayList;
 import application.GameProcess;
 import application.sound.Click;
 import javafx.geometry.Insets;
@@ -16,10 +16,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.base.GameObject;
+import logic.base.Handler;
 import logic.base.ID;
 import logic.container.ak47.Ak47Gun;
 import logic.container.ak47.Ak47Magazine;
 import logic.person.Player;
+import static utilz.Constants.GameState.PLAY_STATE;
 
 public class Shop {
 	
@@ -67,10 +70,20 @@ public class Shop {
         Button button = new Button(item.getPrice() + "  Coins");
         button.setOnAction(event -> {
         	if(player.getCoin() >= item.getPrice()) {
-        		new Click();
-        		player.addItemInBag(new Ak47Gun(0, 0 ,ID.Ak47Gun));
-            	player.setGun(true);
-            	player.setCoin(player.getCoin() - item.getPrice());
+        		boolean st = true;
+        		ArrayList<GameObject> bag = Handler.getInstance().player.getBag();
+        		for(int i=0;i<bag.size();i++) {
+        			if(bag.get(i) instanceof Ak47Gun) {
+        				st = false;
+        				break;
+        			}
+        		}
+        		if(st) {
+        			new Click();
+        			player.addItemInBag(new Ak47Gun(0, 0 ,ID.Ak47Gun));
+        			player.setGun(true);
+        			player.setCoin(player.getCoin() - item.getPrice());
+        		}
         	}
         });
 
@@ -112,5 +125,31 @@ public class Shop {
         vbox.setPadding(new Insets(10));
         vbox.getChildren().addAll(imageView, hbox);
         tilePane.getChildren().add(vbox);
+	}
+
+	// Getter & Setter
+	
+	public static Scene getScene() {
+		return scene;
+	}
+
+	public static void setScene(Scene scene) {
+		Shop.scene = scene;
+	}
+
+	public TilePane getTilePane() {
+		return tilePane;
+	}
+
+	public void setTilePane(TilePane tilePane) {
+		this.tilePane = tilePane;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }

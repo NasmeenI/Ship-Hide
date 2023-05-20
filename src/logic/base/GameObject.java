@@ -5,10 +5,13 @@ import java.io.Serializable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import utilz.Checker;
 
 public abstract class GameObject implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private double littleMove = 1;
+	private double count = 0;
 	protected double xPos, yPos;
 	protected double xVelo, yVelo;
 	protected double xDif, yDif, w, h;
@@ -30,6 +33,8 @@ public abstract class GameObject implements Serializable {
 		setSolidArea(new Rectangle(xPos ,yPos ,0 ,0));
 		setCode(Handler.code++);
 		setBeforeTwo(true);
+		setLittleMove(Checker.rand(-1, 1));
+		setCount(.05f);
 	}
 	
 	public GameObject(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
@@ -45,6 +50,8 @@ public abstract class GameObject implements Serializable {
 		setSolidArea(new Rectangle(xPos+xDif ,yPos+yDif ,w ,h));
 		setCode(Handler.code++);
 		setBeforeTwo(true);
+		setLittleMove(Checker.rand(-1, 1));
+		setCount(.05f);
 	}
 
 	public void move() {
@@ -61,6 +68,15 @@ public abstract class GameObject implements Serializable {
 		int xMid = (int) (A.getX() + A.getWidth() / 2);
 		int yMid = (int) (A.getY() + A.getHeight() / 2);
 		return new Point(xMid, yMid);
+	}
+	
+	public void shift() {
+		if(littleMove <= -1) count = 0.05f;
+		if(littleMove >= 1) count = -0.05f;
+		
+		littleMove += count;
+		
+		setyPos(getyPos() + littleMove);
 	}
 	
 	public abstract void update();
@@ -169,5 +185,21 @@ public abstract class GameObject implements Serializable {
 
 	public void setBeforeTwo(boolean beforeTwo) {
 		this.beforeTwo = beforeTwo;
+	}
+
+	public double getLittleMove() {
+		return littleMove;
+	}
+
+	public void setLittleMove(double littleMove) {
+		this.littleMove = littleMove;
+	}
+
+	public double getCount() {
+		return count;
+	}
+
+	public void setCount(double count) {
+		this.count = count;
 	}
 }

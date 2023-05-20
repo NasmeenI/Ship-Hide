@@ -5,7 +5,7 @@ import logic.base.Keys;
 
 public class Checker {
 	
-	public static String KeyDirection(Keys key) {
+	public static String keyDirection(Keys key) {
 		if(key.LEFT) return "LEFT";
 		if(key.RIGHT) return "RIGHT";
 		if(key.UP) return "UP";
@@ -16,7 +16,7 @@ public class Checker {
 		if(key.S) return "D";
 		return "Z";
 	}
-	public static String KeyWalkDirection(Keys key) {
+	public static String keyWalkDirection(Keys key) {
 		if(key.A) return "L"; 
 		if(key.D) return "R"; 
 		if(key.W) return "U"; 
@@ -24,7 +24,7 @@ public class Checker {
 		return "Z";
 	}
 	
-	public static String KeyHitDirection(Keys key) {
+	public static String keyHitDirection(Keys key) {
 		if(key.LEFT) return "LEFT";
 		if(key.RIGHT) return "RIGHT";
 		if(key.UP) return "UP";
@@ -32,15 +32,15 @@ public class Checker {
 		return "Z";
 	}
 	
-	public static boolean UnpressedWalkDirection(Keys key) {
+	public static boolean unpressedWalkDirection(Keys key) {
 		return !(key.W || key.A || key.S || key.D);
 	}
 	
-	public static boolean UnpressedHitDirection(Keys key) {
+	public static boolean unpressedHitDirection(Keys key) {
 		return !(key.LEFT || key.RIGHT || key.UP || key.DOWN);
 	}
 	
-	public static String GetDirectionByVelo(double xVelo, double yVelo) {
+	public static String getDirectionByVelo(double xVelo, double yVelo) {
 		if(xVelo < 0) return "L";
 		if(xVelo > 0) return "R";
 		if(yVelo < 0) return "U";
@@ -48,7 +48,7 @@ public class Checker {
 		return "Z";
 	}
 	
-	public static boolean IsStableObject(ID id) {
+	public static boolean isStableObject(ID id) {
 		switch(id) {
 			case Door1 : return true; 
 			case Door2 : return true;
@@ -60,7 +60,7 @@ public class Checker {
 		}
 	}
 	
-	public static boolean IsDoor(ID id) {
+	public static boolean isDoor(ID id) {
 		switch(id) {
 			case Door1 : return true; 
 			case Door2 : return true;
@@ -69,7 +69,7 @@ public class Checker {
 		}
 	}
 	
-	public static boolean IsKey(ID id) {
+	public static boolean isKey(ID id) {
 		switch(id) {
 			case Key1 : return true; 
 			case Key2 : return true;
@@ -78,46 +78,46 @@ public class Checker {
 		}
 	}
 	
-	public static boolean IsKnife(ID id) {
+	public static boolean isKnife(ID id) {
 		switch(id) {
 			case Knife : return true; 
 			default : return false;
 		}
 	}
 	
-	public static boolean IsGun(ID id) {
+	public static boolean isGun(ID id) {
 		switch(id) {
 			case PistolGun : return true; 
 			default : return false;
 		}
 	}
 	
-	public static boolean IsMagazine(ID id) {
+	public static boolean isMagazine(ID id) {
 		switch(id) {
 			case PistolMagazine : return true; 
 			default : return false;
 		}
 	}
 	
-	public static boolean IsHpBottle(ID id) {
+	public static boolean isHpBottle(ID id) {
 		switch(id) {
 			case HpBottle : return true; 
 			default : return false;
 		}
 	}
 	
-	public static boolean IsComputer(ID id) {
+	public static boolean isComputer(ID id) {
 		switch(id) {
 			case Computer : return true; 
 			default : return false;
 		}
 	}
 	
-	public static boolean InRange(double low, double high,double val) {
+	public static boolean inRange(double low, double high,double val) {
 		return val >= low && val <= high;
 	}
 	
-	public static int Rand(int Min, int Max) {
+	public static int rand(int Min, int Max) {
 		return (int)((Math.random()*(Max-Min+1)+Min));
 	}
 }

@@ -82,7 +82,7 @@ public class Bullet extends GameObject implements Attackable {
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
-		switch(Checker.GetDirectionByVelo(getxVelo(), getyVelo())) {
+		switch(Checker.getDirectionByVelo(getxVelo(), getyVelo())) {
 			case "L" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left), xPos, yPos); break;
 			case "R" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Right), xPos, yPos); break;
 			case "U" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Up), xPos, yPos); break;

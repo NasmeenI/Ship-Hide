@@ -18,8 +18,6 @@ public class Knife extends GameObject implements Attackable, StableObject {
 	private static final long serialVersionUID = 1L;
 	private boolean picked;
 	private boolean visible;
-	private double littleMove = 1;
-	private double count = 0;
 	transient private Image image ,imageUsed;
 	
 	public Knife(double xPos, double yPos, ID id) {
@@ -38,13 +36,7 @@ public class Knife extends GameObject implements Attackable, StableObject {
 
 	public void update() {
 		if(!isVisible()) Handler.getInstance().removeObject(this);
-		
-		if(littleMove <= -1) count = 0.05f;
-		if(littleMove >= 1) count = -0.05f;
-		
-		littleMove += count;
-		
-		setyPos(getyPos() + littleMove);
+		shift();
 	}
 
 	public void initImg() {

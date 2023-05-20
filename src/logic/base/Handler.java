@@ -1,6 +1,5 @@
 package logic.base;
 
-import static utilz.Constants.Player.P_HEIGHT;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -51,7 +50,7 @@ public class Handler implements Serializable {
 	
 	public void render(GraphicsContext gc) {
 		for(int i = 0; i < allObjects.size(); i++) {
-			if(!Checker.IsStableObject(allObjects.get(i).getId())) {
+			if(!Checker.isStableObject(allObjects.get(i).getId())) {
 				allObjects.get(i).render(gc);
 			}
 		}
@@ -61,15 +60,17 @@ public class Handler implements Serializable {
 	public void updateAfterLoadSave(KeyInput input) {
 		// Player
 		Player player = Handler.getInstance().player;
-		player.setSolidArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif(), player.getW(), player.getH()));
-		player.setFootArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + P_HEIGHT - 10, player.getW(), 10));
-		player.setRenderArea(new Rectangle(player.getxPos() + player.getxDif(), player.getyPos() + player.getyDif() + 40, player.getW(), player.getH() - 40));	
-
+		player.setForceStop(false);
+		player.setAllArea();
 		player.setKey(new Keys());
 		player.setxVelo(0);
 		player.setyVelo(0);
 		player.setInput(input);
 		player.initImg();
+		if(getProgress() == 3) {
+			player.setxPos(2500);
+			player.setyPos(1600);
+		}
 		
 	    for(int i=0;i<player.getBag().size();i++) {
 	    	player.getBag().get(i).initImg();
@@ -137,7 +138,7 @@ public class Handler implements Serializable {
 	
 	public void renderStable(GraphicsContext gc) {
 		for(int i = 0; i < allObjects.size(); i++) {
-			if(Checker.IsStableObject(allObjects.get(i).getId())) {
+			if(Checker.isStableObject(allObjects.get(i).getId())) {
 				allObjects.get(i).render(gc);
 			}
 		}

@@ -18,8 +18,6 @@ public class HpBottle extends GameObject implements StableObject {
 	private static final long serialVersionUID = 1L;
 	private boolean picked;
 	private int efficiency;
-	private double littleMove = 1;
-	private double count = 0;
 	transient private Image image;
 	
 	public HpBottle(double xPos, double yPos, ID id) {
@@ -32,12 +30,7 @@ public class HpBottle extends GameObject implements StableObject {
 	
 	@Override
 	public void update() {
-		if(littleMove <= -1) count = 0.05f;
-		if(littleMove >= 1) count = -0.05f;
-		
-		littleMove += count;
-		
-		setyPos(getyPos() + littleMove);
+		shift();
 	}
 
 	@Override
@@ -77,22 +70,6 @@ public class HpBottle extends GameObject implements StableObject {
 	
 	public int getEfficiency() {
 		return efficiency;
-	}
-
-	public double getLittleMove() {
-		return littleMove;
-	}
-
-	public void setLittleMove(double littleMove) {
-		this.littleMove = littleMove;
-	}
-
-	public double getCount() {
-		return count;
-	}
-
-	public void setCount(double count) {
-		this.count = count;
 	}
 
 	public static long getSerialversionuid() {

@@ -35,7 +35,7 @@ public class Commander extends Person {
         setHp(5000);
         initGun();
         initImg();
-        setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
+        setDirect(Checker.getDirectionByVelo(getxVelo(), getyVelo()));
     }
 	
 	@Override
@@ -184,11 +184,11 @@ public class Commander extends Person {
 		
 		Point middlePos = getMiddlePoint(this.getSolidArea());
 		
-		if(Checker.InRange(getSolidArea().getX() - 50, getSolidArea().getX() + getSolidArea().getWidth() + 50, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
+		if(Checker.inRange(getSolidArea().getX() - 50, getSolidArea().getX() + getSolidArea().getWidth() + 50, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
 			gun.shoot((int)middlePos.getX(), (int)middlePos.getY(), getDirect(), getId());
 			new ShotCommander();
 		}
-		else if(Checker.InRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
+		else if(Checker.inRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
 			gun.shoot((int)middlePos.getX(), (int)middlePos.getY(), getDirect(), getId());
 			new ShotCommander();
 		}

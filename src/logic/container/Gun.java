@@ -16,8 +16,6 @@ public abstract class Gun extends GameObject {
 	transient protected Image image ,imageUsed;
 	private boolean picked;
 	private boolean visible;
-	private double littleMove = 1;
-	private double count = 0;
 	
 	public Gun(double xPos, double yPos, ID id, boolean picked, boolean visible) {
 		super(xPos, yPos, id);
@@ -32,12 +30,7 @@ public abstract class Gun extends GameObject {
 	}
 
 	public void update() {
-		if(littleMove <= -1) count = 0.05f;
-		if(littleMove >= 1) count = -0.05f;
-		
-		littleMove += count;
-		
-		setyPos(getyPos() + littleMove);
+		shift();
 	}
 	
 	public void interact(Player player) {

@@ -34,7 +34,7 @@ public class Captive extends Person {
 		setxVelo(xVelo);
         setyVelo(yVelo);
         setHp(3000);
-        setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
+        setDirect(Checker.getDirectionByVelo(getxVelo(), getyVelo()));
         initImg();
 	}
 

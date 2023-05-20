@@ -17,6 +17,7 @@ import logic.base.Keys;
 import logic.base.Map;
 import logic.person.Captive;
 import logic.person.Criminal;
+import logic.person.Person;
 import logic.person.Player;
 import object.Helicopter;
 import object.Label;
@@ -25,6 +26,7 @@ import ui.Ui;
 import Scenes.GameOverScene;
 import Scenes.MenuScene;
 import Scenes.Shop;
+import ai.PathFinder;
 import Scenes.GameComplete;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,7 +35,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import static utilz.Constants.Screen.*;
 import static utilz.Constants.GameState.*;
-import static utilz.Constants.DoorJail.*;
+
 public class GameProcess {
 	
 	public static Stage stage;
@@ -45,7 +47,6 @@ public class GameProcess {
 	private Camera cam;
 	
 	// SETTING MAP
-	private static int renderType;
 	private static boolean[][] renderState = new boolean[60][110];
 
 	// GAME STATE
@@ -64,7 +65,7 @@ public class GameProcess {
 	private GraphicsContext gc;
 	private AssetSetter aSetter;
 	public static StackPane root;
-	
+	Shop shop;
 	// LOAD SAVE
 	public static boolean load;
 	
@@ -75,7 +76,6 @@ public class GameProcess {
 		scene = new Scene(root);
 		gc = canvas.getGraphicsContext2D();
 		input = new KeyInput();
-		setRenderType(1);
 		setESCState(false);
 		setLoad(false);
 		
@@ -101,7 +101,7 @@ public class GameProcess {
 		// * Nearby Captive Room : 2600, 600
 		// * Museum Room : 2700, 2000
 		Handler.getInstance().player = new Player(500, 500, ID.Player, input);
-		new Shop(stage ,this, Handler.getInstance().player);
+		shop = new Shop(stage ,this, Handler.getInstance().player);
 		
 		// INITIAL OBJECT
 		aSetter = new AssetSetter();
@@ -228,6 +228,7 @@ public class GameProcess {
 		    e.printStackTrace();
 		}
 		
+		Person.pathFinder = new PathFinder();
 		Music.play();
 	}
 	
@@ -240,7 +241,7 @@ public class GameProcess {
 				objectOutputStream.writeObject(Handler.getInstance());
 				objectOutputStream.close();
 			}catch(IOException e){
-
+				
 			}
 			
 			// Saving map
@@ -250,7 +251,7 @@ public class GameProcess {
 				objectOutputStream.writeObject(Map.getInstance());
 				objectOutputStream.close();
 			}catch(IOException e){
-
+				
 			}	
 		});
 		save.start();
@@ -304,14 +305,6 @@ public class GameProcess {
 
 	public void setCam(Camera cam) {
 		this.cam = cam;
-	}
-
-	public static int getRenderType() {
-		return renderType;
-	}
-
-	public static void setRenderType(int renderType) {
-		GameProcess.renderType = renderType;
 	}
 
 	public static boolean[][] getRenderState() {

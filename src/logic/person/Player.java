@@ -55,7 +55,7 @@ public class Player extends Person {
 		setCurxPos(xPos);
 		setCuryPos(yPos);
 		setBag(new ArrayList<>());
-		setCoin(0);
+		setCoin(40);
 		setAc(0.8f);
 		setDc(0.4f);
 		initImg();
@@ -118,6 +118,7 @@ public class Player extends Person {
 
 	@Override
 	public void update() {
+//		System.out.println(getxPos() + "  " + getyPos());
 		if(getHp() == 0) {
 			GameProcess.stage.setScene(GameOverScene.scene);
 			GameProcess.setGameState(GAME_OVER_STATE);
@@ -168,8 +169,8 @@ public class Player extends Person {
 		if(!forceStop && getUsed() == 3) setAcDc(.5f, .25f);
 		if(!forceStop && getUsed() == 4) setAcDc(.5f, .25f);
 		
-		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
-		else setDirect(Checker.KeyDirection(key));
+		if(getUsed() == 1) setDirect(Checker.keyWalkDirection(key));
+		else setDirect(Checker.keyDirection(key));
 		
 		walk();
 		setBeforeTwo(Obj.collisionTwo(this));
@@ -432,7 +433,7 @@ public class Player extends Person {
 	}
 
 	private void gunAni(int frame) { // TODO
-		if(Checker.UnpressedWalkDirection(key) && Checker.UnpressedHitDirection(key)) {
+		if(Checker.unpressedWalkDirection(key) && Checker.unpressedHitDirection(key)) {
 			switch(direct) {
 				case "LEFT" : currentAni = T_Left[frame]; break;
 				case "RIGHT" : currentAni = T_Right[frame]; break;
@@ -458,7 +459,7 @@ public class Player extends Person {
 				}
 			}
 		}
-		else if(Checker.UnpressedWalkDirection(key)) {
+		else if(Checker.unpressedWalkDirection(key)) {
 			switch(direct) {
 				case "LEFT" : currentAni = T_Left[defaultAni]; break;
 				case "RIGHT" : currentAni = T_Right[defaultAni]; break;
@@ -476,7 +477,7 @@ public class Player extends Person {
 				}
 			}
 		}
-		else if(Checker.UnpressedHitDirection(key)) {
+		else if(Checker.unpressedHitDirection(key)) {
 			switch(direct) {
 				case "L" : currentAni = T_Left[frame]; break;
 				case "R" : currentAni = T_Right[frame]; break;

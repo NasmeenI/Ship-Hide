@@ -178,8 +178,8 @@ public abstract class Person extends GameObject {
 	
 	public void randomWalk(int interval) {
 		if(randWalkTime == 0) {
-			direction = Checker.Rand(1, 9);
-			setInterval(interval + Checker.Rand(-(interval / 5), interval / 5));
+			direction = Checker.rand(1, 9);
+			setInterval(interval + Checker.rand(-(interval / 5), interval / 5));
 		}
 		switch(direction) {
 			case 1 : moveLeft(); break; // Left

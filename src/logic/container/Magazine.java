@@ -17,8 +17,6 @@ public class Magazine extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	protected int numMaxBullet;
-	protected double littleMove;
-	protected double count;
 	protected boolean picked;
 	protected boolean visible;
 	protected ArrayList<Bullet> magazine;
@@ -28,8 +26,6 @@ public class Magazine extends GameObject implements StableObject {
 		super(xPos, yPos, id, -10, -10, 50, 50);
 		setPicked(false);
 		setVisible(false);
-		setLittleMove(1);
-		setCount(0);
 		initImg();
 		setNumMaxBullet(numBullet);
 		setMagazine(new ArrayList<Bullet>());
@@ -37,12 +33,7 @@ public class Magazine extends GameObject implements StableObject {
 	}
 
 	public void update() {
-		if(littleMove <= -1) count = 0.05f;
-		if(littleMove >= 1) count = -0.05f;
-		
-		littleMove += count;
-		
-		setyPos(getyPos() + littleMove);
+		shift();
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -125,21 +116,5 @@ public class Magazine extends GameObject implements StableObject {
 
 	public void setNumMaxBullet(int numBullet) {
 		this.numMaxBullet = numBullet;
-	}
-
-	public double getLittleMove() {
-		return littleMove;
-	}
-
-	public void setLittleMove(double littleMove) {
-		this.littleMove = littleMove;
-	}
-
-	public double getCount() {
-		return count;
-	}
-
-	public void setCount(double count) {
-		this.count = count;
 	}
 }

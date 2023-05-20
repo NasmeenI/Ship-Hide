@@ -72,7 +72,7 @@ public class AssetSetter {
 		
 		// Lazer_1
 		for(int i=48;i<=54;i+=3) {
-			int interval = Checker.Rand(1, 8) * 30; // Random between 1.0 to 4.0 seconds (+-0.5) and multiply with FPS Constant
+			int interval = Checker.rand(1, 8) * 30; // Random between 1.0 to 4.0 seconds (+-0.5) and multiply with FPS Constant
 			for(int j=19;j<=27;j++) {
 				Handler.getInstance().getAllObjects().add(new Lazer(i * TILE_SIZE ,j * TILE_SIZE, ID.Lazer1, 5, interval));	
 			}
@@ -80,7 +80,7 @@ public class AssetSetter {
 				
 		// Lazer_2
 		for(int i=20;i<=26;i+=2) {
-			int interval = Checker.Rand(1, 8) * 30;
+			int interval = Checker.rand(1, 8) * 30;
 			for(int j=47;j<=55;j++) {
 				Handler.getInstance().getAllObjects().add(new Lazer(j * TILE_SIZE ,i * TILE_SIZE, ID.Lazer2, 5, interval));
 			}
