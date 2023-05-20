@@ -6,13 +6,12 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.person.Player;
-import utilz.LoadSave;
 import static utilz.Constants.Debug.SOLID_SHOW;
 
 public abstract class Gun extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
-	transient private Image image ,imageUsed;
+	transient protected Image image ,imageUsed;
 	public boolean picked;
 	private boolean visible;
 	private double littleMove = 1;
@@ -46,11 +45,6 @@ public abstract class Gun extends GameObject {
 		Handler.getInstance().removeObject(this);
 	}
 	
-	public void initImg() {
-		this.image = LoadSave.GetSpriteAtlas(LoadSave.AK47);
-		this.imageUsed = LoadSave.GetSpriteAtlas(LoadSave.AK47_USED);
-	}
-	
 	public void render(GraphicsContext gc) {
 		if(!isVisible()) return;
 		if(SOLID_SHOW) ShowSolidArea(gc);
@@ -60,6 +54,7 @@ public abstract class Gun extends GameObject {
 	}
 
 	public abstract void shoot(int xPos, int yPos, String direct, ID owner);
+	public abstract void initImg();
 	public abstract boolean shootAble();
 	public abstract boolean reload();
 	public abstract void reduceBullet();

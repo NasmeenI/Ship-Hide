@@ -1,7 +1,5 @@
 package Scenes;
 
-import static utilz.Constants.GameState.PLAY_STATE;
-
 import Scenes.MenuScene.MenuItem;
 import application.GameProcess;
 import application.sound.Click;
@@ -11,16 +9,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import utilz.LoadSave;
+import static utilz.Constants.GameState.PLAY_STATE;
 
 public class GameOverScene {
-	private Stage stage;
 	private GameProcess gameProcess;
 	public static Scene scene;
 	
-	public GameOverScene(Stage stage, GameProcess gameProcess) {
-		this.stage = stage;
+	public GameOverScene(GameProcess gameProcess) {
 		this.gameProcess = gameProcess;
 		initScene();
 	}
@@ -36,11 +32,6 @@ public class GameOverScene {
 		
 		HBox box = new HBox(
 			10,
-			new MenuItem("New Game" ,() -> {
-				new Click();
-				new MenuScene(stage);
-				stage.setScene(MenuScene.startScene);
-			}),
 			new MenuItem("Load Save" ,() -> {
 				new Click();
 				LoadingScene.loading();
@@ -77,7 +68,7 @@ public class GameOverScene {
 				Platform.exit();
 			})
 		);
-		box.setTranslateX(100);
+		box.setTranslateX(240);
 		box.setTranslateY(200);
 			
 		root.getChildren().addAll(box);

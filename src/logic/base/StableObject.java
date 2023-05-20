@@ -4,6 +4,6 @@ import logic.person.Player;
 
 public interface StableObject {
 
-	void interact(Player player);
+	public void interact(Player player);
 	
 }

@@ -62,7 +62,7 @@ public abstract class Person extends GameObject {
 	public abstract void render(GraphicsContext gc);
 	public abstract void shoot();
 	public abstract void slash();
-	public abstract void Animation();
+	public abstract void animation();
 	
 	public void SearchPath(int endRow, int endCol) {
 		
@@ -131,10 +131,22 @@ public abstract class Person extends GameObject {
 	public void moveX() { movePass(getxVelo(), 0); }
     public void moveY() { movePass(0, getyVelo()); }
     public void move() { movePass(getxVelo(), getyVelo()); }
-    public void moveLeft() { movePass(- Math.abs(getxVelo()), 0); }
-    public void moveRight() { movePass(Math.abs(getxVelo()), 0); }
-    public void moveUp() { movePass(0, - Math.abs(getyVelo())); }
-    public void moveDown() { movePass(0, Math.abs(getyVelo())); }
+    public void moveLeft() { 
+    	movePass(- Math.abs(getxVelo()), 0); 
+    	setDirect("L");
+    }
+    public void moveRight() { 
+    	movePass(Math.abs(getxVelo()), 0); 
+    	setDirect("R");
+    }
+    public void moveUp() { 
+    	movePass(0, - Math.abs(getyVelo())); 
+    	setDirect("U");
+    }
+    public void moveDown() { 
+    	movePass(0, Math.abs(getyVelo())); 
+    	setDirect("D");
+    }
     
     public void movePass(double xVelo, double yVelo) {
         int newXPos = 0 ,newYPos = 0;

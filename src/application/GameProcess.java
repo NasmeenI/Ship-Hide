@@ -128,8 +128,8 @@ public class GameProcess {
 		
 		// INITIAL SCENE
 		MenuScene.initContinueScene(this);
-		gameOverScene = new GameOverScene(stage, this);
-		gameComplete = new GameComplete(stage);
+		gameOverScene = new GameOverScene(this);
+		gameComplete = new GameComplete();
 		
 		// CHECK POINT
 		gameState = PLAY_STATE;

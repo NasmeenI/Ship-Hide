@@ -8,6 +8,7 @@ import logic.base.ID;
 import logic.base.StableObject;
 import logic.container.Bullet;
 import logic.container.Gun;
+import utilz.LoadSave;
 
 public class PistolGun extends Gun implements Attackable, StableObject {
 	
@@ -104,6 +105,11 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 	public int dps_damage() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public void initImg() {
+		image = LoadSave.GetSpriteAtlas(LoadSave.GUN);
+		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.GUN_USED);
 	}
 
 	// Getter & Setter

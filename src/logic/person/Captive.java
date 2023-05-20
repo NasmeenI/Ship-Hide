@@ -1,10 +1,16 @@
 package logic.person;
 
 import static utilz.Constants.Debug.SOLID_SHOW;
+import static utilz.Constants.GameState.GAME_OVER_STATE;
 import static utilz.Constants.Player.P_HEIGHT;
 import static utilz.Constants.Player.P_WIDTH;
 import static utilz.Constants.Tile.TILESIZE;
+
+import Scenes.GameOverScene;
+import application.GameProcess;
+import application.Music;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.base.Handler;
@@ -12,6 +18,7 @@ import logic.base.ID;
 import logic.base.Point;
 import ui.PasswordPopUp;
 import utilz.Checker;
+import utilz.LoadSave;
 import utilz.Obj;
 
 public class Captive extends Person {
@@ -19,23 +26,51 @@ public class Captive extends Person {
 	private static final long serialVersionUID = 1L;
 	private static boolean ready;
 	
+	transient private Image[] T_Up, T_Down, T_Left, T_Right;
+	private final int defaultAni = 0;
+	transient private Image currentAni, previousAni;
+	
 	public Captive(double xPos, double yPos, ID id, double xVelo, double yVelo) {
 		super(xPos, yPos, id, 10, 5 , P_WIDTH , P_HEIGHT);
 		setxVelo(xVelo);
         setyVelo(yVelo);
-        setHp(100);
+        setHp(3000);
         setDirect(Checker.GetDirectionByVelo(getxVelo(), getyVelo()));
         initImg();
 	}
 
 	@Override
 	public void initImg() {
-		// TODO Auto-generated method stub
+		T_Up = new Image[3];
+		T_Up[defaultAni] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Up_Default);
+		T_Up[0] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Up_1);
+		T_Up[1] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Up_2);
 		
+		T_Down = new Image[3];
+		T_Down[defaultAni] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Down_Default);
+		T_Down[0] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Down_1);
+		T_Down[1] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Down_2);
+
+		T_Left = new Image[3];
+		T_Left[defaultAni] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Left_Default);
+		T_Left[0] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Left_1);
+		T_Left[1] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Left_2);
+		
+		T_Right = new Image[3];
+		T_Right[defaultAni] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Right_Default);
+		T_Right[0] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Right_1);
+		T_Right[1] = LoadSave.GetSpriteAtlas(LoadSave.Captive_Animation_Right_2);
 	}
 
 	@Override
 	public void update() {
+		if(getHp() == 0) {
+			GameProcess.stage.setScene(GameOverScene.scene);
+			GameProcess.setGameState(GAME_OVER_STATE);
+			Music.stop();
+			Music.gameOver.play();
+		}
+		
 		Obj.collision(this);
 		if(PasswordPopUp.accessGranted) {
 			setChasing(true);
@@ -49,7 +84,6 @@ public class Captive extends Person {
 		if(isChasing()) {
 			Point mP = getMiddlePoint(Handler.getInstance().player.getSolidArea());
 			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
-			setDirect(Obj.getDirection(this, Handler.getInstance().player));
 		}
 		else randomWalk(60);
 		if(Obj.distance(this, Handler.getInstance().player) <= 100) setReady(true);
@@ -58,21 +92,54 @@ public class Captive extends Person {
 		setBeforeTwo(Obj.collisionTwo(this));
 		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH()));
 		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW()-10, 10));
-		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));	
+		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));
+		
+		animation();
 	}
 	
 	@Override
-	public void Animation() {
-		// TODO Auto-generated method stub
-		
+	public void animation() {
+		if(direct != prv_direct) SpriteCnt = 0;
+		int frame = (SpriteCnt / 15) % 2;
+
+		WalkAni(frame);
+
+		SpriteCnt++;
+		if(direct != "Z") prv_direct = direct;
+		previousAni = currentAni;
+		SpriteCnt %= 120;
+	}
+	
+	private void WalkAni(int frame) {
+		switch(getDirect()) {
+			case "L" : currentAni = T_Left[frame]; break;
+			case "R" : currentAni = T_Right[frame]; break;
+			case "U" : currentAni = T_Up[frame]; break;
+			case "D" : currentAni = T_Down[frame]; break;
+			case "LEFT" : currentAni = T_Left[frame]; break;
+			case "RIGHT" : currentAni = T_Right[frame]; break;
+			case "UP" : currentAni = T_Up[frame]; break;
+			case "DOWN" : currentAni = T_Down[frame]; break;
+			default : {
+				switch(prv_direct) {
+					case "LEFT" : currentAni = T_Left[defaultAni]; break;
+					case "RIGHT" : currentAni = T_Right[defaultAni]; break;
+					case "UP" : currentAni = T_Up[defaultAni]; break;
+					case "DOWN" : currentAni = T_Down[defaultAni]; break;
+					default : currentAni = previousAni; break;
+				}
+				break;
+			}
+		}
 	}
 
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-
-		gc.setFill(Color.PINK);
-		gc.fillRect(getxPos() + getxDif(), getyPos() + getxDif(), getW(), getH());
+		
+		gc.drawImage(currentAni, xPos, yPos);
+		gc.setFill(Color.GREEN);
+		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/3000, 10);
 	}
 
 	@Override

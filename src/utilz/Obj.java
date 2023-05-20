@@ -279,6 +279,7 @@ public class Obj {
 				switch(B.getId()) {
 					case Bullet : {
 						if(((Bullet)B).getOwner() == A.getId()) break;
+						else if(((Bullet)B).getOwner() == ID.Player) break;
 						((Captive)A).setHp(((Captive)A).getHp() - ((Bullet)B).damage());
 						Handler.getInstance().removeObject(B);
 						
@@ -409,11 +410,23 @@ public class Obj {
 		}
 		
 		if(!setX)
-			if(mPx < xPos) A.setxPos(A.getxPos() + Math.abs(A.getxVelo()));
-			else if(mPx > xPos) A.setxPos(A.getxPos() - Math.abs(A.getxVelo()));
+			if(mPx < xPos) {
+				A.setxPos(A.getxPos() + Math.abs(A.getxVelo()));
+				if(A instanceof Person B) B.setDirect("R");
+			}
+			else if(mPx > xPos) {
+				A.setxPos(A.getxPos() - Math.abs(A.getxVelo()));
+				if(A instanceof Person B) B.setDirect("L");
+			}
 		if(!setY)
-			if(mPy < yPos) A.setyPos(A.getyPos() + Math.abs(A.getyVelo()));
-			else if(mPy > yPos) A.setyPos(A.getyPos() - Math.abs(A.getyVelo()));
+			if(mPy < yPos) {
+				A.setyPos(A.getyPos() + Math.abs(A.getyVelo()));
+				if(A instanceof Person B) B.setDirect("D");
+			}
+			else if(mPy > yPos) {
+				A.setyPos(A.getyPos() - Math.abs(A.getyVelo()));
+				if(A instanceof Person B) B.setDirect("U");
+			}
 	}
 	
 	public static void getClose(GameObject A, GameObject B) {

@@ -11,6 +11,7 @@ import logic.person.Player;
 import utilz.LoadSave;
 import utilz.Obj;
 import application.GameProcess;
+import application.Music;
 import Scenes.GameComplete;
 import static utilz.Constants.GameState.*;
 import static utilz.Constants.Debug.*;
@@ -41,11 +42,13 @@ public class Helicopter extends GameObject implements StableObject {
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(imageInteract ,getxPos() ,getyPos());
-		return ;
 	}
 	
 	public void interact(Player player) {
 		if(!Captive.isReady()) return;
+		
+		Music.stop();
+		Music.gameComplete.play();
 		GameProcess.stage.setScene(GameComplete.scene);
 		GameProcess.setGameState(GAME_COMPLETE_STATE);
 	}

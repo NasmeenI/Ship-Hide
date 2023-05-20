@@ -7,7 +7,7 @@ import logic.base.Handler;
 
 public class Music {
 	public static MediaPlayer[] soundtrack = new MediaPlayer[5];
-	public static MediaPlayer gameOver;
+	public static MediaPlayer gameOver, gameComplete;
 	public static int state = 0;
 	
 	public Music() {
@@ -18,6 +18,9 @@ public class Music {
 		
 		Media media = new Media(new File("res/Music/gameOver.mp3").toURI().toString());
 		gameOver = new MediaPlayer(media);
+		
+		media = new Media(new File("res/Music/gameComplete.mp3").toURI().toString());
+		gameComplete = new MediaPlayer(media);
 	}
 	
 	public static void play() {

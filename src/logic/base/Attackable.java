@@ -2,7 +2,7 @@ package logic.base;
 
 public interface Attackable {
 	
-	int damage();
-	int dps_damage();
+	public int damage();
+	public int dps_damage();
 	
 }

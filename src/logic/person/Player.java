@@ -202,34 +202,31 @@ public class Player extends Person {
 		}
 		
 		if(key.R && GunAvailable() && getUsed() == 3 && getReloadTime() == 30) { // Reload Option (Press R)
-			new Reload();
 			ArrayList<GameObject> bag = this.getBag();
 			for(int i=0;i<bag.size();i++) {
 				if(bag.get(i) instanceof PistolGun) {
-					((PistolGun)bag.get(i)).reload();
+					if(((PistolGun)bag.get(i)).reload()) new Reload();;
 					break;
 				}
 			}
 			setReloadTime(0);
 		}
 		if(key.R && GunAvailable() && getUsed() == 4 && getReloadTime() == 30) { // Reload Option (Press R)
-			new Reload();
 			ArrayList<GameObject> bag = this.getBag();
 			for(int i=0;i<bag.size();i++) {
 				if(bag.get(i) instanceof Ak47Gun) {
-					((Ak47Gun)bag.get(i)).reload();
+					if(((Ak47Gun)bag.get(i)).reload()) new Reload();;
 					break;
 				}
 			}
 			setReloadTime(0);
 		}
 		
-		
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
 		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
 		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
 		
-		Animation();
+		animation();
 		
 		return ;
 	}
@@ -270,8 +267,8 @@ public class Player extends Person {
 //		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
 //		else setBeforeTwo(false);
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 //		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -329,7 +326,7 @@ public class Player extends Person {
 		
 	}
 	
-	public void Animation() {
+	public void animation() {
 		if(direct != prv_direct) SpriteCnt = 0;
 		int frame = (SpriteCnt / 5) % 8;
 		
@@ -337,6 +334,7 @@ public class Player extends Person {
 			case 1 : WalkAni(frame); break;
 			case 2 : KnifeAni(frame); break;
 			case 3 : GunAni(frame); break;
+			case 4 : GunAni(frame); break;
 			default : WalkAni(frame); break;
 		}
 		

@@ -12,45 +12,100 @@ public class LoadSave {
 	public static final String MENU_SCENE = "Scenes/menuScene.jpg";
 	public static final String TUTORIAL_SCENE = "Scenes/tutorialScene.jpg";
 	
-	public static final String Player_Animation_Up_Default = "Animation/T_Up_9.png";
-	public static final String Player_Animation_Up_0 = "Animation/T_Up_0.png";
-	public static final String Player_Animation_Up_1 = "Animation/T_Up_1.png";
-	public static final String Player_Animation_Up_2 = "Animation/T_Up_2.png";
-	public static final String Player_Animation_Up_3 = "Animation/T_Up_3.png";
-	public static final String Player_Animation_Up_4 = "Animation/T_Up_4.png";
-	public static final String Player_Animation_Up_5 = "Animation/T_Up_5.png";
-	public static final String Player_Animation_Up_6 = "Animation/T_Up_6.png";
-	public static final String Player_Animation_Up_7 = "Animation/T_Up_7.png";
+	// PLAYER'S ANIMATION
+	public static final String Player_Animation_Up_Default = "Animation/Player/T_Up_9.png";
+	public static final String Player_Animation_Up_0 = "Animation/Player/T_Up_0.png";
+	public static final String Player_Animation_Up_1 = "Animation/Player/T_Up_1.png";
+	public static final String Player_Animation_Up_2 = "Animation/Player/T_Up_2.png";
+	public static final String Player_Animation_Up_3 = "Animation/Player/T_Up_3.png";
+	public static final String Player_Animation_Up_4 = "Animation/Player/T_Up_4.png";
+	public static final String Player_Animation_Up_5 = "Animation/Player/T_Up_5.png";
+	public static final String Player_Animation_Up_6 = "Animation/Player/T_Up_6.png";
+	public static final String Player_Animation_Up_7 = "Animation/Player/T_Up_7.png";
 	
-	public static final String Player_Animation_Down_Default = "Animation/T_Down_9.png";
-	public static final String Player_Animation_Down_0 = "Animation/T_Down_0.png";
-	public static final String Player_Animation_Down_1 = "Animation/T_Down_1.png";
-	public static final String Player_Animation_Down_2 = "Animation/T_Down_2.png";
-	public static final String Player_Animation_Down_3 = "Animation/T_Down_3.png";
-	public static final String Player_Animation_Down_4 = "Animation/T_Down_4.png";
-	public static final String Player_Animation_Down_5 = "Animation/T_Down_5.png";
-	public static final String Player_Animation_Down_6 = "Animation/T_Down_6.png";
-	public static final String Player_Animation_Down_7 = "Animation/T_Down_7.png";
+	public static final String Player_Animation_Down_Default = "Animation/Player/T_Down_9.png";
+	public static final String Player_Animation_Down_0 = "Animation/Player/T_Down_0.png";
+	public static final String Player_Animation_Down_1 = "Animation/Player/T_Down_1.png";
+	public static final String Player_Animation_Down_2 = "Animation/Player/T_Down_2.png";
+	public static final String Player_Animation_Down_3 = "Animation/Player/T_Down_3.png";
+	public static final String Player_Animation_Down_4 = "Animation/Player/T_Down_4.png";
+	public static final String Player_Animation_Down_5 = "Animation/Player/T_Down_5.png";
+	public static final String Player_Animation_Down_6 = "Animation/Player/T_Down_6.png";
+	public static final String Player_Animation_Down_7 = "Animation/Player/T_Down_7.png";
 	                           
-	public static final String Player_Animation_Left_Default = "Animation/T_Left_9.png";
-	public static final String Player_Animation_Left_0 = "Animation/T_Left_0.png";
-	public static final String Player_Animation_Left_1 = "Animation/T_Left_1.png";
-	public static final String Player_Animation_Left_2 = "Animation/T_Left_2.png";
-	public static final String Player_Animation_Left_3 = "Animation/T_Left_3.png";
-	public static final String Player_Animation_Left_4 = "Animation/T_Left_4.png";
-	public static final String Player_Animation_Left_5 = "Animation/T_Left_5.png";
-	public static final String Player_Animation_Left_6 = "Animation/T_Left_6.png";
-	public static final String Player_Animation_Left_7 = "Animation/T_Left_7.png";
+	public static final String Player_Animation_Left_Default = "Animation/Player/T_Left_9.png";
+	public static final String Player_Animation_Left_0 = "Animation/Player/T_Left_0.png";
+	public static final String Player_Animation_Left_1 = "Animation/Player/T_Left_1.png";
+	public static final String Player_Animation_Left_2 = "Animation/Player/T_Left_2.png";
+	public static final String Player_Animation_Left_3 = "Animation/Player/T_Left_3.png";
+	public static final String Player_Animation_Left_4 = "Animation/Player/T_Left_4.png";
+	public static final String Player_Animation_Left_5 = "Animation/Player/T_Left_5.png";
+	public static final String Player_Animation_Left_6 = "Animation/Player/T_Left_6.png";
+	public static final String Player_Animation_Left_7 = "Animation/Player/T_Left_7.png";
 	                           
-	public static final String Player_Animation_Right_Default = "Animation/T_Right_9.png";
-	public static final String Player_Animation_Right_0 = "Animation/T_Right_0.png";
-	public static final String Player_Animation_Right_1 = "Animation/T_Right_1.png";
-	public static final String Player_Animation_Right_2 = "Animation/T_Right_2.png";
-	public static final String Player_Animation_Right_3 = "Animation/T_Right_3.png";
-	public static final String Player_Animation_Right_4 = "Animation/T_Right_4.png";
-	public static final String Player_Animation_Right_5 = "Animation/T_Right_5.png";
-	public static final String Player_Animation_Right_6 = "Animation/T_Right_6.png";
-	public static final String Player_Animation_Right_7 = "Animation/T_Right_7.png";
+	public static final String Player_Animation_Right_Default = "Animation/Player/T_Right_9.png";
+	public static final String Player_Animation_Right_0 = "Animation/Player/T_Right_0.png";
+	public static final String Player_Animation_Right_1 = "Animation/Player/T_Right_1.png";
+	public static final String Player_Animation_Right_2 = "Animation/Player/T_Right_2.png";
+	public static final String Player_Animation_Right_3 = "Animation/Player/T_Right_3.png";
+	public static final String Player_Animation_Right_4 = "Animation/Player/T_Right_4.png";
+	public static final String Player_Animation_Right_5 = "Animation/Player/T_Right_5.png";
+	public static final String Player_Animation_Right_6 = "Animation/Player/T_Right_6.png";
+	public static final String Player_Animation_Right_7 = "Animation/Player/T_Right_7.png";
+	
+	
+	// CRIMINAL'S ANIMATION
+	public static final String Criminal_Animation_Up_Default = "Animation/Criminal/T_Up_0.png";
+	public static final String Criminal_Animation_Up_1 = "Animation/Criminal/T_Up_1.png";
+	public static final String Criminal_Animation_Up_2 = "Animation/Criminal/T_Up_2.png";
+	
+	public static final String Criminal_Animation_Down_Default = "Animation/Criminal/T_Down_0.png";
+	public static final String Criminal_Animation_Down_1 = "Animation/Criminal/T_Down_1.png";
+	public static final String Criminal_Animation_Down_2 = "Animation/Criminal/T_Down_2.png";
+	
+	public static final String Criminal_Animation_Left_Default = "Animation/Criminal/T_Left_0.png";
+	public static final String Criminal_Animation_Left_1 = "Animation/Criminal/T_Left_1.png";
+	public static final String Criminal_Animation_Left_2 = "Animation/Criminal/T_Left_2.png";
+	
+	public static final String Criminal_Animation_Right_Default = "Animation/Criminal/T_Right_0.png";
+	public static final String Criminal_Animation_Right_1 = "Animation/Criminal/T_Right_1.png";
+	public static final String Criminal_Animation_Right_2 = "Animation/Criminal/T_Right_2.png";
+	
+	
+	// COMMANDER'S ANIMATION
+	public static final String Commander_Animation_Up_Default = "Animation/Commander/T_Up_0.png";
+	public static final String Commander_Animation_Up_1 = "Animation/Commander/T_Up_1.png";
+	public static final String Commander_Animation_Up_2 = "Animation/Commander/T_Up_2.png";
+	
+	public static final String Commander_Animation_Down_Default = "Animation/Commander/T_Down_0.png";
+	public static final String Commander_Animation_Down_1 = "Animation/Commander/T_Down_1.png";
+	public static final String Commander_Animation_Down_2 = "Animation/Commander/T_Down_2.png";
+	
+	public static final String Commander_Animation_Left_Default = "Animation/Commander/T_Left_0.png";
+	public static final String Commander_Animation_Left_1 = "Animation/Commander/T_Left_1.png";
+	public static final String Commander_Animation_Left_2 = "Animation/Commander/T_Left_2.png";
+	
+	public static final String Commander_Animation_Right_Default = "Animation/Commander/T_Right_0.png";
+	public static final String Commander_Animation_Right_1 = "Animation/Commander/T_Right_1.png";
+	public static final String Commander_Animation_Right_2 = "Animation/Commander/T_Right_2.png";
+	
+	// CAPTIVE'S ANIMATION
+	public static final String Captive_Animation_Up_Default = "Animation/Captive/T_Up_0.png";
+	public static final String Captive_Animation_Up_1 = "Animation/Captive/T_Up_1.png";
+	public static final String Captive_Animation_Up_2 = "Animation/Captive/T_Up_2.png";
+	
+	public static final String Captive_Animation_Down_Default = "Animation/Captive/T_Down_0.png";
+	public static final String Captive_Animation_Down_1 = "Animation/Captive/T_Down_1.png";
+	public static final String Captive_Animation_Down_2 = "Animation/Captive/T_Down_2.png";
+	
+	public static final String Captive_Animation_Left_Default = "Animation/Captive/T_Left_0.png";
+	public static final String Captive_Animation_Left_1 = "Animation/Captive/T_Left_1.png";
+	public static final String Captive_Animation_Left_2 = "Animation/Captive/T_Left_2.png";
+	
+	public static final String Captive_Animation_Right_Default = "Animation/Captive/T_Right_0.png";
+	public static final String Captive_Animation_Right_1 = "Animation/Captive/T_Right_1.png";
+	public static final String Captive_Animation_Right_2 = "Animation/Captive/T_Right_2.png";
+	
 	
 	public static final String Player_Bullet_Left = "Animation/Bullet/player_bullet_left.png";
 	public static final String Player_Bullet_Right = "Animation/Bullet/player_bullet_right.png";
