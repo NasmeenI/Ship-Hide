@@ -11,6 +11,8 @@ import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
+import application.sound.LazerAttack;
+
 public class Lazer extends GameObject implements StableObject, Attackable {
 	
 	private static final long serialVersionUID = 1L;
@@ -75,7 +77,8 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 	
 	@Override
 	public void interact(Player player) {
-
+		new LazerAttack();
+		player.setHp(player.getHp() - dps_damage());
 	}
 	
 	@Override

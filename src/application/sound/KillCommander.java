@@ -12,6 +12,7 @@ public class KillCommander {
 	public KillCommander() {	
 		Media media = new Media(new File("res/Sound/killCommander.mp3").toURI().toString());
 		sound = new MediaPlayer(media);
+		sound.setVolume(0.2);
 		sound.play();
 		Thread playSound = new Thread(() -> {
 			Platform.runLater(() -> sound.play());

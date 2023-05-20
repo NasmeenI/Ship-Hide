@@ -2,6 +2,7 @@ package ui;
 
 import application.GameProcess;
 import application.Music;
+import application.sound.Click;
 import application.sound.CorrectPassword;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -50,17 +51,24 @@ public class PasswordPopUp {
             numberButtons[i].setStyle("-fx-background-color: white; -fx-border-color: black;");
             numberButtons[i].setFont(Font.font("Arial", 32));
             numberButtons[i].setPadding(new Insets(16));
-            numberButtons[i].setOnAction(event -> passwordField.setText(passwordField.getText() + number));
+            numberButtons[i].setOnAction(event -> {
+            	new Click();
+            	passwordField.setText(passwordField.getText() + number);
+            });
         }
 
         Button clearButton = new Button("Clear");
-        clearButton.setOnAction(event -> passwordField.clear());
+        clearButton.setOnAction(event -> {
+        	new Click();
+        	passwordField.clear();
+        });
         clearButton.setFont(Font.font("Arial", 24));
         clearButton.setPadding(new Insets(8));
         clearButton.setStyle("-fx-background-color: #8B0000; -fx-text-fill: white;");
 
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
+        	new Click();
             if (passwordField.getText().equals(correctPassword)) {
             	accessGranted = true;
             	DoorJail.setOpened(true);
@@ -130,6 +138,7 @@ public class PasswordPopUp {
 		backButton.setPadding(new Insets(8));
 		backButton.setStyle("-fx-background-color: #000080; -fx-text-fill: white;");
 		backButton.setOnAction(event -> {
+			new Click();
 			Handler.getInstance().player.setAcDc(Obj.temp1, Obj.temp2);
 			Handler.getInstance().player.setForceStop(false);
 			GameProcess.removeGridRoot(gridPane);

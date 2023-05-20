@@ -10,6 +10,8 @@ import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
+import application.sound.GetCoin;
+
 public class Coin extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,6 +36,7 @@ public class Coin extends GameObject implements StableObject {
 	}
 	
 	public void interact(Player player) {
+		new GetCoin();
 		Handler.getInstance().player.setCoin(Handler.getInstance().player.getCoin() + 1);
 		Handler.getInstance().removeObject(this);
 	}

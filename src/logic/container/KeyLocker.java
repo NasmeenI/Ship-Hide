@@ -9,6 +9,8 @@ import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
 import application.GameProcess;
+import application.sound.Pick;
+
 import static utilz.Constants.Debug.*;
 
 public class KeyLocker extends GameObject implements StableObject {
@@ -54,6 +56,7 @@ public class KeyLocker extends GameObject implements StableObject {
 	}
 	
 	public void interact(Player player) {
+		new Pick();
 		setPicked(true);
 		player.addItemInBag(this);
 		Handler.getInstance().removeObject(this);

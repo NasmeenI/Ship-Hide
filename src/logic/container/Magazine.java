@@ -1,6 +1,8 @@
 package logic.container;
 
 import java.util.ArrayList;
+
+import application.sound.Pick;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.base.GameObject;
@@ -47,12 +49,12 @@ public class Magazine extends GameObject implements StableObject {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		if(isVisible()) gc.drawImage(image ,getxPos() ,getyPos());
-		return ;
 	}
 	
 	@Override
 	public void interact(Player player) {
 		if(!isVisible()) return ;
+		new Pick();
 		setPicked(true);
 		player.addItemInBag(this);
 		Handler.getInstance().removeObject(this);

@@ -12,6 +12,7 @@ public class ShotPlayer {
 	public ShotPlayer() {	
 		Media media = new Media(new File("res/Sound/shot_player.mp3").toURI().toString());
 		sound = new MediaPlayer(media);
+		sound.setVolume(0.1);
 		sound.play();
 		Thread playSound = new Thread(() -> {
 			Platform.runLater(() -> sound.play());

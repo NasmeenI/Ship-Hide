@@ -11,6 +11,7 @@ import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
 import Scenes.MenuScene;
+import application.sound.Pick;
 
 public class HpBottle extends GameObject implements StableObject {
 	
@@ -46,6 +47,7 @@ public class HpBottle extends GameObject implements StableObject {
 	}
 
 	public void interact(Player player) {
+		new Pick();
 		setPicked(true);
 		player.setHp(player.getHp() + getEfficiency());
 		Handler.getInstance().removeObject(this);

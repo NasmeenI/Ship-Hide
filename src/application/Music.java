@@ -14,13 +14,16 @@ public class Music {
 		for(int i=0;i<5;i++) {
 			Media media = new Media(new File("res/Music/state_" + i + ".mp3").toURI().toString());
 			soundtrack[i] = new MediaPlayer(media);
+			soundtrack[i].setVolume(0.7);
 		}
 		
 		Media media = new Media(new File("res/Music/gameOver.mp3").toURI().toString());
 		gameOver = new MediaPlayer(media);
+		gameOver.setVolume(0.7);
 		
 		media = new Media(new File("res/Music/gameComplete.mp3").toURI().toString());
 		gameComplete = new MediaPlayer(media);
+		gameComplete.setVolume(0.7);
 	}
 	
 	public static void play() {

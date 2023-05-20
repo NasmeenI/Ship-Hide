@@ -11,6 +11,8 @@ import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
+import application.sound.Pick;
+
 public class Knife extends GameObject implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
@@ -58,6 +60,7 @@ public class Knife extends GameObject implements Attackable, StableObject {
 	}
 	
 	public void interact(Player player) {
+		new Pick();
 		setPicked(true);
 		player.addItemInBag(this);
 		player.setKnife(true);

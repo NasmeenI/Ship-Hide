@@ -8,6 +8,8 @@ import logic.base.ID;
 import logic.person.Player;
 import static utilz.Constants.Debug.SOLID_SHOW;
 
+import application.sound.Pick;
+
 public abstract class Gun extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
@@ -39,6 +41,7 @@ public abstract class Gun extends GameObject {
 	}
 	
 	public void interact(Player player) {
+		new Pick();
 		setPicked(true);
 		player.addItemInBag(this);
 		player.setGun(true);

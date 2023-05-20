@@ -166,11 +166,11 @@ public class Obj {
 						break;
 					}
 					case Lazer1 : {
-						if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
+						if(((Lazer)B).isShow()) ((Lazer)B).interact((Player)A);
 						break;
 					}
 					case Lazer2 : {
-						if(((Lazer)B).isShow()) ((Player)A).setHp(((Player)A).getHp() - ((Lazer)B).dps_damage());
+						if(((Lazer)B).isShow()) ((Lazer)B).interact((Player)A);
 						break;
 					}
 					case Knife : {

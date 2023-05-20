@@ -12,6 +12,7 @@ public class outOfBullet {
 	public outOfBullet() {	
 		Media media = new Media(new File("res/Sound/outOfBullet.mp3").toURI().toString());
 		sound = new MediaPlayer(media);
+		sound.setVolume(0.5);
 		sound.play();
 		Thread playSound = new Thread(() -> {
 			Platform.runLater(() -> sound.play());

@@ -67,6 +67,7 @@ public class Shop {
         Button button = new Button(item.getPrice() + "  Coins");
         button.setOnAction(event -> {
         	if(player.getCoin() >= item.getPrice()) {
+        		new Click();
         		player.addItemInBag(new Ak47Gun(0, 0 ,ID.Ak47Gun));
             	player.setGun(true);
             	player.setCoin(player.getCoin() - item.getPrice());
@@ -95,6 +96,7 @@ public class Shop {
         Button button = new Button(item.getPrice() + "  Coins");
         button.setOnAction(event -> {
         	if(player.getCoin() >= item.getPrice()) {
+        		new Click();
         		player.addItemInBag(new Ak47Magazine(0, 0 ,ID.Ak47Magazine));
         		player.setCoin(player.getCoin() - item.getPrice());
         	}

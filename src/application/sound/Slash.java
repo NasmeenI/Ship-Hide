@@ -12,6 +12,7 @@ public class Slash {
 	public Slash() {	
 		Media media = new Media(new File("res/Sound/slash.mp3").toURI().toString());
 		sound = new MediaPlayer(media);
+		sound.setVolume(0.7);
 		sound.play();
 		Thread playSound = new Thread(() -> {
 			Platform.runLater(() -> sound.play());

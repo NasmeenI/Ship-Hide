@@ -12,6 +12,7 @@ public class CorrectPassword {
 	public CorrectPassword() {	
 		Media media = new Media(new File("res/Sound/correctPassword.mp3").toURI().toString());
 		sound = new MediaPlayer(media);
+		sound.setVolume(0.2);
 		sound.play();
 		Thread playSound = new Thread(() -> {
 			Platform.runLater(() -> sound.play());

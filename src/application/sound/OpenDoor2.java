@@ -12,6 +12,7 @@ public class OpenDoor2 {
 	public OpenDoor2() {	
 		Media media = new Media(new File("res/Sound/openDoor2.mp3").toURI().toString());
 		sound = new MediaPlayer(media);
+		sound.setVolume(0.2);
 		sound.play();
 		Thread playSound = new Thread(() -> {
 			Platform.runLater(() -> sound.play());
