@@ -33,7 +33,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import static utilz.Constants.Screen.*;
 import static utilz.Constants.GameState.*;
-
+import static utilz.Constants.DoorJail.*;
 public class GameProcess {
 	
 	public static Stage stage;
@@ -139,7 +139,7 @@ public class GameProcess {
         timer.start();
 	}
 	
-	public void update() {			
+	public void update() {	
 		setKey(input.key);
 		checkPress();
 		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {

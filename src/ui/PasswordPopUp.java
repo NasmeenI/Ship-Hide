@@ -22,7 +22,6 @@ import logic.base.Handler;
 import logic.base.Map;
 import object.DoorJail;
 import utilz.Obj;
-
 import static utilz.Constants.DoorJail.*;
 
 public class PasswordPopUp {

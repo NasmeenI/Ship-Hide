@@ -121,11 +121,14 @@ public class Commander extends Person {
 			gunMod = 3;
 		}
 		
+		setAllArea();
+		animation();
+	}
+	
+	public void setAllArea() {
 		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH()));
 		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
-		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
-		
-		animation();
+		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));
 	}
 	
 	public void animation() {
@@ -146,6 +149,10 @@ public class Commander extends Person {
 			case "R" : currentAni = T_Right[frame]; break;
 			case "U" : currentAni = T_Up[frame]; break;
 			case "D" : currentAni = T_Down[frame]; break;
+			case "LEFT" : currentAni = T_Left[frame]; break;
+			case "RIGHT" : currentAni = T_Right[frame]; break;
+			case "UP" : currentAni = T_Up[frame]; break;
+			case "DOWN" : currentAni = T_Down[frame]; break;
 			default : {
 				switch(prv_direct) {
 					case "LEFT" : currentAni = T_Left[defaultAni]; break;

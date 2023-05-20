@@ -35,10 +35,10 @@ public class Player extends Person {
 	private static final long serialVersionUID = 1L;
 	private int coin;
 	private final int defaultAni = 9;
-	private double ac = .8f;
-	private double dc = .4f;
-	private boolean swaped = false; // for Q button
-	private boolean forceStop = false;
+	private double ac;
+	private double dc;
+	private boolean swaped; // for Q button
+	private boolean forceStop;
 	private ArrayList<GameObject> bag;
 	
 	public static double curxPos;
@@ -51,12 +51,16 @@ public class Player extends Person {
 	
 	public Player(double xPos, double yPos, ID id, KeyInput input) {
 		super(xPos, yPos, id, 10, 5, P_WIDTH, P_HEIGHT);
-		this.input = input;
+		setInput(input);
 		setCurxPos(xPos);
 		setCuryPos(yPos);
 		setBag(new ArrayList<>());
-		setCoin(30);
+		setCoin(0);
+		setAc(0.8f);
+		setDc(0.4f);
 		initImg();
+		setSwaped(false);
+		setForceStop(false);
 		if(MenuScene.mode == 0) setHpMax(5000);
 		else if(MenuScene.mode == 1) setHpMax(50000);
 		setHp(getHpMax());
@@ -210,11 +214,14 @@ public class Player extends Person {
 			setReloadTime(0);
 		}
 		
+		setAllArea();
+		animation();
+	}
+	
+	public void setAllArea() {
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
 		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
 		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
-		
-		animation();
 	}
 	
 	public void walk() {
@@ -246,7 +253,7 @@ public class Player extends Person {
 		if(_Vx >= 0) newXPos = ((int)((getxPos() + _Vx - 10)/48));			
 		else newXPos = ((int)((getxPos() + _Vx - 20)/48));
 		
-		if(_Vy >= 0) newYPos = ((int)((getyPos() + _Vy - 4)/48)) + 2;		 	
+		if(_Vy 	>= 0) newYPos = ((int)((getyPos() + _Vy - 4)/48)) + 2;		 	
 		else newYPos = ((int)((getyPos() + _Vy - 20)/48)) + 2;
 		
 		

@@ -64,7 +64,6 @@ public class Captive extends Person {
 	@Override
 	public void update() {
 		if(getHp() == 0) {
-			
 			GameProcess.stage.setScene(GameOverScene.scene);
 			GameProcess.setGameState(GAME_OVER_STATE);
 			Music.stop();
@@ -90,11 +89,14 @@ public class Captive extends Person {
 		else setReady(false);
 		
 		setBeforeTwo(Obj.collisionTwo(this));
+		setAllArea();
+		animation();
+	}
+	
+	public void setAllArea() {
 		setSolidArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif(), getW(), getH()));
 		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW()-10, 10));
 		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));
-		
-		animation();
 	}
 	
 	@Override

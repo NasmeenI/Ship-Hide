@@ -58,12 +58,13 @@ public abstract class Person extends GameObject {
 		setChasingTime(300);
 		setInterval(0);
 	}
-
+	
 	public abstract void update();
 	public abstract void render(GraphicsContext gc);
 	public abstract void shoot();
 	public abstract void slash();
 	public abstract void animation();
+	public abstract void setAllArea();
 	
 	public void searchPath(int endRow, int endCol) {
 		
