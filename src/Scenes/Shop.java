@@ -22,6 +22,7 @@ import logic.container.ak47.Ak47Magazine;
 import logic.person.Player;
 
 public class Shop {
+	
 	public static Scene scene;
 	public TilePane tilePane;
 	private Player player;
@@ -44,7 +45,6 @@ public class Shop {
         	GameProcess.setGameState(PLAY_STATE); 
         	gameProcess.run(gameProcess.getGc());
 			gameProcess.setESCState(false);
-			gameProcess.setFalseKeyESC();
 			GameProcess.input.setFalse();
     		GameProcess.stage.setScene(GameProcess.scene);
         });

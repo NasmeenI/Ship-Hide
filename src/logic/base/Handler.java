@@ -19,17 +19,17 @@ import utilz.Checker;
 
 public class Handler implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	public static final long serialVersionUID = 1L;
+	public static int code;
 	public static int progress;
-	public static int Code;
-	public Player player;
 	public static Handler instance;
-	public LinkedList<GameObject> allObjects;
+	public Player player;
+	private LinkedList<GameObject> allObjects;
 	
 	public Handler() {
 		Handler.progress = 0;
-		Handler.Code = 10000;
-		allObjects = new LinkedList<GameObject>();
+		Handler.code = 10000;
+		setAllObjects(new LinkedList<GameObject>());
 	}	
 	
 	public static Handler getInstance() {
@@ -56,7 +56,6 @@ public class Handler implements Serializable {
 			}
 		}
 		player.render(gc);
-		return ;
 	}
 	
 	public void updateAfterLoadSave(KeyInput input) {
@@ -136,7 +135,6 @@ public class Handler implements Serializable {
 	    		}
 	    	}
 		}
-		return ;
 	}
 	
 	public void renderStable(GraphicsContext gc) {
@@ -145,18 +143,17 @@ public class Handler implements Serializable {
 				allObjects.get(i).render(gc);
 			}
 		}
-		return ;
 	}
 	
 	public void addObject(GameObject object) {
 		allObjects.add(object);
-		return ;
 	}
 	
 	public void removeObject(GameObject object) {
 		allObjects.remove(object);
-		return ;
 	}
+	
+	// Getter & Setter
 	
 	public LinkedList<GameObject> getAllObjects() {
 		return allObjects;
@@ -165,5 +162,36 @@ public class Handler implements Serializable {
 	public void setAllObjects(LinkedList<GameObject> allObjects) {
 		this.allObjects = allObjects;
 	}
+	
+	public static int getCode() {
+		return code;
+	}
 
+	public static void setCode(int code) {
+		Handler.code = code;
+	}
+
+	public static int getProgress() {
+		return progress;
+	}
+
+	public static void setProgress(int progress) {
+		Handler.progress = progress;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public static void setInstance(Handler instance) {
+		Handler.instance = instance;
+	}
 }

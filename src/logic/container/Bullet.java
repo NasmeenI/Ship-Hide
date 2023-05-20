@@ -18,16 +18,12 @@ public class Bullet extends GameObject implements Attackable {
 	private int maxDamage, minDamage;
 	private ID owner = null;
 	
-//	private Image[] animationBullet;
-//	private Image currentAni = null;
-	
 	public Bullet(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 7, 3, 16, 16);
 		setxVelo(0);
 		setyVelo(0);
 		setMinDamage(30);
 		setMaxDamage(50);
-		initImg();
 	}
 	
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo) {
@@ -36,7 +32,6 @@ public class Bullet extends GameObject implements Attackable {
 		setyVelo(yVelo);
 		setMinDamage(30);
 		setMaxDamage(50);
-		initImg();
 	}
 
 	public Bullet(double xPos, double yPos, ID id, double xVelo, double yVelo, int MxD, int MnD) {
@@ -45,24 +40,16 @@ public class Bullet extends GameObject implements Attackable {
 		setyVelo(yVelo);
 		setMinDamage(MxD);
 		setMaxDamage(MnD);
-		initImg();
 	}
 	
 	public Bullet(double xPos, double yPos, ID id, int MxD, int MnD) {
 		super(xPos, yPos, id, 7, 3, 16, 16);
 		setMinDamage(MxD);
 		setMaxDamage(MnD);
-		initImg();
 	}
 	
 	public void initImg() {
-//		animationBullet = new Image[12];
-//		animationBullet[0] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
-//		animationBullet[1] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
-//		animationBullet[2] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
-//		animationBullet[3] = LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Left);
-//		
-//		currentAni = animationBullet[0];
+
 	}
 
 	@Override
@@ -78,9 +65,7 @@ public class Bullet extends GameObject implements Attackable {
 		if(_Vy >= 0) newYPos = ((int)((getyPos() + _Vy)/48)); 	
 		else newYPos = ((int)((getyPos() + _Vy)/48));
 		
-//		Obj.collisionTwo(this);
-		
-		if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0) {
+		if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0) {
 			Handler.getInstance().removeObject(this);
 		}
 		
@@ -91,7 +76,6 @@ public class Bullet extends GameObject implements Attackable {
 		setyVelo(_Vy);
 		
 		setSolidArea(new Rectangle((int)getxPos() + 7, (int)getyPos() + 3, 16, 16));
-		return ;
 	}
 
 	@Override
@@ -105,10 +89,6 @@ public class Bullet extends GameObject implements Attackable {
 			case "D" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Down), xPos, yPos); break;
 			default : break;
 		}
-		
-//		gc.setFill(Color.BLACK);
-//		gc.fillOval((int)getxPos() + 7, (int)getyPos() + 3, 16, 16);
-		return ;
 	}
 	
 	@Override
@@ -121,7 +101,8 @@ public class Bullet extends GameObject implements Attackable {
 		return 0;
 	}
 	
-	// Getters & Setters
+	// Getter & Setter
+	
 	public int getMaxDamage() {
 		return maxDamage;
 	}
@@ -147,5 +128,4 @@ public class Bullet extends GameObject implements Attackable {
 	public void setOwner(ID owner) {
 		this.owner = owner;
 	}
-	
 }

@@ -47,7 +47,7 @@ public class Obj {
 	public static boolean collisionZero(GameObject A) {
 		for(int i=(int)A.getSolidArea().getY();i<=(int)A.getSolidArea().getY()+(int)A.getSolidArea().getHeight();i++) {
 			for(int j=(int)A.getSolidArea().getX();j<=(int)A.getSolidArea().getX()+(int)A.getSolidArea().getWidth();j++) {
-				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
+				if(Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
 			}
 		}
 		return false;
@@ -57,19 +57,19 @@ public class Obj {
 		boolean result = false;
 		for(int i=(int)((Person)A).getRenderArea().getY();i<=(int)((Person)A).getRenderArea().getY()+(int)((Person)A).getRenderArea().getHeight() && (int)i/TILE_SIZE<=MAX_SCREEN_ROW ;i++) {
 			for(int j=(int)((Person)A).getRenderArea().getX();j<=(int)((Person)A).getRenderArea().getX()+(int)((Person)A).getRenderArea().getWidth() && j/TILE_SIZE<=MAX_SCREEN_COL ;j++) {
-				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
+				if(Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
-					while(j1 <= MAX_SCREEN_COL && Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
-						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
-						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+					while(j1 <= MAX_SCREEN_COL && Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.getRenderState()[(int)i/TILE_SIZE-1][j1] = true;
+						GameProcess.getRenderState()[(int)i/TILE_SIZE][j1] = true;
 						j1++;
 					}
 						
 					j1 = (int)j/TILE_SIZE-1;
-					while(j1 > 0 && Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
-						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
-						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
+					while(j1 > 0 && Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.getRenderState()[(int)i/TILE_SIZE][j1] = true;
+						GameProcess.getRenderState()[(int)i/TILE_SIZE-1][j1] = true;
 						j1--;
 					}
 				}
@@ -82,19 +82,19 @@ public class Obj {
 		boolean result = false;
 		for(int i=(int)((Sculpture)A).getSolidArea().getY();i<=(int)((Sculpture)A).getSolidArea().getY()+(int)((Sculpture)A).getSolidArea().getHeight() && i/TILE_SIZE<=MAX_SCREEN_ROW ;i++) {
 			for(int j=(int)((Sculpture)A).getSolidArea().getX();j<=(int)((Sculpture)A).getSolidArea().getX()+(int)((Sculpture)A).getSolidArea().getWidth() && j/TILE_SIZE<=MAX_SCREEN_COL ;j++) {
-				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
+				if(Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 2) {
 					result = true;
 					int j1 = (int)j/TILE_SIZE;
-					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
-						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
-						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
+					while(Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.getRenderState()[(int)i/TILE_SIZE-1][j1] = true;
+						GameProcess.getRenderState()[(int)i/TILE_SIZE][j1] = true;
 						j1++;
 					}
 						
 					j1 = (int)j/TILE_SIZE-1;
-					while(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][j1-1] == 2) {
-						GameProcess.renderState[(int)i/TILE_SIZE][j1] = true;
-						GameProcess.renderState[(int)i/TILE_SIZE-1][j1] = true;
+					while(Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][j1-1] == 2) {
+						GameProcess.getRenderState()[(int)i/TILE_SIZE][j1] = true;
+						GameProcess.getRenderState()[(int)i/TILE_SIZE-1][j1] = true;
 						j1--;
 					}
 				}
@@ -106,17 +106,17 @@ public class Obj {
 	public static boolean collisionZeroRect(Rectangle A) {
 		for(int i=(int)A.getY();i<=(int)A.getY()+(int)A.getHeight();i++) {
 			for(int j=(int)A.getX();j<=(int)A.getX()+(int)A.getWidth();j++) {
-				if(Map.getInstance().mapTileNum[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
+				if(Map.getInstance().getMapTileNum()[(int)i/TILE_SIZE][(int)j/TILE_SIZE-1] == 0) return true;
 			}
 		}
 		return false;
 	}
 	
 	public static void collision(GameObject A) {
-		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
-			if(Handler.getInstance().allObjects.get(i).getCode() == A.getCode() || (Handler.getInstance().allObjects.get(i) instanceof Sculpture)) continue;
-			if(A.getSolidArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
-				action(A, Handler.getInstance().allObjects.get(i));
+		for(int i = 0; i < Handler.getInstance().getAllObjects().size(); i++) {
+			if(Handler.getInstance().getAllObjects().get(i).getCode() == A.getCode() || (Handler.getInstance().getAllObjects().get(i) instanceof Sculpture)) continue;
+			if(A.getSolidArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal())) {
+				action(A, Handler.getInstance().getAllObjects().get(i));
 			}
 		}
 	}
@@ -459,20 +459,20 @@ public class Obj {
 		if(_Vy >= 0) newYPos = ((int)((A.getyPos() + _Vy - 4)/48)) + 2;		 	
 		else newYPos = ((int)((A.getyPos() + _Vy - 20)/48)) + 2;
 		
-		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
+		if(Map.getInstance().getMapTileNum()[newYPos][newXPos] != 0) {
 			A.setxPos(setX ? B.getxPos() : A.getxPos() + _Vx);
 			A.setyPos(setY ? B.getyPos() : A.getyPos() + _Vy);
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(A.getxPos()-10)/48] != 0 && _Vx >= 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(A.getxPos()-10)/48] != 0 && _Vx >= 0) {
 			A.setyPos(setY ? B.getyPos() : A.getyPos() + _Vy);
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(A.getxPos()-20)/48] != 0 && _Vx < 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(A.getxPos()-20)/48] != 0 && _Vx < 0) {
 			A.setyPos(setY ? B.getyPos() : A.getyPos() + _Vy);
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(A.getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(A.getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
 			A.setxPos(setX ? B.getxPos() : A.getxPos() + _Vx);
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(A.getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(A.getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
 			A.setxPos(setX ? B.getxPos() : A.getxPos() + _Vx);
 		}
 		

@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class LoadingScene {
+	
 	public static Stage stage;
 	public static Scene scene;
 	public static ProgressBar progressBar;

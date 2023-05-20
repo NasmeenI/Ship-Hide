@@ -130,7 +130,7 @@ public class PasswordPopUp {
 		backButton.setPadding(new Insets(8));
 		backButton.setStyle("-fx-background-color: #000080; -fx-text-fill: white;");
 		backButton.setOnAction(event -> {
-			Handler.getInstance().player.setAc(Obj.temp1, Obj.temp2);
+			Handler.getInstance().player.setAcDc(Obj.temp1, Obj.temp2);
 			Handler.getInstance().player.setForceStop(false);
 			GameProcess.removeGridRoot(gridPane);
 		});

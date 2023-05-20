@@ -14,24 +14,23 @@ import static utilz.Constants.Debug.*;
 public class Knife extends GameObject implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	public boolean picked;
+	private boolean picked;
 	private boolean visible;
-	transient private Image image ,imageUsed;
-	
 	private double littleMove = 1;
 	private double count = 0;
-
+	transient private Image image ,imageUsed;
+	
 	public Knife(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 0, 0, 100, 50);
-		this.visible = false;
-		this.picked = false;
+		setPicked(false);
+		setVisible(false);
 		initImg();
 	}
 	
 	public Knife(double xPos, double yPos, ID id, boolean visible) {
 		super(xPos, yPos, id, 0, 0, 100, 50);
-		this.visible = visible;
-		this.picked = false;
+		setPicked(false);
+		setVisible(visible);
 		initImg();
 	}
 
@@ -44,8 +43,6 @@ public class Knife extends GameObject implements Attackable, StableObject {
 		littleMove += count;
 		
 		setyPos(getyPos() + littleMove);
-		
-		return ;
 	}
 
 	public void initImg() {
@@ -55,10 +52,9 @@ public class Knife extends GameObject implements Attackable, StableObject {
 
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-	
+
 		if(!isVisible()) return ;
 		gc.drawImage(image ,getxPos() ,getyPos());
-		return ;
 	}
 	
 	public void interact(Player player) {

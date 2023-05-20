@@ -17,13 +17,13 @@ import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
 public class Door extends GameObject implements StableObject {
+	
 	private static final long serialVersionUID = 1L;
-	private boolean opened;
 	private ID keyId;
+	private int doorCount;
+	private boolean opened;
 	transient private Image imageOpen;
 	transient private Image imageClose;
-	
-	private int doorCount = 0;
 	
 	public Door(int xPos, int yPos, ID id, ID keyId) {
 		super(xPos, yPos, id);
@@ -44,6 +44,7 @@ public class Door extends GameObject implements StableObject {
 		setKeyId(keyId);
 		setId(id);
 		setOpened(false);
+		setDoorCount(0);
 		initImg();
 	}
 	
@@ -138,4 +139,31 @@ public class Door extends GameObject implements StableObject {
 		this.keyId = keyId;
 	}
 
+	public int getDoorCount() {
+		return doorCount;
+	}
+
+	public void setDoorCount(int doorCount) {
+		this.doorCount = doorCount;
+	}
+
+	public Image getImageOpen() {
+		return imageOpen;
+	}
+
+	public void setImageOpen(Image imageOpen) {
+		this.imageOpen = imageOpen;
+	}
+
+	public Image getImageClose() {
+		return imageClose;
+	}
+
+	public void setImageClose(Image imageClose) {
+		this.imageClose = imageClose;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

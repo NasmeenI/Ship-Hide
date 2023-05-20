@@ -14,32 +14,30 @@ public class Ak47Gun extends Gun implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	private Ak47Magazine magazine;
-	Handler handler = Handler.getInstance();
-	
 	private String name;
 	private int price;
 
 	public Ak47Gun(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, false);
-		this.magazine = new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, 30);
-		this.name = "Ak-47";
-		this.price = 20;
+		setMagazine(new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, 30));
+		setName("Ak-47");
+		setPrice(20);
 		initImg();
 	}
 	
 	public Ak47Gun(double xPos, double yPos, ID id, int bulletNum) {
 		super(xPos, yPos, id, -10, -10, 120, 57, false, false);
-		this.magazine = new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, bulletNum);
-		this.name = "Ak-47";
-		this.price = 20;
+		setMagazine(new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, bulletNum));
+		setName("Ak-47");
+		setPrice(20);
 		initImg();
 	}
 	
 	public Ak47Gun(double xPos, double yPos, ID id, boolean visible) {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, visible);
-		this.magazine = new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, 30);
-		this.name = "Ak-47";
-		this.price = 20;
+		setMagazine(new Ak47Magazine(xPos, yPos, ID.Ak47Magazine, 30));
+		setName("Ak-47");
+		setPrice(20);
 		initImg();
 	}
 	
@@ -121,8 +119,6 @@ public class Ak47Gun extends Gun implements Attackable, StableObject {
 		image = LoadSave.GetSpriteAtlas(LoadSave.AK47);
 		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.AK47_USED);
 	}
-
-	// Getter & Setter
 	
 	public int getNumMagazine() {
 		int numMagazine = 0;
@@ -134,6 +130,8 @@ public class Ak47Gun extends Gun implements Attackable, StableObject {
 		}
 		return numMagazine;
 	}
+
+	// Getter & Setter
 	
 	public Ak47Magazine getMagazine() {
 		return magazine;
@@ -149,5 +147,17 @@ public class Ak47Gun extends Gun implements Attackable, StableObject {
 	
 	public int getPrice() {
 		return this.price;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }

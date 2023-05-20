@@ -13,6 +13,7 @@ import utilz.LoadSave;
 import static utilz.Constants.GameState.PLAY_STATE;
 
 public class GameOverScene {
+	
 	private GameProcess gameProcess;
 	public static Scene scene;
 	
@@ -54,7 +55,6 @@ public class GameOverScene {
 							GameProcess.setGameState(PLAY_STATE); 
 							gameProcess.run(gameProcess.getGc());
 							gameProcess.setESCState(false);
-							gameProcess.setFalseKeyESC();
 							GameProcess.stage.setScene(GameProcess.scene);
 
 						} catch (Exception e) {

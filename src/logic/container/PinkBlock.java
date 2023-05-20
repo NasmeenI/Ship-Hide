@@ -9,16 +9,16 @@ import static utilz.Constants.Debug.*;
 public class PinkBlock extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
-	private boolean visible = true;
+	private boolean visible;
 
 	public PinkBlock(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id ,0, 0, 48, 48);
-		this.visible = true;
+		setVisible(true);
 	}
 	
 	public PinkBlock(double xPos, double yPos, ID id, boolean visible) {
 		super(xPos, yPos, id ,0, 0, 48, 48);
-		this.visible = visible;
+		setVisible(visible);
 	}
 
 	@Override
@@ -37,6 +37,12 @@ public class PinkBlock extends GameObject {
 		return ;
 	}
 	
+	@Override
+	public void initImg() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	// Getters & Setters
 	
 	public boolean isVisible() {
@@ -47,11 +53,4 @@ public class PinkBlock extends GameObject {
 		this.visible = visible;
 		return ;
 	}
-
-	@Override
-	public void initImg() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

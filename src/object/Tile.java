@@ -31,7 +31,6 @@ public class Tile extends GameObject {
 		image0 = LoadSave.GetSpriteAtlas("Maps/project_" + 0 +"/tile_" + x + "_" + y + ".png");
 		image2 = LoadSave.GetSpriteAtlas("Maps/project_" + 2 +"/tile_" + x + "_" + y + ".png");
 		image2_0 = LoadSave.GetSpriteAtlas("Maps/project_" + 2 +"_0/tile_" + x + "_" + y + ".png");
-//		image3 = LoadSave.GetSpriteAtlas("Maps/project_" + 3 +"/tile_" + x + "_" + y + ".png");
 	}
 	
 	@Override

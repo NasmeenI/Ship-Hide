@@ -16,46 +16,41 @@ public abstract class GameObject implements Serializable {
 	protected ID id;
 	protected int Code;
 	protected boolean beforeTwo;
-	// Debug
-	public static boolean solidShow = false;
 	
 	public GameObject(double xPos, double yPos, ID id) {
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.xDif = 0;
-		this.yDif = 0;
-		this.w = 0;
-		this.h = 0;
-		this.xVelo = 0;
-		this.yVelo = 0;
-		this.id = id;
-		this.solidArea = new Rectangle(xPos ,yPos ,0 ,0);
-		this.Code = Handler.Code++;
-		this.beforeTwo = true;
+		setxPos(xPos);
+		setyPos(yPos);
+		setxDif(0);
+		setyDif(0);
+		setW(0);
+		setH(0);
+		setxVelo(0);
+		setyVelo(0);
+		setId(id);
+		setSolidArea(new Rectangle(xPos ,yPos ,0 ,0));
+		setCode(Handler.code++);
+		setBeforeTwo(true);
 	}
 	
 	public GameObject(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.xDif = xDif;
-		this.w = w;
-		this.h = h;
-		this.xVelo = 0;
-		this.yVelo = 0;
-		this.id = id;
-		this.solidArea = new Rectangle(xPos+xDif ,yPos+yDif ,w ,h);
-		this.Code = Handler.Code++;
-		this.beforeTwo = true;
+		setxPos(xPos);
+		setyPos(yPos);
+		setxDif(xDif);
+		setyDif(yDif);
+		setW(w);
+		setH(h);
+		setxVelo(0);
+		setyVelo(0);
+		setId(id);
+		setSolidArea(new Rectangle(xPos+xDif ,yPos+yDif ,w ,h));
+		setCode(Handler.code++);
+		setBeforeTwo(true);
 	}
 
 	public void move() {
 		setxPos(getxPos() + getxVelo());
 		setyPos(getyPos() + getyVelo());
 	}
-	
-	public abstract void update();
-	public abstract void initImg();
-	public abstract void render(GraphicsContext gc);
 	
 	public void ShowSolidArea(GraphicsContext gc) {
 		gc.setFill(Color.PINK);
@@ -67,6 +62,10 @@ public abstract class GameObject implements Serializable {
 		int yMid = (int) (A.getY() + A.getHeight() / 2);
 		return new Point(xMid, yMid);
 	}
+	
+	public abstract void update();
+	public abstract void initImg();
+	public abstract void render(GraphicsContext gc);
 	
 	// Getters & Setters
 	

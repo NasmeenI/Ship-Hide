@@ -17,12 +17,12 @@ import static utilz.Constants.Debug.SOLID_SHOW;
 public class Trader extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	transient private Image image;
 	private boolean interacted;
+	transient private Image image;
 	
 	public Trader(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -30, 10, 130, 90);
-		interacted = false;
+		setInteracted(false);
 		initImg();
 	}
 

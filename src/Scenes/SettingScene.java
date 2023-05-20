@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import utilz.LoadSave;
 
 public class SettingScene {
+	
 	public static Scene scene;
 	
 	public SettingScene(Stage stage) {

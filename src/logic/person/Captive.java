@@ -25,10 +25,9 @@ public class Captive extends Person {
 	
 	private static final long serialVersionUID = 1L;
 	private static boolean ready;
-	
-	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	private final int defaultAni = 0;
 	transient private Image currentAni, previousAni;
+	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	
 	public Captive(double xPos, double yPos, ID id, double xVelo, double yVelo) {
 		super(xPos, yPos, id, 10, 5 , P_WIDTH , P_HEIGHT);
@@ -65,6 +64,7 @@ public class Captive extends Person {
 	@Override
 	public void update() {
 		if(getHp() == 0) {
+			
 			GameProcess.stage.setScene(GameOverScene.scene);
 			GameProcess.setGameState(GAME_OVER_STATE);
 			Music.stop();
@@ -83,7 +83,7 @@ public class Captive extends Person {
 		}
 		if(isChasing()) {
 			Point mP = getMiddlePoint(Handler.getInstance().player.getSolidArea());
-			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
+			searchPath((int) (mP.getY() / TILESIZE), (int) (mP.getX() / TILESIZE));
 		}
 		else randomWalk(60);
 		if(Obj.distance(this, Handler.getInstance().player) <= 100) setReady(true);
@@ -99,18 +99,18 @@ public class Captive extends Person {
 	
 	@Override
 	public void animation() {
-		if(direct != prv_direct) SpriteCnt = 0;
-		int frame = (SpriteCnt / 15) % 2;
+		if(direct != prv_direct) spriteCnt = 0;
+		int frame = (spriteCnt / 15) % 2;
 
-		WalkAni(frame);
+		walkAni(frame);
 
-		SpriteCnt++;
+		spriteCnt++;
 		if(direct != "Z") prv_direct = direct;
 		previousAni = currentAni;
-		SpriteCnt %= 120;
+		spriteCnt %= 120;
 	}
 	
-	private void WalkAni(int frame) {
+	private void walkAni(int frame) {
 		switch(getDirect()) {
 			case "L" : currentAni = T_Left[frame]; break;
 			case "R" : currentAni = T_Right[frame]; break;

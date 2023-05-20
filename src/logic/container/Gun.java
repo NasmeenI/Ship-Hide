@@ -12,21 +12,21 @@ public abstract class Gun extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
 	transient protected Image image ,imageUsed;
-	public boolean picked;
+	private boolean picked;
 	private boolean visible;
 	private double littleMove = 1;
 	private double count = 0;
 	
 	public Gun(double xPos, double yPos, ID id, boolean picked, boolean visible) {
 		super(xPos, yPos, id);
-		this.picked = picked;
-		this.visible = visible;
+		setPicked(picked);
+		setVisible(visible);
 	}
 	
 	public Gun(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h, boolean picked, boolean visible) {
 		super(xPos, yPos, id, xDif, yDif, w, h);
-		this.picked = picked;
-		this.visible = visible;
+		setPicked(picked);
+		setVisible(visible);
 	}
 
 	public void update() {
@@ -50,7 +50,6 @@ public abstract class Gun extends GameObject {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		gc.drawImage(image ,getxPos() ,getyPos());
-		return ;
 	}
 
 	public abstract void shoot(int xPos, int yPos, String direct, ID owner);

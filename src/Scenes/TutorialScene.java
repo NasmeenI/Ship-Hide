@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import utilz.LoadSave;
 
 public class TutorialScene {
+	
 	public static Scene scene;
 	
 	public TutorialScene(Stage stage) {

@@ -6,9 +6,9 @@ import javafx.scene.media.MediaPlayer;
 import logic.base.Handler;
 
 public class Music {
+	
 	public static MediaPlayer[] soundtrack = new MediaPlayer[5];
 	public static MediaPlayer gameOver, gameComplete;
-	public static int state = 0;
 	
 	public Music() {
 		for(int i=0;i<5;i++) {

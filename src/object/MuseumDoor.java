@@ -19,17 +19,18 @@ import static utilz.Constants.Debug.*;
 public class MuseumDoor extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
+	private int[][] password;
 	private boolean opened;
+	private boolean saved;
+	private Sculpture[] sculpture;
 	transient private Image imageOpen;
 	transient private Image imageClose;
-	private Sculpture[] sculpture;
-	private int[][] password;
-	private boolean saved = false;
 	
 	public MuseumDoor(int xPos, int yPos, ID id, Sculpture[] sculpture) {
 		super(xPos, yPos, id ,0 ,10 ,100 ,100);
 		setOpened(false);
-		this.sculpture = sculpture;
+		setSaved(false);
+		setSculpture(sculpture);
 		initPassword();
 		initImg();
 	}
@@ -116,5 +117,48 @@ public class MuseumDoor extends GameObject implements StableObject {
 	public void setOpened(boolean opened) {
 		this.opened = opened;
 	}
-	
+
+	public int[][] getPassword() {
+		return password;
+	}
+
+	public void setPassword(int[][] password) {
+		this.password = password;
+	}
+
+	public boolean isSaved() {
+		return saved;
+	}
+
+	public void setSaved(boolean saved) {
+		this.saved = saved;
+	}
+
+	public Sculpture[] getSculpture() {
+		return sculpture;
+	}
+
+	public void setSculpture(Sculpture[] sculpture) {
+		this.sculpture = sculpture;
+	}
+
+	public Image getImageOpen() {
+		return imageOpen;
+	}
+
+	public void setImageOpen(Image imageOpen) {
+		this.imageOpen = imageOpen;
+	}
+
+	public Image getImageClose() {
+		return imageClose;
+	}
+
+	public void setImageClose(Image imageClose) {
+		this.imageClose = imageClose;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

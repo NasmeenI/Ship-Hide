@@ -17,18 +17,19 @@ import static utilz.Constants.Tile.*;
 public abstract class Person extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
-	protected int Hp, HpMax, bullets;
-	protected boolean gun, knife;
+	protected int hp, hpMax, bullets;
 	protected int used, prvUsed;
-	protected int SpriteCnt, BulletTime, KnifeTime, ReloadTime, randWalkTime, chasingTime, interval;
-	private int direction = 9;
+	protected int spriteCnt, bulletTime, knifeTime, reloadTime, randWalkTime, chasingTime, interval;
+	protected boolean gun, knife;
+	protected boolean chasing = false;
 	protected String direct, prv_direct = null;
 	
 	transient protected Rectangle footArea;
 	transient protected Rectangle renderArea;
 	
-	protected boolean chasing = false;
 	public static PathFinder pathFinder = new PathFinder();
+	
+	private int direction = 9;
 	private int[][] mapTileNum = Map.getInstance().getMapTileNum();
 
 	/*
@@ -45,7 +46,7 @@ public abstract class Person extends GameObject {
 		setPrvUsed(1);
 		setDirect("Z");
 		setPrv_direct("Z");
-		setHp(100);				// default
+		setHp(100);				
 		setKnife(false);
 		setGun(false);
 		setBullets(0);
@@ -64,24 +65,24 @@ public abstract class Person extends GameObject {
 	public abstract void slash();
 	public abstract void animation();
 	
-	public void SearchPath(int endRow, int endCol) {
+	public void searchPath(int endRow, int endCol) {
 		
 		Point mP = getMiddlePoint(getFootArea());
 		
-		int startRow = (int) (mP.y / TILESIZE);
-		int startCol = (int) (mP.x / TILESIZE);
+		int startRow = (int) (mP.getY() / TILESIZE);
+		int startCol = (int) (mP.getX() / TILESIZE);
 		
 		pathFinder.setNode(startRow, startCol, endRow, endCol);
 
 		if(pathFinder.search()) {
 			
-			int nextX = pathFinder.pathList.get(0).col * TILESIZE;
-			int nextY = pathFinder.pathList.get(0).row * TILESIZE;
+			int nextX = pathFinder.getPathList().get(0).getCol() * TILESIZE;
+			int nextY = pathFinder.getPathList().get(0).getRow() * TILESIZE;
 
-			Obj.getClosePoint(this, (int) mP.x, (int) mP.y, nextX + 36, nextY + 36);
+			Obj.getClosePoint(this, (int) mP.getX(), (int) mP.getY(), nextX + 36, nextY + 36);
 			
-			int nextCol = pathFinder.pathList.get(0).col * TILESIZE;
-			int nextRow = pathFinder.pathList.get(0).row * TILESIZE;
+			int nextCol = pathFinder.getPathList().get(0).getCol() * TILESIZE;
+			int nextRow = pathFinder.getPathList().get(0).getRow() * TILESIZE;
 			
 			if(nextCol == endCol && nextRow == endRow) {
 				chasing = false;
@@ -91,17 +92,17 @@ public abstract class Person extends GameObject {
 		else {
 			Point mPz = getMiddlePoint(Handler.getInstance().player.getSolidArea());
 			
-			pathFinder.setNode(startRow, startCol,(int) mPz.y / TILESIZE,(int) mPz.x / TILESIZE);
+			pathFinder.setNode(startRow, startCol,(int) mPz.getY() / TILESIZE,(int) mPz.getX() / TILESIZE);
 			
 			if(pathFinder.search()) {
 				
-				int nextX = pathFinder.pathList.get(0).col * TILESIZE;
-				int nextY = pathFinder.pathList.get(0).row * TILESIZE;
+				int nextX = pathFinder.getPathList().get(0).getCol() * TILESIZE;
+				int nextY = pathFinder.getPathList().get(0).getRow() * TILESIZE;
 
-				Obj.getClosePoint(this, (int) mP.x, (int) mP.y, nextX + 36, nextY + 36);
+				Obj.getClosePoint(this, (int) mP.getX(), (int) mP.getY(), nextX + 36, nextY + 36);
 				
-				int nextCol = pathFinder.pathList.get(0).col * TILESIZE;
-				int nextRow = pathFinder.pathList.get(0).row * TILESIZE;
+				int nextCol = pathFinder.getPathList().get(0).getCol() * TILESIZE;
+				int nextRow = pathFinder.getPathList().get(0).getRow() * TILESIZE;
 				
 				if(nextCol == endCol && nextRow == endRow) {
 					chasing = false;
@@ -111,20 +112,20 @@ public abstract class Person extends GameObject {
 		}
 	}
 	
-	public void ShowPath(GraphicsContext gc) {
-		for(int i = 0; i < pathFinder.pathList.size(); i++) {
-			int Wx = pathFinder.pathList.get(i).col * TILESIZE;
-			int Wy = pathFinder.pathList.get(i).row * TILESIZE;
+	public void showPath(GraphicsContext gc) {
+		for(int i = 0; i < pathFinder.getPathList().size(); i++) {
+			int Wx = pathFinder.getPathList().get(i).getCol() * TILESIZE;
+			int Wy = pathFinder.getPathList().get(i).getRow() * TILESIZE;
 			gc.setFill(Color.PURPLE);
 			gc.fillRect(Wx, Wy, TILESIZE, TILESIZE);
 		}
 	}
 	
-	public boolean GunAvailable() {
+	public boolean gunAvailable() {
 		return gun;
 	}
 	
-	public boolean KnifeAvailable() {
+	public boolean knifeAvailable() {
 		return knife;
 	}
 	
@@ -199,15 +200,6 @@ public abstract class Person extends GameObject {
 		gc.fillRect((int)footArea.getX(), (int)footArea.getY(), footArea.getWidth(), footArea.getHeight());
 	}
 	
-	public void HealthBar(GraphicsContext gc) {
-
-        
-//        gc.getCanvas().setWidth(scene.getWidth());
-//        gc.getCanvas().setHeight(scene.getHeight());
-//		gc.setFill(Color.RED);
-//		gc.fillRect((int)getxPos() + getxDif() - 10, (int)getyPos() + getyDif() -10, solidArea.getWidth() + 20, 10);
-	}
-	
 	// Getters & Setters
 	
 	public PathFinder getPathFinder() {
@@ -219,21 +211,19 @@ public abstract class Person extends GameObject {
 	}
 	
 	public int getHp() {
-		return Hp;
+		return this.hp;
 	}
 
 	public void setHp(int hp) {
-		Hp = Math.max(hp, 0);
-		return ;
+		this.hp = Math.max(hp, 0);
 	}
 	
 	public int getHpMax() {
-		return HpMax;
+		return this.hpMax;
 	}
 
 	public void setHpMax(int hpMax) {
-		HpMax = Math.max(hpMax, 0);
-		return ;
+		this.hpMax = Math.max(hpMax, 0);
 	}
 
 	public int getBullets() {
@@ -242,7 +232,6 @@ public abstract class Person extends GameObject {
 
 	public void setBullets(int bullets) {
 		this.bullets = bullets;
-		return ;
 	}
 	
 	public boolean isGun() {
@@ -251,7 +240,6 @@ public abstract class Person extends GameObject {
 
 	public void setGun(boolean gun) {
 		this.gun = gun;
-		return ;
 	}
 
 	public boolean isKnife() {
@@ -260,7 +248,6 @@ public abstract class Person extends GameObject {
 
 	public void setKnife(boolean knife) {
 		this.knife = knife;
-		return ;
 	}
 
 	public int getUsed() {
@@ -273,7 +260,6 @@ public abstract class Person extends GameObject {
 		else if(used == 3 && this.gun) this.used = 3;
 		else if(used == 4 && this.gun) this.used = 4;
 		else this.used = 1;
-		return ;
 	}
 	
 	public int getPrvUsed() {
@@ -293,38 +279,35 @@ public abstract class Person extends GameObject {
 	}
 
 	public int getSpriteCnt() {
-		return SpriteCnt;
+		return spriteCnt;
 	}
 
 	public void setSpriteCnt(int spriteCnt) {
-		SpriteCnt = Math.max(0, spriteCnt);
-		return ;
+		this.spriteCnt = Math.max(0, spriteCnt);
 	}
 
 	public int getBulletTime() {
-		return BulletTime;
+		return bulletTime;
 	}
 
 	public void setBulletTime(int bulletTime) {
-		BulletTime = Math.max(0, bulletTime);
-		return ;
+		this.bulletTime = Math.max(0, bulletTime);
 	}
 
 	public int getKnifeTime() {
-		return KnifeTime;
+		return knifeTime;
 	}
 
 	public void setKnifeTime(int knifeTime) {
-		KnifeTime = Math.max(0, knifeTime);
-		return ;
+		this.knifeTime = Math.max(0, knifeTime);
 	}
 
 	public int getReloadTime() {
-		return ReloadTime;
+		return reloadTime;
 	}
 
 	public void setReloadTime(int reloadTime) {
-		ReloadTime = Math.max(0, reloadTime);
+		this.reloadTime = Math.max(0, reloadTime);
 	}
 
 	public int getRandWalkTime() {
@@ -357,7 +340,6 @@ public abstract class Person extends GameObject {
 
 	public void setDirect(String direct) {
 		this.direct = direct;
-		return ;
 	}
 
 	public String getPrv_direct() {
@@ -366,7 +348,6 @@ public abstract class Person extends GameObject {
 
 	public void setPrv_direct(String prv_direct) {
 		this.prv_direct = prv_direct;
-		return ;
 	}
 
 	public Rectangle getFootArea() {
@@ -384,5 +365,4 @@ public abstract class Person extends GameObject {
 	public void setRenderArea(Rectangle renderArea) {
 		this.renderArea = renderArea;
 	}
-
 }

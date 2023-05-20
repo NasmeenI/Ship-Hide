@@ -27,6 +27,7 @@ import application.sound.StartGame;
 import static utilz.Constants.GameState.*;
 
 public class MenuScene {
+	
 	private static Stage stage;
 	public static Scene startScene;
 	public static Scene continueScene;
@@ -134,7 +135,6 @@ public class MenuScene {
 					GameProcess.setGameState(PLAY_STATE); 
 					gameProcess.run(gameProcess.getGc());
 					gameProcess.setESCState(false);
-					gameProcess.setFalseKeyESC();
 					GameProcess.input.setFalse();
 					GameProcess.stage.setScene(GameProcess.scene);
 				} catch (Exception e) {
@@ -163,7 +163,6 @@ public class MenuScene {
 							GameProcess.setGameState(PLAY_STATE); 
 							gameProcess.run(gameProcess.getGc());
 							gameProcess.setESCState(false);
-							gameProcess.setFalseKeyESC();
 							GameProcess.stage.setScene(GameProcess.scene);
 						} catch (Exception e) {
 							e.printStackTrace();

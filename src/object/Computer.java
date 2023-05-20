@@ -16,13 +16,14 @@ import static utilz.Constants.Debug.*;
 public class Computer extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	transient private Image imageInteract;
 	private boolean interacted;
-	private boolean saved = false;
+	private boolean saved;
+	transient private Image imageInteract;
 	
 	public Computer(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -50, 0, 150, 150);
-		interacted = false;
+		setInteracted(false);
+		setSaved(false);
 		initImg();
 	}
 	
@@ -40,15 +41,14 @@ public class Computer extends GameObject implements StableObject {
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(imageInteract ,getxPos() ,getyPos());
-		return ;
 	}
 	
 	public void interact(Player player) {
 		PasswordPopUp ppu = new PasswordPopUp();
 		Obj.gridPane = ppu.ShowPasswordScene();
-		Obj.temp1 = ((Player)player).get_ac();
-		Obj.temp2 = ((Player)player).get_dc();
-		player.setAc(0, 0);
+		Obj.temp1 = ((Player)player).getAc();
+		Obj.temp2 = ((Player)player).getDc();
+		player.setAcDc(0, 0);
 		player.setForceStop(true);
 		GameProcess.getRoot().getChildren().addAll(Obj.gridPane);
 		
@@ -59,6 +59,7 @@ public class Computer extends GameObject implements StableObject {
 	}
 
 	// Getter & Setter
+	
 	public Image getImageInteract() {
 		return imageInteract;
 	}
@@ -75,4 +76,11 @@ public class Computer extends GameObject implements StableObject {
 		this.interacted = interacted;
 	}
 
+	public boolean isSaved() {
+		return saved;
+	}
+
+	public void setSaved(boolean saved) {
+		this.saved = saved;
+	}
 }

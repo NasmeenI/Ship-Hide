@@ -33,46 +33,37 @@ import static utilz.Constants.GameState.*;
 public class Player extends Person {
 	
 	private static final long serialVersionUID = 1L;
-	// default
-	private double _ac = .8f;
-	private double _dc = .4f;
-	transient private KeyInput input;
-
-	transient private Keys key;
-
-	public static double _CurxPos;
-	public static double _CuryPos;
-
-	transient private Image[] T_Up, T_Down, T_Left, T_Right;
-	private final int defaultAni = 9;
-	transient private Image currentAni, previousAni;
-	private boolean swaped = false; // for Q button
-	public boolean forceStop = false;
 	private int coin;
+	private final int defaultAni = 9;
+	private double ac = .8f;
+	private double dc = .4f;
+	private boolean swaped = false; // for Q button
+	private boolean forceStop = false;
+	private ArrayList<GameObject> bag;
 	
-	public ArrayList<GameObject> bag;
+	public static double curxPos;
+	public static double curyPos;
+	
+	transient private Keys key;
+	transient private KeyInput input;
+	transient private Image[] T_Up, T_Down, T_Left, T_Right;
+	transient private Image currentAni, previousAni;
 	
 	public Player(double xPos, double yPos, ID id, KeyInput input) {
 		super(xPos, yPos, id, 10, 5, P_WIDTH, P_HEIGHT);
 		this.input = input;
-		_CurxPos = xPos;
-		_CuryPos = yPos; 
-		this.bag = new ArrayList<>();
-		this.coin = 30;
+		setCurxPos(xPos);
+		setCuryPos(yPos);
+		setBag(new ArrayList<>());
+		setCoin(30);
 		initImg();
-		
 		if(MenuScene.mode == 0) setHpMax(5000);
 		else if(MenuScene.mode == 1) setHpMax(50000);
 		setHp(getHpMax());
 		setDirect("U");
 		setPrv_direct("Z");
 		setKey(new Keys());
-		previousAni = T_Up[defaultAni];
-		
-		// Tempt		
-//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key1));
-//		this.addItemInBag(new KeyLocker(0 ,0 ,ID.Key2));
-		
+		setPreviousAni(T_Up[defaultAni]);
 	}
 	
 	public void initImg() {
@@ -119,8 +110,6 @@ public class Player extends Person {
 		T_Right[5] = LoadSave.GetSpriteAtlas(LoadSave.Player_Animation_Right_5);
 		T_Right[6] = LoadSave.GetSpriteAtlas(LoadSave.Player_Animation_Right_6);
 		T_Right[7] = LoadSave.GetSpriteAtlas(LoadSave.Player_Animation_Right_7);
-	
-		return ;
 	}
 
 	@Override
@@ -133,10 +122,10 @@ public class Player extends Person {
 		}
 		Obj.collision(this);
 
-		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
-            if(Handler.getInstance().allObjects.get(i).getCode() == getCode()) continue;
-            if((Handler.getInstance().allObjects.get(i) instanceof Sculpture) && getFootArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
-                Obj.action(this, Handler.getInstance().allObjects.get(i));
+		for(int i = 0; i < Handler.getInstance().getAllObjects().size(); i++) {
+            if(Handler.getInstance().getAllObjects().get(i).getCode() == getCode()) continue;
+            if((Handler.getInstance().getAllObjects().get(i) instanceof Sculpture) && getFootArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal())) {
+                Obj.action(this, Handler.getInstance().getAllObjects().get(i));
             }
         }
 		
@@ -170,16 +159,15 @@ public class Player extends Person {
 		}
 		else if(!key.Q) swaped = false;
 		
-		if(!forceStop && getUsed() == 1) setAc(.8f, .4f);
-		if(!forceStop && getUsed() == 2) setAc(.7f, .35f);
-		if(!forceStop && getUsed() == 3) setAc(.5f, .25f);
-		if(!forceStop && getUsed() == 4) setAc(.5f, .25f);
-		
+		if(!forceStop && getUsed() == 1) setAcDc(.8f, .4f);
+		if(!forceStop && getUsed() == 2) setAcDc(.7f, .35f);
+		if(!forceStop && getUsed() == 3) setAcDc(.5f, .25f);
+		if(!forceStop && getUsed() == 4) setAcDc(.5f, .25f);
 		
 		if(getUsed() == 1) setDirect(Checker.KeyWalkDirection(key));
 		else setDirect(Checker.KeyDirection(key));
 		
-		Walk();
+		walk();
 		setBeforeTwo(Obj.collisionTwo(this));
 	
 		if(getKnifeTime() < 90) setKnifeTime(getKnifeTime() + 1);
@@ -201,7 +189,7 @@ public class Player extends Person {
 			}
 		}
 		
-		if(key.R && GunAvailable() && getUsed() == 3 && getReloadTime() == 30) { // Reload Option (Press R)
+		if(key.R && gunAvailable() && getUsed() == 3 && getReloadTime() == 30) { // Reload Option (Press R)
 			ArrayList<GameObject> bag = this.getBag();
 			for(int i=0;i<bag.size();i++) {
 				if(bag.get(i) instanceof PistolGun) {
@@ -211,7 +199,7 @@ public class Player extends Person {
 			}
 			setReloadTime(0);
 		}
-		if(key.R && GunAvailable() && getUsed() == 4 && getReloadTime() == 30) { // Reload Option (Press R)
+		if(key.R && gunAvailable() && getUsed() == 4 && getReloadTime() == 30) { // Reload Option (Press R)
 			ArrayList<GameObject> bag = this.getBag();
 			for(int i=0;i<bag.size();i++) {
 				if(bag.get(i) instanceof Ak47Gun) {
@@ -227,33 +215,31 @@ public class Player extends Person {
 		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
 		
 		animation();
-		
-		return ;
 	}
 	
-	public void Walk() {
-		_CurxPos = getxPos();
-		_CuryPos = getyPos();
+	public void walk() {
+		setCurxPos(getxPos());
+		setCuryPos(getyPos());
 		
 		double _Vx = getxVelo();
 		double _Vy = getyVelo();
 		
-		if(key.A) _Vx -= _ac;
-		else if(key.D) _Vx += _ac;
+		if(key.A) _Vx -= ac;
+		else if(key.D) _Vx += ac;
 		else {
-			if(_Vx > 0) _Vx -= _dc;
-			else if(_Vx < 0) _Vx += _dc;
+			if(_Vx > 0) _Vx -= dc;
+			else if(_Vx < 0) _Vx += dc;
 		}
 		
-		if(key.W) _Vy -= _ac;
-		else if(key.S) _Vy += _ac;
+		if(key.W) _Vy -= ac;
+		else if(key.S) _Vy += ac;
 		else {
-			if(_Vy > 0) _Vy -= _dc;
-			else if(_Vy < 0) _Vy += _dc;
+			if(_Vy > 0) _Vy -= dc;
+			else if(_Vy < 0) _Vy += dc;
 		}
 		
-		_Vx = cut(_Vx, -get_ac() * 4, get_ac() * 4);
-		_Vy = cut(_Vy, -get_ac() * 4, get_ac() * 4);
+		_Vx = cut(_Vx, -getAc() * 4, getAc() * 4);
+		_Vy = cut(_Vy, -getAc() * 4, getAc() * 4);
 		
 		
 		int newXPos = 0 ,newYPos = 0;
@@ -304,20 +290,20 @@ public class Player extends Person {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		}
 		
-		if(Map.getInstance().mapTileNum[newYPos][newXPos] != 0) {
+		if(Map.getInstance().getMapTileNum()[newYPos][newXPos] != 0) {
 			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
 			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
 			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
 			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 		}
-		else if(Map.getInstance().mapTileNum[newYPos][newXPos] == 0 && Map.getInstance().mapTileNum[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
 			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
 		}
 		
@@ -327,26 +313,25 @@ public class Player extends Person {
 	}
 	
 	public void animation() {
-		if(direct != prv_direct) SpriteCnt = 0;
-		int frame = (SpriteCnt / 5) % 8;
+		if(direct != prv_direct) spriteCnt = 0;
+		int frame = (spriteCnt / 5) % 8;
 		
 		switch(getUsed()) {
-			case 1 : WalkAni(frame); break;
-			case 2 : KnifeAni(frame); break;
-			case 3 : GunAni(frame); break;
-			case 4 : GunAni(frame); break;
-			default : WalkAni(frame); break;
+			case 1 : walkAni(frame); break;
+			case 2 : knifeAni(frame); break;
+			case 3 : gunAni(frame); break;
+			case 4 : gunAni(frame); break;
+			default : walkAni(frame); break;
 		}
 		
-		SpriteCnt++;
+		spriteCnt++;
 		if(direct != "Z") prv_direct = direct;
 		previousAni = currentAni;
-		SpriteCnt %= 40;
-		return ;
+		spriteCnt %= 40;
 	}
 	
 	public void shoot() {
-		if(!GunAvailable() || Handler.getInstance().player == null) return ;
+		if(!gunAvailable() || Handler.getInstance().player == null) return ;
 		
 		Point middlePos = getMiddlePoint(this.getSolidArea());
 		
@@ -367,7 +352,7 @@ public class Player extends Person {
 				new outOfBullet();
 				return ;
 			}
-			pistolGun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
+			pistolGun.shoot((int)middlePos.getX(), (int)middlePos.getY(), getDirect(), getId());
 			new ShotPlayer();
 		}
 		else if(getUsed() == 4 && ak47Gun != null) {
@@ -375,13 +360,13 @@ public class Player extends Person {
 				new outOfBullet();
 				return ;
 			}
-			ak47Gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
+			ak47Gun.shoot((int)middlePos.getX(), (int)middlePos.getY(), getDirect(), getId());
 			new ShotPlayer();
 		}
 	}
 	
 	public void slash() {
-		if(!KnifeAvailable() || Handler.getInstance().player == null) return ;
+		if(!knifeAvailable() || Handler.getInstance().player == null) return ;
 		
 		Handler.getInstance().addObject(new Knife(getxPos(), getyPos(), ID.Knife, false));
 		new Slash();
@@ -393,24 +378,15 @@ public class Player extends Person {
 		return val;
 	}
 	
-//	private boolean inFramex(double xPos) {
-//		return xPos <= Game.WIDTH - 44 && xPos >= 0 ? true : false;
-//	}
-//	
-//	private boolean inFramey(double yPos) {
-//		return yPos <= Game.HEIGHT - 64 && yPos >= 0 ? true : false;
-//	}
-
 	@Override
 	public void render(GraphicsContext gc) { // Set Player Graphics
 		if(SOLID_SHOW) ShowSolidArea(gc);
-//		showFootArea(gc);
 
 		gc.drawImage(currentAni, xPos, yPos);
 		return ;
 	}
 	
-	private void WalkAni(int frame) {
+	private void walkAni(int frame) {
 		switch(direct) {
 			case "L" : currentAni = T_Left[frame]; break;
 			case "R" : currentAni = T_Right[frame]; break;
@@ -429,7 +405,7 @@ public class Player extends Person {
 		}
 	}
 	
-	private void KnifeAni(int frame) { // TODO
+	private void knifeAni(int frame) { // TODO
 		switch(direct) {
 			case "L" : currentAni = T_Left[frame]; break;
 			case "R" : currentAni = T_Right[frame]; break;
@@ -448,7 +424,7 @@ public class Player extends Person {
 		}
 	}
 
-	private void GunAni(int frame) { // TODO
+	private void gunAni(int frame) { // TODO
 		if(Checker.UnpressedWalkDirection(key) && Checker.UnpressedHitDirection(key)) {
 			switch(direct) {
 				case "LEFT" : currentAni = T_Left[frame]; break;
@@ -537,48 +513,79 @@ public class Player extends Person {
 		}
 	}
 	
-	// Getters & Setters
-
-	public void setAc(double _ac, double _dc) {
-		set_ac(_ac);
-		set_dc(_dc);
-		return ;
+	public void addItemInBag(GameObject Item) {
+		bag.add(Item);
 	}
 	
-	public double get_ac() {
-		return _ac;
+	public void setAcDc(double _ac, double _dc) {
+		setAc(_ac);
+		setDc(_dc);
+	}
+	
+	// Getters & Setters
+
+	public int getCoin() {
+		return coin;
 	}
 
-	public void set_ac(double _ac) {
-		this._ac = _ac;
-		return ;
+	public void setCoin(int coin) {
+		this.coin = coin;
 	}
 
-	public double get_dc() {
-		return _dc;
+	public double getAc() {
+		return ac;
 	}
 
-	public void set_dc(double _dc) {
-		this._dc = _dc;
-		return ;
+	public void setAc(double ac) {
+		this.ac = ac;
 	}
 
-	public KeyInput getInput() {
-		return input;
+	public double getDc() {
+		return dc;
 	}
 
-	public void setInput(KeyInput input) {
-		this.input = input;
-		return ;
+	public void setDc(double dc) {
+		this.dc = dc;
 	}
 
-	public String getDirect() {
-		return direct;
+	public boolean isSwaped() {
+		return swaped;
 	}
 
-	public void setDirect(String direct) {
-		this.direct = direct;
-		return ;
+	public void setSwaped(boolean swaped) {
+		this.swaped = swaped;
+	}
+
+	public boolean isForceStop() {
+		return forceStop;
+	}
+
+	public void setForceStop(boolean forceStop) {
+		this.forceStop = forceStop;
+	}
+
+	public ArrayList<GameObject> getBag() {
+		return bag;
+	}
+
+	public void setBag(ArrayList<GameObject> bag) {
+		this.bag = bag;
+	}
+
+	public static double getCurxPos() {
+		return curxPos;
+	}
+
+	public static void setCurxPos(double curxPos) {
+		Player.curxPos = curxPos;
+	}
+
+	public static double getCuryPos() {
+		return curyPos;
+	}
+
+	public static void setCuryPos(double curyPos) {
+		Player.curyPos = curyPos;
 	}
 
 	public Keys getKey() {
@@ -587,30 +594,69 @@ public class Player extends Person {
 
 	public void setKey(Keys key) {
 		this.key = key;
-		return ;
 	}
-	
-	public void addItemInBag(GameObject Item) {
-		bag.add(Item);
+
+	public KeyInput getInput() {
+		return input;
 	}
-	
-	public ArrayList<GameObject> getBag(){
-		return this.bag;
-	}	
-	
-	public void setForceStop(boolean forceStop) {
-		this.forceStop = forceStop;
+
+	public void setInput(KeyInput input) {
+		this.input = input;
 	}
-	
-	public boolean isForceStop() {
-		return this.forceStop;
+
+	public Image[] getT_Up() {
+		return T_Up;
 	}
-	
-	public int getCoin() {
-		return this.coin;
+
+	public void setT_Up(Image[] t_Up) {
+		T_Up = t_Up;
 	}
-	
-	public void setCoin(int coin) {
-		this.coin = coin;
+
+	public Image[] getT_Down() {
+		return T_Down;
+	}
+
+	public void setT_Down(Image[] t_Down) {
+		T_Down = t_Down;
+	}
+
+	public Image[] getT_Left() {
+		return T_Left;
+	}
+
+	public void setT_Left(Image[] t_Left) {
+		T_Left = t_Left;
+	}
+
+	public Image[] getT_Right() {
+		return T_Right;
+	}
+
+	public void setT_Right(Image[] t_Right) {
+		T_Right = t_Right;
+	}
+
+	public Image getCurrentAni() {
+		return currentAni;
+	}
+
+	public void setCurrentAni(Image currentAni) {
+		this.currentAni = currentAni;
+	}
+
+	public Image getPreviousAni() {
+		return previousAni;
+	}
+
+	public void setPreviousAni(Image previousAni) {
+		this.previousAni = previousAni;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public int getDefaultAni() {
+		return defaultAni;
 	}
 }

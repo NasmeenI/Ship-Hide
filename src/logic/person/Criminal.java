@@ -21,9 +21,8 @@ public class Criminal extends Person {
 	
 	private static final long serialVersionUID = 1L;
 	private PistolGun gun;
-	
-	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	private final int defaultAni = 0;
+	transient private Image[] T_Up, T_Down, T_Left, T_Right;
 	transient private Image currentAni, previousAni;
 
 	public Criminal(int xPos, int yPos, ID id, double xVelo, double yVelo) {
@@ -69,7 +68,7 @@ public class Criminal extends Person {
 
 		if(getHp() == 0) {
 			Handler.getInstance().removeObject(this);
-			Handler.getInstance().allObjects.add(new Coin((int)getxPos() ,(int)getyPos()+50, ID.Coin));
+			Handler.getInstance().getAllObjects().add(new Coin((int)getxPos() ,(int)getyPos()+50, ID.Coin));
 		}
 		Obj.collision(this);
 		
@@ -89,7 +88,7 @@ public class Criminal extends Person {
 			setChasingTime(getChasingTime() + 1);
 			setChasingTime(Math.min(300, getChasingTime()));
 			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
-			SearchPath((int) (mP.y / TILESIZE), (int) (mP.x / TILESIZE));
+			searchPath((int) (mP.getY() / TILESIZE), (int) (mP.getX() / TILESIZE));
 			setDirect(Obj.getDirection(this, Handler.getInstance().player));
 		}
 		else randomWalk(120);
@@ -116,18 +115,18 @@ public class Criminal extends Person {
 	}
 	
 	public void animation() {
-		if(direct != prv_direct) SpriteCnt = 0;
-		int frame = (SpriteCnt / 15) % 2;
+		if(direct != prv_direct) spriteCnt = 0;
+		int frame = (spriteCnt / 15) % 2;
 		
-		WalkAni(frame);
+		walkAni(frame);
 
-		SpriteCnt++;
+		spriteCnt++;
 		if(direct != "Z") prv_direct = direct;
 		previousAni = currentAni;
-		SpriteCnt %= 120;
+		spriteCnt %= 120;
 	}
 	
-	private void WalkAni(int frame) {
+	private void walkAni(int frame) {
 		switch(getDirect()) {
 			case "L" : currentAni = T_Left[frame]; break;
 			case "R" : currentAni = T_Right[frame]; break;
@@ -145,17 +144,6 @@ public class Criminal extends Person {
 			}
 		}
 	}
-	
-	public void MoveByDirection() {
-		switch(getDirect()) {
-			case "LEFT" : setxPos(getxPos() - getxVelo()); break;
-			case "RIGHT" : setxPos(getxPos() + getxVelo()); break;
-			case "UP" : setyPos(getyPos() - getyVelo()); break;
-			case "DOWN" : setyPos(getyPos() - getyVelo()); break;
-			default : break;
-		}
-		return ;
-	}
 
 	@Override
 	public void render(GraphicsContext gc) {
@@ -168,25 +156,25 @@ public class Criminal extends Person {
 
 	@Override
 	public void shoot() {
-		if(!GunAvailable() || !chasing || Handler.getInstance().player == null) return ;
+		if(!gunAvailable() || !chasing || Handler.getInstance().player == null) return ;
 		
 		if(!gun.shootAble()) return ;
 		
 		Point middlePos = getMiddlePoint(this.getSolidArea());
 		
 		if(Checker.InRange(getSolidArea().getX() - 50, getSolidArea().getX() + getSolidArea().getWidth() + 50, Handler.getInstance().player.getSolidArea().getX() + Handler.getInstance().player.getSolidArea().getWidth()/2)) {
-			gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
+			gun.shoot((int)middlePos.getX(), (int)middlePos.getY(), getDirect(), getId());
 			new ShotCommander();
 		}
 		else if(Checker.InRange(getSolidArea().getY() - 50, getSolidArea().getY() + getSolidArea().getHeight() + 50, Handler.getInstance().player.getSolidArea().getY() + Handler.getInstance().player.getSolidArea().getHeight()/2)) {
-			gun.shoot((int)middlePos.x, (int)middlePos.y, getDirect(), getId());
+			gun.shoot((int)middlePos.getX(), (int)middlePos.getY(), getDirect(), getId());
 			new ShotCommander();
 		}
 	}
 
 	@Override
 	public void slash() {
-		if(!KnifeAvailable() || !chasing || Handler.getInstance().player == null) return ;
+		if(!knifeAvailable() || !chasing || Handler.getInstance().player == null) return ;
 		
 		return ;
 	}

@@ -41,32 +41,32 @@ public class GameProcess {
 	private long lastUpdateTime;
 		
 	// BASE PROCESS
-	transient public static KeyInput input = new KeyInput();
+	transient public static KeyInput input;
 	private Camera cam;
 	
 	// SETTING MAP
-	public static int renderType = 1;
-	public static boolean[][] renderState = new boolean[60][110];
+	private static int renderType;
+	private static boolean[][] renderState = new boolean[60][110];
 
 	// GAME STATE
-	public static int gameState;
+	private static int gameState;
 	
 	// SCENE
-	GameOverScene gameOverScene;
-	GameComplete gameComplete;
+	private GameOverScene gameOverScene;
+	private GameComplete gameComplete;
 	
 	// PRESS ESC
 	transient private Keys key;
-	private boolean ESCState = false;
+	private boolean ESCState;
 	
 	// UI	
-	public GraphicsContext gc;
+	private Ui ui;
+	private GraphicsContext gc;
 	private AssetSetter aSetter;
-	public Ui ui;
 	public static StackPane root;
 	
 	// LOAD SAVE
-	public static boolean load = false;
+	public static boolean load;
 	
 	public GameProcess(Stage stage) {
 		GameProcess.stage = stage;
@@ -74,6 +74,10 @@ public class GameProcess {
 		root = new StackPane(canvas);
 		scene = new Scene(root);
 		gc = canvas.getGraphicsContext2D();
+		input = new KeyInput();
+		setRenderType(1);
+		setESCState(false);
+		setLoad(false);
 		
 		initial();
 
@@ -86,28 +90,7 @@ public class GameProcess {
 		});
 	}
 	
-	public void run(GraphicsContext gc) {
-		AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long currentUpdateTime) {
-
-                long delta = currentUpdateTime - lastUpdateTime;
-
-                lastUpdateTime = currentUpdateTime;
-                
-                if (delta >= 1_000_000_000 / FPS) {
-                    update();
-                }
-                render(gc);
-                return ;
-            }
-        };
-
-        // Start the AnimationTimer
-        timer.start();
-	}
-	
-	private void initial() {
+	public void initial() {
 		ui = new Ui(root);
 		cam = new Camera(0, 0);
 		Map.getInstance();
@@ -133,9 +116,30 @@ public class GameProcess {
 		
 		// CHECK POINT
 		gameState = PLAY_STATE;
-	}	
+	}
 	
-	private void update() {			
+	public void run(GraphicsContext gc) {
+		AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long currentUpdateTime) {
+
+                long delta = currentUpdateTime - lastUpdateTime;
+
+                lastUpdateTime = currentUpdateTime;
+                
+                if (delta >= 1_000_000_000 / FPS) {
+                    update();
+                }
+                render(gc);
+                return ;
+            }
+        };
+
+        // Start the AnimationTimer
+        timer.start();
+	}
+	
+	public void update() {			
 		setKey(input.key);
 		checkPress();
 		if(gameState == PAUSE_STATE || gameState == GAME_OVER_STATE || gameState == GAME_COMPLETE_STATE) {
@@ -151,7 +155,7 @@ public class GameProcess {
 		new Shop(stage ,this, Handler.getInstance().player);
 	}
 
-	private void render(GraphicsContext gc) {
+	public void render(GraphicsContext gc) {
 		gc.setFill(Color.CYAN);
 		gc.fillRect(0, 0, S_WIDTH_DEFAULT, S_HEIGHT_DEFAULT);
 		gc.translate(-cam.getX(), -cam.getY());
@@ -205,8 +209,8 @@ public class GameProcess {
 		load = false;
 		try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("res/LoadSave/handler.ser"))) {
 		    Handler newHandler = (Handler) objectInputStream.readObject();
-		    for(int i=0;i<Handler.getInstance().allObjects.size();i++) {
-		    	Handler.getInstance().allObjects.remove(0);
+		    for(int i=0;i<Handler.getInstance().getAllObjects().size();i++) {
+		    	Handler.getInstance().getAllObjects().remove(0);
 		    }
 		    Handler.getInstance().replace(newHandler);
 		    KeyInput inputTemp = input;
@@ -229,7 +233,7 @@ public class GameProcess {
 	
 	public static void save() {
 		Thread save = new Thread(() -> {
-			// saving handler
+			// Saving handler
 			try{
 				FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/handler.ser");
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -239,7 +243,7 @@ public class GameProcess {
 
 			}
 			
-			// saving map
+			// Saving map
 			try{
 				FileOutputStream fileOutputStream = new FileOutputStream("res/LoadSave/map.ser");
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -252,45 +256,145 @@ public class GameProcess {
 		save.start();
 	}
 	
+	public static void removeStackRoot(StackPane stackPane) {
+		root.getChildren().remove(stackPane);
+	}
+	
+	public static void removeGridRoot(GridPane gridPane) {
+		root.getChildren().remove(gridPane);
+	}
+
 	// Getters & Setters
-	public void setKey(Keys key) {
-		this.key = key;
-		return ;
-	}
 	
-	public void setFalseKeyESC() {
-		this.key.ESC = false;
+	public static Stage getStage() {
+		return stage;
 	}
-	
-	public static StackPane getRoot() {
-		return root;
+
+	public static void setStage(Stage stage) {
+		GameProcess.stage = stage;
 	}
-	
-	public static void removeGridRoot(GridPane x) {
-		root.getChildren().remove(x);
+
+	public static Scene getScene() {
+		return scene;
 	}
-	
-	public static void removeStackRoot(StackPane x) {
-		root.getChildren().remove(x);
+
+	public static void setScene(Scene scene) {
+		GameProcess.scene = scene;
 	}
-	
+
+	public long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(long lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
+	}
+
+	public static KeyInput getInput() {
+		return input;
+	}
+
+	public static void setInput(KeyInput input) {
+		GameProcess.input = input;
+	}
+
+	public Camera getCam() {
+		return cam;
+	}
+
+	public void setCam(Camera cam) {
+		this.cam = cam;
+	}
+
+	public static int getRenderType() {
+		return renderType;
+	}
+
+	public static void setRenderType(int renderType) {
+		GameProcess.renderType = renderType;
+	}
+
+	public static boolean[][] getRenderState() {
+		return renderState;
+	}
+
+	public static void setRenderState(boolean[][] renderState) {
+		GameProcess.renderState = renderState;
+	}
+
+	public static int getGameState() {
+		return gameState;
+	}
+
 	public static void setGameState(int gameState) {
 		GameProcess.gameState = gameState;
 	}
-	
-	public GraphicsContext getGc() {
-		return this.gc;
-	}
-	
-	public void setESCState(boolean ESCState) {
-		this.ESCState = ESCState;
+
+	public GameOverScene getGameOverScene() {
+		return gameOverScene;
 	}
 
-	public int getGameState() {
-		return gameState;
+	public void setGameOverScene(GameOverScene gameOverScene) {
+		this.gameOverScene = gameOverScene;
 	}
-	
-	public boolean isLoad() {
+
+	public GameComplete getGameComplete() {
+		return gameComplete;
+	}
+
+	public void setGameComplete(GameComplete gameComplete) {
+		this.gameComplete = gameComplete;
+	}
+
+	public Keys getKey() {
+		return key;
+	}
+
+	public void setKey(Keys key) {
+		this.key = key;
+	}
+
+	public boolean isESCState() {
+		return ESCState;
+	}
+
+	public void setESCState(boolean eSCState) {
+		ESCState = eSCState;
+	}
+
+	public GraphicsContext getGc() {
+		return gc;
+	}
+
+	public void setGc(GraphicsContext gc) {
+		this.gc = gc;
+	}
+
+	public AssetSetter getaSetter() {
+		return aSetter;
+	}
+
+	public void setaSetter(AssetSetter aSetter) {
+		this.aSetter = aSetter;
+	}
+
+	public Ui getUi() {
+		return ui;
+	}
+
+	public void setUi(Ui ui) {
+		this.ui = ui;
+	}
+
+	public static StackPane getRoot() {
+		return root;
+	}
+
+	public static void setRoot(StackPane root) {
+		GameProcess.root = root;
+	}
+
+	public static boolean isLoad() {
 		return load;
 	}
 

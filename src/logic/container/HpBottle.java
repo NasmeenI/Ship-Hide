@@ -15,19 +15,18 @@ import Scenes.MenuScene;
 public class HpBottle extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	public boolean picked;
-	transient private Image image;
-	
+	private boolean picked;
 	private int efficiency;
 	private double littleMove = 1;
 	private double count = 0;
-
+	transient private Image image;
+	
 	public HpBottle(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 10, 10, 50, 60);
-		this.picked = false;
+		setPicked(false);
 		initImg();
-		if(MenuScene.mode == 0) efficiency = 1000;
-		else if(MenuScene.mode == 1) efficiency = 10000;
+		if(MenuScene.mode == 0) setEfficiency(1000);
+		else if(MenuScene.mode == 1) setEfficiency(10000);
 	}
 	
 	@Override
@@ -43,15 +42,11 @@ public class HpBottle extends GameObject implements StableObject {
 	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-		
 		gc.drawImage(image ,getxPos() ,getyPos());
-		
-		return ;
 	}
 
 	public void interact(Player player) {
 		setPicked(true);
-		//player.addItemInBag(this);
 		player.setHp(player.getHp() + getEfficiency());
 		Handler.getInstance().removeObject(this);
 	}
@@ -59,6 +54,8 @@ public class HpBottle extends GameObject implements StableObject {
 	public void initImg() {
 		this.image = LoadSave.GetSpriteAtlas(LoadSave.HPBOTTLE);
 	}
+	
+	// Getter & Setter
 	
 	public boolean isPicked() {
 		return picked;
@@ -78,5 +75,29 @@ public class HpBottle extends GameObject implements StableObject {
 	
 	public int getEfficiency() {
 		return efficiency;
+	}
+
+	public double getLittleMove() {
+		return littleMove;
+	}
+
+	public void setLittleMove(double littleMove) {
+		this.littleMove = littleMove;
+	}
+
+	public double getCount() {
+		return count;
+	}
+
+	public void setCount(double count) {
+		this.count = count;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setEfficiency(int efficiency) {
+		this.efficiency = efficiency;
 	}
 }

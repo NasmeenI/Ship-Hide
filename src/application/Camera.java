@@ -6,45 +6,59 @@ import static utilz.Constants.Screen.*;
 public class Camera {
 	
 	private double x, y;
-	private double Player_xPos = Player._CurxPos;
-	private double Player_yPos = Player._CuryPos;
+	private double playerXPos;
+	private double playerYPos;
 	
 	public Camera(double x, double y) {
-		this.x = x;
-		this.y = y;
+		setX(x);
+		setY(y);
+		setPlayerXPos(Player.getCurxPos());
+		setPlayerYPos(Player.getCuryPos());
 		getPlayer();
 	}
 	
 	public void getPlayer() {
-		Player_xPos = Player._CurxPos;
-		Player_yPos = Player._CuryPos;
-		return ;
+		setPlayerXPos(Player.getCurxPos());
+		setPlayerYPos(Player.getCuryPos());
 	}
 	
 	public void update() {
 		getPlayer();
-		x = Player_xPos - S_WIDTH_DEFAULT / 2 + 30;
-		y = Player_yPos - S_HEIGHT_DEFAULT / 2 + 40;
-		return ;
+		x = getPlayerXPos() - S_WIDTH_DEFAULT / 2 + 30;
+		y = getPlayerYPos() - S_HEIGHT_DEFAULT / 2 + 40;
 	}
-	
-	// Getters & Setters
 
+	// Getters & Setters
+	
 	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
-		return ;
 	}
 
 	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
-		return ;
+	}
+
+	public double getPlayerXPos() {
+		return playerXPos;
+	}
+
+	public void setPlayerXPos(double playerXPos) {
+		this.playerXPos = playerXPos;
+	}
+
+	public double getPlayerYPos() {
+		return playerYPos;
+	}
+
+	public void setPlayerYPos(double playerYPos) {
+		this.playerYPos = playerYPos;
 	}
 }

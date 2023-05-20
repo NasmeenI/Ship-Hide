@@ -28,10 +28,10 @@ public class Sculpture extends GameObject {
 	public void update() {
 		Obj.collision(this);
 		
-		for(int i = 0; i < Handler.getInstance().allObjects.size(); i++) {
-            if(Handler.getInstance().allObjects.get(i).getCode() == getCode()) continue;
-            if((Handler.getInstance().allObjects.get(i) instanceof Sculpture) && getSolidArea().intersects(Handler.getInstance().allObjects.get(i).getSolidArea().getBoundsInLocal())) {
-                Obj.action(this, Handler.getInstance().allObjects.get(i));
+		for(int i = 0; i < Handler.getInstance().getAllObjects().size(); i++) {
+            if(Handler.getInstance().getAllObjects().get(i).getCode() == getCode()) continue;
+            if((Handler.getInstance().getAllObjects().get(i) instanceof Sculpture) && getSolidArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal())) {
+                Obj.action(this, Handler.getInstance().getAllObjects().get(i));
             }
         }
 		

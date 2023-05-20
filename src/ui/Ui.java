@@ -24,15 +24,15 @@ import utilz.LoadSave;
 
 public class Ui {
 	
-	private StackPane root;
-	private Text text;
-	private ProgressBar pb;
 	private HBox box;
+	private Text text;
+	private StackPane root;
+	private ProgressBar pb;
 	
 	public Ui(StackPane root) {
-		this.root = root; 
-		this.pb = new ProgressBar(1);
-		this.box = new HBox();
+		setRoot(root);
+		setPb(new ProgressBar(1));
+		setBox(new HBox());
 		coin();
 		hpBar();
 	}
@@ -144,5 +144,39 @@ public class Ui {
 	
 	private void updateCoin() {
 		text.setText(Integer.toString(Handler.getInstance().player.getCoin()));
+	}
+
+	// Getter & Setter
+	
+	public HBox getBox() {
+		return box;
+	}
+
+	public void setBox(HBox box) {
+		this.box = box;
+	}
+
+	public Text getText() {
+		return text;
+	}
+
+	public void setText(Text text) {
+		this.text = text;
+	}
+
+	public StackPane getRoot() {
+		return root;
+	}
+
+	public void setRoot(StackPane root) {
+		this.root = root;
+	}
+
+	public ProgressBar getPb() {
+		return pb;
+	}
+
+	public void setPb(ProgressBar pb) {
+		this.pb = pb;
 	}
 }

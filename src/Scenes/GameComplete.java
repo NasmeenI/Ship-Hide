@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import utilz.LoadSave;
 
 public class GameComplete {
+	
 	public static Scene scene;
 	
 	public GameComplete() {

@@ -19,12 +19,12 @@ import application.GameProcess;
 public class Label extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	transient private Image imageInteract, imagePuzzle;
 	private boolean interacted;
+	transient private Image imageInteract, imagePuzzle;
 	
 	public Label(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -30, 10, 130, 90);
-		interacted = false;
+		setInteracted(false);
 		initImg();
 	}
 	
@@ -69,9 +69,9 @@ public class Label extends GameObject implements StableObject {
 			Obj.time = 0;
 		 	Obj.pressed = true;
 			Obj.stackPane = new StackPane();
-			Obj.temp1 = ((Player)player).get_ac();
-			Obj.temp2 = ((Player)player).get_dc();
-			player.setAc(0, 0);
+			Obj.temp1 = ((Player)player).getAc();
+			Obj.temp2 = ((Player)player).getDc();
+			player.setAcDc(0, 0);
 			player.setForceStop(true);
 
 	        ImageView imageView = new ImageView(getImagePuzzle());
@@ -82,7 +82,7 @@ public class Label extends GameObject implements StableObject {
 		else {
 			Obj.time = 0;
 			Obj.pressed = false;
-			player.setAc(Obj.temp1, Obj.temp2);
+			player.setAcDc(Obj.temp1, Obj.temp2);
 			player.setForceStop(false);
 			GameProcess.removeStackRoot(Obj.stackPane);
 		}

@@ -19,12 +19,12 @@ import static utilz.Constants.Debug.*;
 public class Helicopter extends GameObject implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-	transient private Image imageInteract;
 	private boolean interacted;
+	transient private Image imageInteract;
 	
 	public Helicopter(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -50, 0, 300, 150);
-		interacted = false;
+		setInteracted(false);
 		initImg();
 	}
 	
@@ -55,6 +55,7 @@ public class Helicopter extends GameObject implements StableObject {
 	
 	
 	// Getter & Setter
+	
 	public Image getImageInteract() {
 		return imageInteract;
 	}
@@ -70,5 +71,4 @@ public class Helicopter extends GameObject implements StableObject {
 	public void setInteracted(boolean interacted) {
 		this.interacted = interacted;
 	}
-
 }

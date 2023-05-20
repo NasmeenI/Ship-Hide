@@ -12,12 +12,13 @@ import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
 public class Lazer extends GameObject implements StableObject, Attackable {
+	
 	private static final long serialVersionUID = 1L;
+	private int damage;
+	private int interval, intervalCount;
 	private boolean show;
 	transient private Image imageShow;
 	transient private Image imageNotShow;
-	private int damage;
-	private int interval, intervalCount;
 	
 	public Lazer(int xPos, int yPos, ID id, int damage, int interval) {
 		super(xPos, yPos, id);
@@ -38,7 +39,7 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 		setDamage(damage);
 		setInterval(interval);
 		setShow(false);
-		this.intervalCount = 0;
+		setIntervalCount(0);
 		initImg();
 	}
 	
@@ -128,5 +129,12 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 	public void setInterval(int interval) {
 		this.interval = Math.max(0, interval);
 	}
-	
+
+	public int getIntervalCount() {
+		return intervalCount;
+	}
+
+	public void setIntervalCount(int intervalCount) {
+		this.intervalCount = intervalCount;
+	}
 }

@@ -14,23 +14,22 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 	
 	private static final long serialVersionUID = 1L;
 	private PistolMagazine magazine;
-	Handler handler = Handler.getInstance();
 
 	public PistolGun(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, false);
-		this.magazine = new PistolMagazine(xPos, yPos, ID.PistolMagazine, 6);
+		setMagazine(new PistolMagazine(xPos, yPos, ID.PistolMagazine, 6));
 		initImg();
 	}
 	
 	public PistolGun(double xPos, double yPos, ID id, int bulletNum) {
 		super(xPos, yPos, id, -10, -10, 120, 57, false, false);
-		this.magazine = new PistolMagazine(xPos, yPos, ID.PistolMagazine, bulletNum);
+		setMagazine(new PistolMagazine(xPos, yPos, ID.PistolMagazine, bulletNum));
 		initImg();
 	}
 	
 	public PistolGun(double xPos, double yPos, ID id, boolean visible) {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, visible);
-		this.magazine = new PistolMagazine(xPos, yPos, ID.PistolMagazine, 6);
+		setMagazine(new PistolMagazine(xPos, yPos, ID.PistolMagazine, 6));
 		initImg();
 	}
 	
@@ -111,8 +110,6 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 		image = LoadSave.GetSpriteAtlas(LoadSave.GUN);
 		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.GUN_USED);
 	}
-
-	// Getter & Setter
 	
 	public int getNumMagazine() {
 		int numMagazine = 0;
@@ -124,7 +121,9 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 		}
 		return numMagazine;
 	}
-	
+
+	// Getter & Setter
+
 	public PistolMagazine getMagazine() {
 		return magazine;
 	}

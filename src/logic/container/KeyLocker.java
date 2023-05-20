@@ -14,11 +14,10 @@ import static utilz.Constants.Debug.*;
 public class KeyLocker extends GameObject implements StableObject {
 
 	private static final long serialVersionUID = 1L;
-	public boolean picked;
-	transient public Image image;
-	
+	private boolean picked;
 	private double littleMove = 1;
 	private double count = 0;
+	transient public Image image;
 	
 	public KeyLocker(int xPos, int yPos, ID id) {
 		super(xPos, yPos, id, -10, -10, 60, 90);
@@ -51,7 +50,6 @@ public class KeyLocker extends GameObject implements StableObject {
 
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
-		
 		if(isPicked() == false) gc.drawImage(image ,getxPos() ,getyPos());
 	}
 	

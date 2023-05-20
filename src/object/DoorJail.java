@@ -11,6 +11,7 @@ import static utilz.Constants.Debug.*;
 import static utilz.Constants.Player.*;
 
 public class DoorJail extends GameObject implements StableObject {
+	
 	private static final long serialVersionUID = 1L;
 	public static boolean opened;
 	transient private Image imageOpen;

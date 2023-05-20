@@ -31,14 +31,10 @@ public class Coin extends GameObject implements StableObject {
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		gc.drawImage(image ,getxPos() ,getyPos());
-		return ;
 	}
 	
 	public void interact(Player player) {
 		Handler.getInstance().player.setCoin(Handler.getInstance().player.getCoin() + 1);
 		Handler.getInstance().removeObject(this);
 	}
-
-	// Getter & Setter
-
 }
