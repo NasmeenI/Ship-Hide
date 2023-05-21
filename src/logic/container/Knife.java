@@ -66,7 +66,7 @@ public class Knife extends GameObject implements Attackable, StableObject {
 		return getDamage();
 	}
 	
-	public int dps_damage() {
+	public int dpsDamage() {
 		return 0;
 	}
 	

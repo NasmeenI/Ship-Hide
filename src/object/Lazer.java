@@ -78,7 +78,7 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 	@Override
 	public void interact(Player player) {
 		new LazerAttack();
-		player.setHp(player.getHp() - dps_damage());
+		player.setHp(player.getHp() - dpsDamage());
 	}
 	
 	@Override
@@ -87,7 +87,7 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 	}
 
 	@Override
-	public int dps_damage() {
+	public int dpsDamage() {
 		return this.damage;
 	}
 

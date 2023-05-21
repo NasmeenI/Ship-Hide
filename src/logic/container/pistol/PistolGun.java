@@ -81,7 +81,7 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 	}
 
 	@Override
-	public int dps_damage() {
+	public int dpsDamage() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

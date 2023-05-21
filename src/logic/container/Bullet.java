@@ -97,7 +97,7 @@ public class Bullet extends GameObject implements Attackable {
 	}
 
 	@Override
-	public int dps_damage() {
+	public int dpsDamage() {
 		return 0;
 	}
 	
