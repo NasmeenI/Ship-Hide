@@ -7,7 +7,6 @@ import logic.container.Magazine;
 public class Ak47Magazine extends Magazine implements StableObject {
 	
 	private static final long serialVersionUID = 1L;
-
 	private int price;
 	private String name;
 	

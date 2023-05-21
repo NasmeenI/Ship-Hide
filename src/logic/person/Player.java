@@ -37,7 +37,7 @@ public class Player extends Person {
 	private final int defaultAni = 9;
 	private double ac;
 	private double dc;
-	private boolean swaped; // for Q button
+	private boolean swapped; // for Q button
 	private boolean forceStop;
 	private ArrayList<GameObject> bag;
 	
@@ -55,11 +55,11 @@ public class Player extends Person {
 		setCurxPos(xPos);
 		setCuryPos(yPos);
 		setBag(new ArrayList<>());
-		setCoin(0);
+		setCoin(40);
 		setAc(0.8f);
 		setDc(0.4f);
 		initImg();
-		setSwaped(false);
+		setSwapped(false);
 		setForceStop(false);
 		if(MenuScene.mode == 0) setHpMax(5000);
 		else if(MenuScene.mode == 1) setHpMax(50000);
@@ -156,13 +156,13 @@ public class Player extends Person {
 			setBulletTime(5);
 		}
 		
-		if(key.Q && !swaped) {
+		if(key.Q && !swapped) {
 			int temp = getUsed();
 			setUsed(getPrvUsed());
 			setPrvUsed(temp);
-			swaped = true;
+			swapped = true;
 		}
-		else if(!key.Q) swaped = false;
+		else if(!key.Q) swapped = false;
 		
 		if(!forceStop && getUsed() == 1) setAcDc(.8f, .4f);
 		if(!forceStop && getUsed() == 2) setAcDc(.7f, .35f);
@@ -219,12 +219,6 @@ public class Player extends Person {
 		animation();
 	}
 	
-	public void setAllArea() {
-		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
-		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
-		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
-	}
-	
 	public void walk() {
 		setCurxPos(getxPos());
 		setCuryPos(getyPos());
@@ -261,8 +255,8 @@ public class Player extends Person {
 //		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
 //		else setBeforeTwo(false);
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 //		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -320,24 +314,6 @@ public class Player extends Person {
 		
 	}
 	
-	public void animation() {
-		if(direct != prv_direct) spriteCnt = 0;
-		int frame = (spriteCnt / 5) % 8;
-		
-		switch(getUsed()) {
-			case 1 : walkAni(frame); break;
-			case 2 : knifeAni(frame); break;
-			case 3 : gunAni(frame); break;
-			case 4 : gunAni(frame); break;
-			default : walkAni(frame); break;
-		}
-		
-		spriteCnt++;
-		if(direct != "Z") prv_direct = direct;
-		previousAni = currentAni;
-		spriteCnt %= 40;
-	}
-	
 	public void shoot() {
 		if(!gunAvailable() || Handler.getInstance().player == null) return ;
 		
@@ -392,6 +368,24 @@ public class Player extends Person {
 
 		gc.drawImage(currentAni, xPos, yPos);
 		return ;
+	}
+	
+	public void animation() {
+		if(direct != prv_direct) spriteCnt = 0;
+		int frame = (spriteCnt / 5) % 8;
+		
+		switch(getUsed()) {
+			case 1 : walkAni(frame); break;
+			case 2 : knifeAni(frame); break;
+			case 3 : gunAni(frame); break;
+			case 4 : gunAni(frame); break;
+			default : walkAni(frame); break;
+		}
+		
+		spriteCnt++;
+		if(direct != "Z") prv_direct = direct;
+		previousAni = currentAni;
+		spriteCnt %= 40;
 	}
 	
 	private void walkAni(int frame) {
@@ -521,13 +515,19 @@ public class Player extends Person {
 		}
 	}
 	
+	public void setAllArea() {
+		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 5, P_WIDTH, P_HEIGHT));
+		setFootArea(new Rectangle(getxPos() + getxDif(), getyPos() + getyDif() + P_HEIGHT - 10, getW(), 10));
+		setRenderArea(new Rectangle(getxPos() + getxDif(), getyPos() +getyDif() + 40, getW(), getH()-40));		
+	}
+	
 	public void addItemInBag(GameObject Item) {
 		bag.add(Item);
 	}
 	
-	public void setAcDc(double _ac, double _dc) {
-		setAc(_ac);
-		setDc(_dc);
+	public void setAcDc(double ac, double dc) {
+		setAc(ac);
+		setDc(dc);
 	}
 	
 	// Getters & Setters
@@ -556,12 +556,12 @@ public class Player extends Person {
 		this.dc = dc;
 	}
 
-	public boolean isSwaped() {
-		return swaped;
+	public boolean isSwapped() {
+		return swapped;
 	}
 
-	public void setSwaped(boolean swaped) {
-		this.swaped = swaped;
+	public void setSwapped(boolean swapped) {
+		this.swapped = swapped;
 	}
 
 	public boolean isForceStop() {

@@ -48,7 +48,32 @@ public abstract class Gun extends GameObject {
 		Handler.getInstance().removeObject(this);
 	}
 	
-	public abstract void shoot(int xPos, int yPos, String direct, ID owner);
+	public void shoot(int xPos, int yPos, String direct, ID owner) {
+		if(!shootAble()) return ;
+		Bullet bullet = getBullet();
+		bullet.setOwner(owner);
+		reduceBullet();
+		
+		switch(direct) {
+			case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
+			case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
+			case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
+			case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
+			default : {
+				switch(direct) {
+					case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
+					case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
+					case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
+					case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
+					default : break;
+				}
+				break;
+			}
+		}
+		
+		Handler.getInstance().addObject(bullet);	
+	}
+	
 	public abstract void initImg();
 	public abstract void reduceBullet();
 	public abstract int getNumMagazine();

@@ -22,7 +22,7 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 	}
 	
 	public PistolGun(double xPos, double yPos, ID id, int bulletNum) {
-		super(xPos, yPos, id, -10, -10, 120, 57, false, false);
+		super(xPos, yPos, id, -10, -10, 120, 70, false, false);
 		setMagazine(new PistolMagazine(xPos, yPos, ID.PistolMagazine, bulletNum));
 		initImg();
 	}
@@ -31,6 +31,11 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 		super(xPos, yPos, id, -10, -10, 120, 70, false, visible);
 		setMagazine(new PistolMagazine(xPos, yPos, ID.PistolMagazine, 6));
 		initImg();
+	}
+	
+	public void initImg() {
+		image = LoadSave.GetSpriteAtlas(LoadSave.GUN);
+		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.GUN_USED);
 	}
 	
 	public boolean shootAble() {
@@ -58,31 +63,6 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 		return magazine.getMagazine().get(0).damage();
 	}
 	
-	public void shoot(int xPos, int yPos, String direct, ID owner) {
-		if(!shootAble()) return ;
-		Bullet bullet = getBullet();
-		bullet.setOwner(owner);
-		reduceBullet();
-		
-		switch(direct) {
-			case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
-			case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
-			case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
-			case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
-			default : {
-				switch(direct) {
-					case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
-					case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
-					case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
-					case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
-					default : break;
-				}
-				break;
-			}
-		}	
-		Handler.getInstance().addObject(bullet);
-	}
-	
 	public void reduceBullet() {
 		if(magazine.getNumBullet() == 0) return;
 		magazine.reduceBullet();
@@ -104,11 +84,6 @@ public class PistolGun extends Gun implements Attackable, StableObject {
 	public int dps_damage() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-	
-	public void initImg() {
-		image = LoadSave.GetSpriteAtlas(LoadSave.GUN);
-		imageUsed = LoadSave.GetSpriteAtlas(LoadSave.GUN_USED);
 	}
 	
 	public int getNumMagazine() {

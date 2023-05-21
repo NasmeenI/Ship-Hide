@@ -30,8 +30,8 @@ public class Criminal extends Person {
         setxVelo(xVelo);
         setyVelo(yVelo);
         setHp(1000);
-        initGun();
         setDirect(Checker.getDirectionByVelo(getxVelo(), getyVelo()));
+        initGun();
         initImg();
     }
 	

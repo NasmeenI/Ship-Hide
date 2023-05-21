@@ -17,11 +17,11 @@ import static utilz.Constants.Tile.*;
 public abstract class Person extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
-	protected int hp, hpMax, bullets;
+	protected int hp, hpMax;
 	protected int used, prvUsed;
 	protected int spriteCnt, bulletTime, knifeTime, reloadTime, randWalkTime, chasingTime, interval;
 	protected boolean gun, knife;
-	protected boolean chasing = false;
+	protected boolean chasing;
 	protected String direct, prv_direct = null;
 	
 	transient protected Rectangle footArea;
@@ -49,22 +49,15 @@ public abstract class Person extends GameObject {
 		setHp(100);				
 		setKnife(false);
 		setGun(false);
-		setBullets(0);
 		setSpriteCnt(0);
 		setBulletTime(0);
 		setKnifeTime(0);
 		setReloadTime(0);
 		setRandWalkTime(0);
 		setChasingTime(300);
+		setChasing(false);
 		setInterval(0);
 	}
-	
-	public abstract void update();
-	public abstract void render(GraphicsContext gc);
-	public abstract void shoot();
-	public abstract void slash();
-	public abstract void animation();
-	public abstract void setAllArea();
 	
 	public void searchPath(int endRow, int endCol) {
 		
@@ -130,9 +123,9 @@ public abstract class Person extends GameObject {
 		return knife;
 	}
 	
+	public void move() { movePass(getxVelo(), getyVelo()); }
 	public void moveX() { movePass(getxVelo(), 0); }
     public void moveY() { movePass(0, getyVelo()); }
-    public void move() { movePass(getxVelo(), getyVelo()); }
     public void moveLeft() { 
     	movePass(- Math.abs(getxVelo()), 0); 
     	setDirect("L");
@@ -201,6 +194,13 @@ public abstract class Person extends GameObject {
 		gc.fillRect((int)footArea.getX(), (int)footArea.getY(), footArea.getWidth(), footArea.getHeight());
 	}
 	
+	public abstract void update();
+	public abstract void render(GraphicsContext gc);
+	public abstract void shoot();
+	public abstract void slash();
+	public abstract void animation();	
+	public abstract void setAllArea();
+	
 	// Getters & Setters
 	
 	public PathFinder getPathFinder() {
@@ -225,14 +225,6 @@ public abstract class Person extends GameObject {
 
 	public void setHpMax(int hpMax) {
 		this.hpMax = Math.max(hpMax, 0);
-	}
-
-	public int getBullets() {
-		return bullets;
-	}
-
-	public void setBullets(int bullets) {
-		this.bullets = bullets;
 	}
 	
 	public boolean isGun() {
