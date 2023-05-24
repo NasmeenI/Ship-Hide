@@ -5,12 +5,13 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
+import logic.base.InteractivePlayer;
 import logic.person.Player;
 import static utilz.Constants.Debug.SOLID_SHOW;
 
 import application.sound.Pick;
 
-public abstract class Gun extends GameObject {
+public abstract class Gun extends GameObject implements InteractivePlayer {
 	
 	private static final long serialVersionUID = 1L;
 	private boolean picked;

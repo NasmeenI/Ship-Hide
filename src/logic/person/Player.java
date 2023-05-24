@@ -55,7 +55,7 @@ public class Player extends Person {
 		setCurxPos(xPos);
 		setCuryPos(yPos);
 		setBag(new ArrayList<>());
-		setCoin(40);
+		setCoin(0);
 		setAc(0.8f);
 		setDc(0.4f);
 		initImg();
@@ -118,7 +118,6 @@ public class Player extends Person {
 
 	@Override
 	public void update() {
-//		System.out.println(getxPos() + "  " + getyPos());
 		if(getHp() == 0) {
 			GameProcess.stage.setScene(GameOverScene.scene);
 			GameProcess.setGameState(GAME_OVER_STATE);
@@ -255,8 +254,8 @@ public class Player extends Person {
 //		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
 //		else setBeforeTwo(false);
 
-		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 //		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -292,23 +291,23 @@ public class Player extends Person {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
 //		}
 		
-//		if(Map.getInstance().getMapTileNum()[newYPos][newXPos] != 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
-//			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
-//		}
-//		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//		}
-//		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
-//			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
-//		}
-//		
+		if(Map.getInstance().getMapTileNum()[newYPos][newXPos] != 0) {
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+		}
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(getxPos()-10)/48] != 0 && _Vx >= 0) {
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+		}
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[newYPos][(int)(getxPos()-20)/48] != 0 && _Vx < 0) {
+			setyPos(getyPos() + _Vy - (key.SHIFT ? _Vy / 2 : 0));
+		}
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(getyPos()-4)/48) + 2][newXPos] != 0 && _Vy >= 0) {
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+		}
+		else if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0 && Map.getInstance().getMapTileNum()[((int)(getyPos()-20)/48) + 2][newXPos] != 0 && _Vy < 0) {
+			setxPos(getxPos() + _Vx - (key.SHIFT ? _Vx / 2 : 0));
+		}
+		
 		setxVelo(_Vx);
 		setyVelo(_Vy);
 		

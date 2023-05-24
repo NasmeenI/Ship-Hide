@@ -1,15 +1,12 @@
 package logic.person;
 
-import static utilz.Constants.Debug.SOLID_SHOW;
-import static utilz.Constants.Player.P_HEIGHT;
-import static utilz.Constants.Player.P_WIDTH;
-import static utilz.Constants.Tile.TILESIZE;
 import application.sound.KillCommander;
 import application.sound.ShotCommander;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import logic.base.Chaseable;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
@@ -18,8 +15,12 @@ import object.Coin;
 import utilz.Checker;
 import utilz.LoadSave;
 import utilz.Obj;
+import static utilz.Constants.Debug.SOLID_SHOW;
+import static utilz.Constants.Player.P_HEIGHT;
+import static utilz.Constants.Player.P_WIDTH;
+import static utilz.Constants.Tile.TILESIZE;
 
-public class Commander extends Person {
+public class Commander extends Person implements Chaseable {
 	
 	private static final long serialVersionUID = 1L;
 	private PistolGun gun;
@@ -38,7 +39,6 @@ public class Commander extends Person {
         setDirect(Checker.getDirectionByVelo(getxVelo(), getyVelo()));
     }
 	
-	@Override
 	public void initImg() {
 		T_Up = new Image[3];
 		T_Up[defaultAni] = LoadSave.GetSpriteAtlas(LoadSave.Commander_Animation_Up_Default);
@@ -67,7 +67,6 @@ public class Commander extends Person {
         setUsed(3);
 	}
 
-	@Override
 	public void update() {
 		
 		if(getHp() == 0) {
@@ -81,25 +80,10 @@ public class Commander extends Person {
 		}
 		Obj.collision(this);
 		
-		if(Obj.distance(this, Handler.getInstance().player) <= 300) {
-			setChasing(true);
-			setxVelo(1);
-			setyVelo(1);
-			setChasingTime(0);
-		}
-		else if(Obj.distance(this, Handler.getInstance().player) > 600 && getChasingTime() == 300) {
-			setChasing(false);
-			setxVelo(.5f);
-			setyVelo(.5f);
-		}
+		if(Obj.distance(this, Handler.getInstance().player) <= 300) setChase();
+		else if(Obj.distance(this, Handler.getInstance().player) > 600 && getChasingTime() == 300) setNotChase();
 		
-		if(isChasing()) {
-			setChasingTime(getChasingTime() + 1);
-			setChasingTime(Math.min(300, getChasingTime()));
-			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
-			searchPath((int) (mP.getY() / TILESIZE), (int) (mP.getX() / TILESIZE));
-			setDirect(Obj.getDirection(this, Handler.getInstance().player));
-		}
+		if(isChasing()) chase();
 		else randomWalk(120);
 		
 		setBeforeTwo(Obj.collisionTwo(this));
@@ -123,6 +107,36 @@ public class Commander extends Person {
 		
 		setAllArea();
 		animation();
+	}
+	
+	public void render(GraphicsContext gc) {
+		if(SOLID_SHOW) ShowSolidArea(gc);
+		
+		gc.drawImage(currentAni, xPos, yPos);
+		gc.setFill(Color.RED);
+		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/5000, 10);
+		return ;
+	}
+	
+	public void setChase() {
+		setChasing(true);
+		setChasingTime(0);
+		setxVelo(1);
+		setyVelo(1);
+	}
+	
+	public void setNotChase() {
+		setChasing(false);
+		setxVelo(.5f);
+		setyVelo(.5f);
+	}
+	
+	public void chase() {
+		setChasingTime(getChasingTime() + 1);
+		setChasingTime(Math.min(300, getChasingTime()));
+		Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
+		searchPath((int) (mP.getY() / TILESIZE), (int) (mP.getX() / TILESIZE));
+		setDirect(Obj.getDirection(this, Handler.getInstance().player));
 	}
 	
 	public void setAllArea() {
@@ -164,16 +178,6 @@ public class Commander extends Person {
 				break;
 			}
 		}
-	}
-
-	@Override
-	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc);
-		
-		gc.drawImage(currentAni, xPos, yPos);
-		gc.setFill(Color.RED);
-		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/5000, 10);
-		return ;
 	}
 
 	@Override

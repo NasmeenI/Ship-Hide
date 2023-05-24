@@ -1,0 +1,444 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "19_Hospital_48x48.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "/Users/nasmeen/Documents/demo_2.tmx": {
+            "scale": 0.12450757575757576,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2497.8399756616973,
+                "y": 1076.2397322786733
+            }
+        },
+        "/Users/nasmeen/Documents/room1.tmx": {
+            "expandedGroupLayers": [
+                18
+            ],
+            "scale": 0.33,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 650,
+                "y": 533.3333333333333
+            }
+        },
+        "12_Kitchen_48x48.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "15_Christmas_48x48.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "17_Visibile_Upstairs_System_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "18_Jail_48x48.tsx": {
+            "scaleInDock": 0.8733,
+            "scaleInEditor": 1
+        },
+        "19_Hospital_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.33
+        },
+        "22_Museum_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 0.5
+        },
+        "24_Ice_Cream_Shop_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "25_Shooting_Range_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.33
+        },
+        "26_Condominium_48x48.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "3_Bathroom_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "5_Classroom_and_library_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "6_Music_and_sport_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "8_Gym_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "9tail.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_3d_walls_48x48.tsx": {
+            "scaleInDock": 0.4836,
+            "scaleInEditor": 0.12
+        },
+        "Room_Builder_Arched_Entryways_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "Room_Builder_Floors_48x48.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 0.12
+        },
+        "Room_Builder_Walls_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 0.12
+        },
+        "Room_Builder_borders_48x48.tsx": {
+            "scaleInDock": 0.5344
+        },
+        "Untitled_Artwork.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.42
+        },
+        "[removal.ai]_tmp-643e36c787b97-2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "animated_amplifier_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "animated_door_3_48x48.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "animated_door_big_2_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "animated_door_big_4_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "animated_door_big_6_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "animated_door_condominium_2_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "animated_door_condominium_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "animated_door_prison_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "bg.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "bottom.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 2674,
+                "y": 184
+            }
+        },
+        "color_value.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 36,
+            "viewCenter": {
+                "x": 2956,
+                "y": 1440
+            }
+        },
+        "color_value_2.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2343.939393939394,
+                "y": 1434.8484848484848
+            }
+        },
+        "demo.tmx": {
+            "expandedGroupLayers": [
+                38
+            ],
+            "scale": 0.12,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1445.8333333333335,
+                "y": 925
+            }
+        },
+        "demo_1.tmx": {
+            "expandedGroupLayers": [
+                23,
+                21,
+                11,
+                43,
+                27,
+                12,
+                36,
+                15,
+                30,
+                34,
+                18,
+                39
+            ],
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3924,
+                "y": 1624
+            }
+        },
+        "demo_2.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 3908,
+                "y": 1288
+            }
+        },
+        "floor.tmx": {
+            "scale": 0.12,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2637.5,
+                "y": 1433.3333333333335
+            }
+        },
+        "full_map.tmx": {
+            "scale": 0.12,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 2637.5,
+                "y": 141.66666666666663
+            }
+        },
+        "helicopter.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "imgbin-helicopter-aircraft-role-playing-game-rotorcraft-city-life-GD0LNePqCyZG1D91WwMZKmh4N.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "kamal-ariff-shipgame-assets1.tsx": {
+            "scaleInDock": 0.015625,
+            "scaleInEditor": 0.12
+        },
+        "left.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 610,
+                "y": 1476
+            }
+        },
+        "map_progmethProject/15_Christmas_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "map_progmethProject/24_Ice_Cream_Shop_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "map_progmethProject/5_Classroom_and_library_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "map_progmethProject/Room_Builder_3d_walls_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "map_progmethProject/Room_Builder_Floors_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "map_progmethProject/Room_Builder_Walls_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "map_progmethProject/Room_Builder_borders_48x48.tsx": {
+            "scaleInDock": 1
+        },
+        "object.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2636,
+                "y": 1440
+            }
+        },
+        "project_0.tmx": {
+            "scale": 0.3989,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 2638.5058912008026,
+                "y": 1438.9571321133117
+            }
+        },
+        "project_1_0.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 18,
+            "viewCenter": {
+                "x": 2637.878787878788,
+                "y": 1439.3939393939395
+            }
+        },
+        "project_1_1.tmx": {
+            "scale": 0.1001,
+            "selectedLayer": 21,
+            "viewCenter": {
+                "x": 2632.3676323676327,
+                "y": 1438.5614385614388
+            }
+        },
+        "right.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 502,
+                "y": 1540
+            }
+        },
+        "room1.tmx": {
+            "expandedGroupLayers": [
+                6,
+                15,
+                18,
+                5,
+                11
+            ],
+            "scale": 0.33,
+            "selectedLayer": 9,
+            "viewCenter": {
+                "x": 1181.8181818181818,
+                "y": 803.030303030303
+            }
+        },
+        "room2.tmx": {
+            "expandedGroupLayers": [
+                6
+            ],
+            "scale": 0.33,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1215.151515151515,
+                "y": 454.54545454545456
+            }
+        },
+        "room3.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 272.72727272727275,
+                "y": 500
+            }
+        },
+        "sea.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1096,
+                "y": 404
+            }
+        },
+        "sha2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "shark1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "ship cruise.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 0.12
+        },
+        "ship.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.12
+        },
+        "spider.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tutorial_sample34q.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "unicorn.tsx": {
+            "scaleInDock": 0.8069,
+            "scaleInEditor": 1
+        },
+        "untitled.tmx": {
+            "scale": 0.2261,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 2523.2198142414863,
+                "y": 1534.7191508182218
+            }
+        },
+        "wave.tsx": {
+            "scaleInDock": 0.0625,
+            "scaleInEditor": 0.12
+        },
+        "wolf.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "wolf1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "/Users/nasmeen/Documents",
+    "last.externalTilesetPath": "/Users/nasmeen/Documents/map_progmethProject",
+    "last.imagePath": "/Users/nasmeen/Downloads",
+    "map.height": 60,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 48,
+    "map.tileWidth": 48,
+    "map.width": 110,
+    "openFiles": [
+        "full_map.tmx",
+        "project_0.tmx",
+        "project_1_1.tmx",
+        "project_1_0.tmx",
+        "object.tmx",
+        "floor.tmx",
+        "wolf1.tsx",
+        "unicorn.tsx",
+        "untitled.tmx",
+        "19_Hospital_48x48.tsx"
+    ],
+    "project": "Room1.tiled-project",
+    "recentFiles": [
+        "full_map.tmx",
+        "project_0.tmx",
+        "project_1_1.tmx",
+        "project_1_0.tmx",
+        "object.tmx",
+        "floor.tmx",
+        "wolf1.tsx",
+        "unicorn.tsx",
+        "untitled.tmx",
+        "19_Hospital_48x48.tsx",
+        "spider.tsx",
+        "color_value_2.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 48,
+        "width": 48
+    }
+}

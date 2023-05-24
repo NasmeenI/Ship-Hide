@@ -5,12 +5,11 @@ import logic.base.Attackable;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.StableObject;
 import logic.container.Bullet;
 import logic.container.Gun;
 import utilz.LoadSave;
 
-public class PistolGun extends Gun implements Attackable, StableObject {
+public class PistolGun extends Gun implements Attackable {
 	
 	private static final long serialVersionUID = 1L;
 	private PistolMagazine magazine;

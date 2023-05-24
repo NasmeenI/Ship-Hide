@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import logic.base.Chaseable;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Point;
@@ -17,7 +18,7 @@ import static utilz.Constants.Player.*;
 import static utilz.Constants.Tile.*;
 import static utilz.Constants.Debug.*;
 
-public class Criminal extends Person {
+public class Criminal extends Person implements Chaseable {
 	
 	private static final long serialVersionUID = 1L;
 	private PistolGun gun;
@@ -70,27 +71,13 @@ public class Criminal extends Person {
 			Handler.getInstance().removeObject(this);
 			Handler.getInstance().getAllObjects().add(new Coin((int)getxPos() ,(int)getyPos()+50, ID.Coin));
 		}
+		
 		Obj.collision(this);
 		
-		if(Obj.distance(this, Handler.getInstance().player) <= 200) {
-			setChasing(true);
-			setxVelo(2);
-			setyVelo(2);
-			setChasingTime(0);
-		}
-		else if(Obj.distance(this, Handler.getInstance().player) > 450 && getChasingTime() == 300) {
-			setChasing(false);
-			setxVelo(.5f);
-			setyVelo(.5f);
-		}
-		
-		if(isChasing()) {
-			setChasingTime(getChasingTime() + 1);
-			setChasingTime(Math.min(300, getChasingTime()));
-			Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
-			searchPath((int) (mP.getY() / TILESIZE), (int) (mP.getX() / TILESIZE));
-			setDirect(Obj.getDirection(this, Handler.getInstance().player));
-		}
+		if(Obj.distance(this, Handler.getInstance().player) <= 200) setChase();
+		else if(Obj.distance(this, Handler.getInstance().player) > 450 && getChasingTime() == 300) setNotChase();
+			
+		if(isChasing()) chase();
 		else randomWalk(120);
 		
 		setBeforeTwo(Obj.collisionTwo(this));
@@ -109,6 +96,35 @@ public class Criminal extends Person {
 		
 		setAllArea();
 		animation();
+	}
+	
+	public void render(GraphicsContext gc) {
+		if(SOLID_SHOW) ShowSolidArea(gc);
+		
+		gc.drawImage(currentAni, xPos, yPos);
+		gc.setFill(Color.RED);
+		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/1000, 10);
+	}
+	
+	public void setChase() {
+		setChasing(true);
+		setChasingTime(0);
+		setxVelo(2);
+		setyVelo(2);
+	}
+	
+	public void setNotChase() {
+		setChasing(false);
+		setxVelo(.5f);
+		setyVelo(.5f);
+	}
+	
+	public void chase() {
+		setChasingTime(getChasingTime() + 1);
+		setChasingTime(Math.min(300, getChasingTime()));
+		Point mP = getMiddlePoint(Handler.getInstance().player.getFootArea());
+		searchPath((int) (mP.getY() / TILESIZE), (int) (mP.getX() / TILESIZE));
+		setDirect(Obj.getDirection(this, Handler.getInstance().player));
 	}
 	
 	public void setAllArea() {
@@ -150,15 +166,6 @@ public class Criminal extends Person {
 				break;
 			}
 		}
-	}
-
-	@Override
-	public void render(GraphicsContext gc) {
-		if(SOLID_SHOW) ShowSolidArea(gc);
-		
-		gc.drawImage(currentAni, xPos, yPos);
-		gc.setFill(Color.RED);
-		gc.fillRect(getxPos() + getxDif() - 10, getyPos() + getyDif() -10, (getHp()*70)/1000, 10);
 	}
 
 	@Override

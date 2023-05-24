@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.StableObject;
+import logic.base.PressEable;
 import logic.person.Player;
 import utilz.LoadSave;
 import utilz.Obj;
@@ -14,7 +14,7 @@ import application.GameProcess;
 import static utilz.Constants.GameState.PAUSE_STATE;
 import static utilz.Constants.Debug.SOLID_SHOW;
 
-public class Trader extends GameObject implements StableObject {
+public class Trader extends GameObject implements PressEable {
 	
 	private static final long serialVersionUID = 1L;
 	private boolean interacted;
@@ -26,13 +26,16 @@ public class Trader extends GameObject implements StableObject {
 		initImg();
 	}
 
+	public void initImg() {
+		image = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
+	}
+	
 	public void update() {
 		double dis = Obj.distance(this, Handler.getInstance().player);
 		if(dis < 4*48) setInteracted(true);
 		else setInteracted(false);
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(image ,getxPos() ,getyPos());
@@ -43,10 +46,6 @@ public class Trader extends GameObject implements StableObject {
 	    GameProcess.stage.setScene(Shop.scene);
 	}
 	
-	public void initImg() {
-		image = LoadSave.GetSpriteAtlas(LoadSave.PRESS_E);
-	}
-
 	// Getter & Setter
 	
 	public boolean isInteracted() {

@@ -6,14 +6,13 @@ import javafx.scene.shape.Rectangle;
 import logic.base.Attackable;
 import logic.base.GameObject;
 import logic.base.ID;
-import logic.base.StableObject;
+import logic.base.InteractivePlayer;
 import logic.person.Player;
 import utilz.LoadSave;
+import application.sound.LazerAttack;
 import static utilz.Constants.Debug.*;
 
-import application.sound.LazerAttack;
-
-public class Lazer extends GameObject implements StableObject, Attackable {
+public class Lazer extends GameObject implements Attackable, InteractivePlayer {
 	
 	private static final long serialVersionUID = 1L;
 	private int damage;
@@ -56,7 +55,6 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 		}
 	}
 	
-	@Override
 	public void update() {
 		if(intervalCount == getInterval()) {
 			setShow(isShow()^true);
@@ -65,7 +63,6 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 		else intervalCount++;
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) {
 			if(getId() == ID.Lazer1) ShowSolidArea(gc);
@@ -75,20 +72,18 @@ public class Lazer extends GameObject implements StableObject, Attackable {
 		if(isShow()) gc.drawImage(imageShow ,getxPos() ,getyPos());
 	}
 	
-	@Override
-	public void interact(Player player) {
-		new LazerAttack();
-		player.setHp(player.getHp() - dpsDamage());
-	}
-	
-	@Override
 	public int damage() {
 		return this.damage;
 	}
 
-	@Override
 	public int dpsDamage() {
 		return this.damage;
+	}
+	
+	public void interact(Player player) {
+		if(!isShow()) return;
+		new LazerAttack();
+		player.setHp(player.getHp() - dpsDamage());
 	}
 
 	// Getters & Setters

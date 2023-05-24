@@ -1,10 +1,9 @@
 package logic.container.ak47;
 
 import logic.base.ID;
-import logic.base.StableObject;
 import logic.container.Magazine;
 
-public class Ak47Magazine extends Magazine implements StableObject {
+public class Ak47Magazine extends Magazine {
 	
 	private static final long serialVersionUID = 1L;
 	private int price;

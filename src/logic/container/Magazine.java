@@ -1,19 +1,18 @@
 package logic.container;
 
 import java.util.ArrayList;
-
 import application.sound.Pick;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.StableObject;
+import logic.base.InteractivePlayer;
 import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
-public class Magazine extends GameObject implements StableObject {
+public class Magazine extends GameObject implements InteractivePlayer {
 	
 	private static final long serialVersionUID = 1L;
 	protected int numMaxBullet;
@@ -46,7 +45,6 @@ public class Magazine extends GameObject implements StableObject {
 		if(isVisible()) gc.drawImage(image ,getxPos() ,getyPos());
 	}
 	
-	@Override
 	public void interact(Player player) {
 		if(!isVisible()) return ;
 		new Pick();

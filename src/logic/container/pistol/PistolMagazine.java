@@ -1,10 +1,9 @@
 package logic.container.pistol;
 
 import logic.base.ID;
-import logic.base.StableObject;
 import logic.container.Magazine;
 
-public class PistolMagazine extends Magazine implements StableObject {
+public class PistolMagazine extends Magazine {
 	
 	private static final long serialVersionUID = 1L;
 	

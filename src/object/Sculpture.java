@@ -1,17 +1,18 @@
 package object;
 
-import static utilz.Constants.Debug.SOLID_SHOW;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
+import logic.base.InteractivePerson;
 import logic.person.Person;
 import utilz.LoadSave;
 import utilz.Obj;
+import static utilz.Constants.Debug.SOLID_SHOW;
 
-public class Sculpture extends GameObject {
+public class Sculpture extends GameObject implements InteractivePerson {
 	
 	private static final long serialVersionUID = 1L;
 	transient private Image image;
@@ -39,31 +40,24 @@ public class Sculpture extends GameObject {
 		setSolidArea(new Rectangle(getxPos() + 10, getyPos() + 85, 70, 60));
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		gc.drawImage(image ,getxPos() ,getyPos());
 		return ;
 	}
 	
-	public void interact(GameObject X) {
-		if(X instanceof Person) {
-			Rectangle RA = new Rectangle(getSolidArea().getX() + X.getxVelo(), getSolidArea().getY() + X.getyVelo(), getSolidArea().getWidth(), getSolidArea().getHeight());
-			if(Obj.collisionZeroRect(RA)) {
-				Obj.pushOffFrom(X, this);
-				return ;
-			}else {
-				setxPos(getxPos() + X.getxVelo());
-				setyPos(getyPos() + X.getyVelo());
-			}
-			setBeforeTwo(Obj.collisionTwoSculpture(this));
-			X.setxVelo(0);
-			X.setyVelo(0);
+	public void interact(Person person) {
+		Rectangle RA = new Rectangle(getSolidArea().getX() + person.getxVelo(), getSolidArea().getY() + person.getyVelo(), getSolidArea().getWidth(), getSolidArea().getHeight());
+		if(Obj.collisionZeroRect(RA)) {
+			Obj.pushOffFrom(person, this);
+			return ;
+		}else {
+			setxPos(getxPos() + person.getxVelo());
+			setyPos(getyPos() + person.getyVelo());
 		}
-		if(X instanceof Sculpture) {
-			Obj.pushOffFrom(X, this);
-			System.out.println("Hi");
-		}
+		setBeforeTwo(Obj.collisionTwoSculpture(this));
+		person.setxVelo(0);
+		person.setyVelo(0);
 	}
 
 	// Getter & Setter

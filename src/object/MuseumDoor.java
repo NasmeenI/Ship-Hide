@@ -6,17 +6,14 @@ import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
 import logic.base.Map;
-import logic.base.StableObject;
-import logic.person.Player;
 import utilz.LoadSave;
 import application.GameProcess;
 import application.Music;
 import application.sound.OpenMusiumDoor;
-
 import static utilz.Constants.GameProcess.*;
 import static utilz.Constants.Debug.*;
 
-public class MuseumDoor extends GameObject implements StableObject {
+public class MuseumDoor extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
 	private int[][] password;
@@ -46,7 +43,6 @@ public class MuseumDoor extends GameObject implements StableObject {
 		}
 	}
 	
-	@Override
 	public void update() {
 		int cnt = 0;
 		for(int i=0;i<4;i++) {
@@ -80,17 +76,12 @@ public class MuseumDoor extends GameObject implements StableObject {
 		}
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		if(opened) gc.drawImage(imageOpen ,getxPos() ,getyPos());
 		else gc.drawImage(imageClose ,getxPos() ,getyPos());
 		return ;
-	}
-	
-	public void interact(Player player) {
-		// Nothing happened
 	}
 	
 	private void initPassword() {

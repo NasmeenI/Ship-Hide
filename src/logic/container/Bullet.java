@@ -3,16 +3,22 @@ package logic.container;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 import logic.base.Attackable;
+import logic.base.Chaseable;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
+import logic.base.InteractivePerson;
 import logic.base.Map;
+import logic.person.Captive;
+import logic.person.Commander;
+import logic.person.Criminal;
+import logic.person.Person;
 import utilz.Checker;
 import utilz.LoadSave;
 
 import static utilz.Constants.Debug.*;
 
-public class Bullet extends GameObject implements Attackable {
+public class Bullet extends GameObject implements Attackable, InteractivePerson {
 	
 	private static final long serialVersionUID = 1L;
 	private int maxDamage, minDamage;
@@ -52,7 +58,6 @@ public class Bullet extends GameObject implements Attackable {
 
 	}
 
-	@Override
 	public void update() {
 		
 		double _Vx = getxVelo();
@@ -78,7 +83,6 @@ public class Bullet extends GameObject implements Attackable {
 		setSolidArea(new Rectangle((int)getxPos() + 7, (int)getyPos() + 3, 16, 16));
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
@@ -91,14 +95,24 @@ public class Bullet extends GameObject implements Attackable {
 		}
 	}
 	
-	@Override
 	public int damage() {
 		return (int)((Math.random()*(getMaxDamage()-getMinDamage()+1)+getMinDamage())) * 10; 
 	}
 
-	@Override
 	public int dpsDamage() {
 		return 0;
+	}
+	
+	public void interact(Person person) {
+		if(getOwner() == person.getId()) return;
+		if(person instanceof Criminal && getOwner() == ID.Commander) return;
+		if(person instanceof Commander && getOwner() == ID.Criminal) return;
+		if(person instanceof Captive && getOwner() == ID.Player) return;
+		
+		person.setHp(person.getHp() - damage());
+		Handler.getInstance().removeObject(this);
+		
+		if(person instanceof Chaseable chaseable) chaseable.setChase();
 	}
 	
 	// Getter & Setter

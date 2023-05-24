@@ -10,13 +10,13 @@ import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
+import logic.base.InteractivePlayer;
 import logic.base.Map;
-import logic.base.StableObject;
 import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 
-public class Door extends GameObject implements StableObject {
+public class Door extends GameObject implements InteractivePlayer {
 	
 	private static final long serialVersionUID = 1L;
 	private ID keyId;
@@ -65,7 +65,6 @@ public class Door extends GameObject implements StableObject {
 		
 	}
 	
-	@Override
 	public void update() {
 		if(isOpened()) {
 			if(doorCount < 15) doorCount++;
@@ -81,7 +80,6 @@ public class Door extends GameObject implements StableObject {
 		return ;
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) {
 			if(getId() == ID.Door1) ShowSolidArea(gc);

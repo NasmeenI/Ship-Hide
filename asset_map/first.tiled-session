@@ -1,0 +1,76 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "12_Kitchen_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_3d_walls_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_Arched_Entryways_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_Floors_32x32.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_Floors_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_Walls_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Room_Builder_borders_48x48.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "demo.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 677.2727272727273,
+                "y": 257.5757575757576
+            }
+        }
+    },
+    "last.imagePath": "/Users/nasmeen/Downloads/Modern_Interiors_v41/1_Interiors/48x48/Room_Builder_subfiles_48x48",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 48,
+    "map.tileWidth": 48,
+    "openFiles": [
+        "Room_Builder_Floors_48x48.tsx",
+        "Room_Builder_Walls_48x48.tsx",
+        "Room_Builder_Arched_Entryways_48x48.tsx",
+        "12_Kitchen_48x48.tsx",
+        "Room_Builder_3d_walls_48x48.tsx",
+        "Room_Builder_borders_48x48.tsx"
+    ],
+    "project": "first.tiled-project",
+    "recentFiles": [
+        "Room_Builder_borders_48x48.tsx",
+        "Room_Builder_3d_walls_48x48.tsx",
+        "12_Kitchen_48x48.tsx",
+        "Room_Builder_Arched_Entryways_48x48.tsx",
+        "Room_Builder_Walls_48x48.tsx",
+        "Room_Builder_Floors_48x48.tsx",
+        "demo.tmx",
+        "Room_Builder_Floors_32x32.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 48,
+        "width": 48
+    }
+}

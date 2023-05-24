@@ -4,13 +4,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.ID;
-import logic.base.StableObject;
-import logic.person.Player;
 import utilz.LoadSave;
 import static utilz.Constants.Debug.*;
 import static utilz.Constants.Player.*;
 
-public class DoorJail extends GameObject implements StableObject {
+public class DoorJail extends GameObject {
 	
 	private static final long serialVersionUID = 1L;
 	public static boolean opened;
@@ -28,23 +26,16 @@ public class DoorJail extends GameObject implements StableObject {
 		imageClose = LoadSave.GetSpriteAtlas(LoadSave.DOOR3_CLOSE);		
 	}
 	
-	@Override
 	public void update() {
 		// Nothing to update
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		
 		if(isOpened()) gc.drawImage(imageOpen ,getxPos() ,getyPos());
 		else gc.drawImage(imageClose ,getxPos() ,getyPos());
 		return ;
-	}
-	
-	@Override
-	public void interact(Player player) {
-		
 	}
 	
 	// Getter & Setter

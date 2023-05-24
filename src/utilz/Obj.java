@@ -5,32 +5,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import logic.base.GameObject;
 import logic.base.Handler;
-import logic.base.ID;
+import logic.base.InteractivePerson;
+import logic.base.InteractivePlayer;
 import logic.base.Map;
-import logic.person.Captive;
-import logic.person.Commander;
-import logic.person.Criminal;
+import logic.base.PressEable;
 import logic.person.Person;
 import logic.person.Player;
-import logic.container.Bullet;
-import logic.container.Knife;
-import logic.container.pistol.PistolMagazine;
-import logic.container.KeyLocker;
-import logic.container.HpBottle;
-import logic.container.pistol.PistolGun;
-import object.Coin;
-import object.Computer;
-import object.Trader;
-import object.Label;
-import object.Helicopter;
-import object.Door;
-import object.Lazer;
 import object.Sculpture;
-import static utilz.Constants.GameProcess.*;
-
 import java.util.ArrayList;
-
 import application.GameProcess;
+import static utilz.Constants.GameProcess.*;
 
 public class Obj {
 	
@@ -123,189 +107,17 @@ public class Obj {
 
 	public static void action(GameObject A, GameObject B) {
 		time += 1;
-
-		switch(A.getId()) {
-			case Player : {
-				switch(B.getId()) {
-					case Bullet : {
-						if(((Bullet)B).getOwner() == A.getId()) break;
-						((Player)A).setHp(((Player)A).getHp() - ((Bullet)B).damage());
-						Handler.getInstance().removeObject(B);
-						break;
-					}
-					case Coin : {
-						((Coin)B).interact(((Player)A));
-						break;
-					}
-					case Trader : {
-						if(((Player)A).getKey().E && time > 30) ((Trader)B).interact(((Player)A));
-						break;
-					}
-					case Computer : {
-						if(((Player)A).getKey().E && time > 30) ((Computer)B).interact(((Player)A));
-						break;
-					}
-					case Helicopter : {
-						if(((Player)A).getKey().E && time > 30) ((Helicopter)B).interact(((Player)A));
-						break;
-					}
-					case Label1 : {
-						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
-						break;
-					}
-					case Label2 : {
-						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
-						break;
-					}
-					case Label3 : {
-						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
-						break;
-					}
-					case Label4 : {
-						if(((Player)A).getKey().E && time > 30) ((Label)B).interact(((Player)A));
-						break;
-					}
-					case Lazer1 : {
-						if(((Lazer)B).isShow()) ((Lazer)B).interact((Player)A);
-						break;
-					}
-					case Lazer2 : {
-						if(((Lazer)B).isShow()) ((Lazer)B).interact((Player)A);
-						break;
-					}
-					case Knife : {
-						if(!((Knife)B).isVisible()) break;
-						((Knife)B).interact(((Player)A));
-						break;
-					}
-					case PistolGun : {
-						((PistolGun)B).interact(((Player)A));
-						break;
-					}
-					case PistolMagazine : {
-						((PistolMagazine)B).interact(((Player)A));
-						break;
-					}
-					case Door1 : {
-						((Door)B).interact(((Player)A));
-						break;
-					}
-					case Door2 : {
-						((Door)B).interact(((Player)A));
-						break;
-					}
-					case Key1 : {
-						((KeyLocker)B).interact(((Player)A));
-						break;
-					}
-					case Key2 : {
-						((KeyLocker)B).interact(((Player)A));
-						break;
-					}
-					case HpBottle : {
-						((HpBottle)B).interact(((Player)A));
-						break;
-					}
-					case Sculpture : {
-						((Sculpture)B).interact(((Player)A));
-						break;
-					}
-					default : break;
-				}
-	
-				break;
-			}
-			case Criminal : {
-				switch(B.getId()) {
-					case Bullet : {
-						if(((Bullet)B).getOwner() == A.getId()) break;
-						else if(((Bullet)B).getOwner() == ID.Commander) break;
-						((Criminal)A).setHp(((Criminal)A).getHp() - ((Bullet)B).damage());
-						Handler.getInstance().removeObject(B);
-						((Criminal)A).setChasing(true);
-						((Criminal)A).setChasingTime(0);
-						((Criminal)A).setxVelo(2);
-						((Criminal)A).setyVelo(2);
-						break;
-					}
-					case Knife : {
-						if(((Knife)B).isVisible()) break;
-						((Criminal)A).setHp(((Criminal)A).getHp() - ((Knife)B).damage());
-						((Criminal)A).setChasing(true);
-						((Criminal)A).setChasingTime(0);
-						((Criminal)A).setxVelo(2);
-						((Criminal)A).setyVelo(2);
-						break;
-					}
-					case Sculpture : {
-						((Sculpture)B).interact(((Criminal)A));
-						break;
-					}
-					default : break;
-				}
-				break;
-			}
-			case Commander : {
-				switch(B.getId()) {
-					case Bullet : {
-						if(((Bullet)B).getOwner() == A.getId()) break;
-						else if(((Bullet)B).getOwner() == ID.Criminal) break;
-						((Commander)A).setHp(((Commander)A).getHp() - ((Bullet)B).damage());
-						Handler.getInstance().removeObject(B);
-						((Commander)A).setChasing(true);
-						((Commander)A).setChasingTime(0);
-						((Commander)A).setxVelo(1);
-						((Commander)A).setyVelo(1);
-						break;
-					}
-					case Knife : {
-						if(((Knife)B).isVisible()) break;
-						((Commander)A).setHp(((Commander)A).getHp() - ((Knife)B).damage());
-						((Commander)A).setChasing(true);
-						((Commander)A).setChasingTime(0);
-						((Commander)A).setxVelo(1);
-						((Commander)A).setyVelo(1);
-						break;
-					}
-					case Sculpture : {
-						((Sculpture)B).interact(((Commander)A));
-						break;
-					}
-					default : break;
-				}
-				break;
-			}
-			case Captive : {
-				switch(B.getId()) {
-					case Bullet : {
-						if(((Bullet)B).getOwner() == A.getId()) break;
-						else if(((Bullet)B).getOwner() == ID.Player) break;
-						((Captive)A).setHp(((Captive)A).getHp() - ((Bullet)B).damage());
-						Handler.getInstance().removeObject(B);
-						
-						break;
-					}
-					case Sculpture : {
-						((Sculpture)B).interact(((Captive)A));
-						break;
-					}
-					default : break;
-				}
-				break;
-			}
-			case Sculpture : {
-				switch(B.getId()) {
-					case Sculpture : {
-						((Sculpture)B).interact(((Sculpture)A));
-						break;
-					}
-					default : break;
-				}
-				break;
-			}
-			default : break;
+		
+		if(A instanceof Person person) {
+			if(B instanceof InteractivePerson object) object.interact(person);
 		}
-		return ;
+		
+		if(A instanceof Player player) {
+			if(B instanceof InteractivePlayer object) object.interact(player);
+			else if(B instanceof PressEable object && player.getKey().E && time > 30) object.interact(player);
+		}
+
+		if(A instanceof Sculpture sculptureA && B instanceof Sculpture sculptureB) pushOffFrom(sculptureA, sculptureB);
 	}
 	
 	public static void pushOffWall(GameObject A) {

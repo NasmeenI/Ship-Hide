@@ -1,7 +1,6 @@
 package logic.base;
 
 import java.io.Serializable;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -79,8 +78,8 @@ public abstract class GameObject implements Serializable {
 		gc.fillRect((int)getxPos() + getxDif(), (int)getyPos() + getyDif(), solidArea.getWidth(), solidArea.getHeight());
 	}
 	
-	public abstract void update();
 	public abstract void initImg();
+	public abstract void update();
 	public abstract void render(GraphicsContext gc);
 	
 	// Getters & Setters

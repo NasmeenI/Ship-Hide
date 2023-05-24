@@ -5,15 +5,14 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.StableObject;
+import logic.base.InteractivePlayer;
 import logic.person.Player;
 import utilz.LoadSave;
-import static utilz.Constants.Debug.*;
-
 import Scenes.MenuScene;
 import application.sound.Pick;
+import static utilz.Constants.Debug.*;
 
-public class HpBottle extends GameObject implements StableObject {
+public class HpBottle extends GameObject implements InteractivePlayer {
 	
 	private static final long serialVersionUID = 1L;
 	private int efficiency;

@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.StableObject;
+import logic.base.PressEable;
 import logic.person.Player;
 import ui.PasswordPopUp;
 import utilz.LoadSave;
@@ -13,7 +13,7 @@ import utilz.Obj;
 import application.GameProcess;
 import static utilz.Constants.Debug.*;
 
-public class Computer extends GameObject implements StableObject {
+public class Computer extends GameObject implements PressEable {
 	
 	private static final long serialVersionUID = 1L;
 	private boolean interacted;
@@ -37,7 +37,6 @@ public class Computer extends GameObject implements StableObject {
 		else setInteracted(false);
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(imageInteract ,getxPos() ,getyPos());

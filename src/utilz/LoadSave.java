@@ -147,7 +147,8 @@ public class LoadSave {
 	public static final String AK47MAGAZINE = "Objects/magazine.png";
 	
 	public static Image GetSpriteAtlas(String fileName) {
-		Image image = new Image("/" + fileName);
+		String image_path = ClassLoader.getSystemResource(fileName).toString();
+		Image image = new Image(image_path);
 		return image;
 	}
 }

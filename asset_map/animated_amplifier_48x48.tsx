@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tileset version="1.10" tiledversion="1.10.1" name="animated_amplifier_48x48" tilewidth="48" tileheight="48" tilecount="2" columns="1">
+ <image source="../../Downloads/Modern_Interiors_v41/3_Animated_objects/48x48/gif/animated_amplifier_48x48.gif" width="48" height="96"/>
+</tileset>

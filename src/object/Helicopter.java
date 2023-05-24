@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import logic.base.GameObject;
 import logic.base.Handler;
 import logic.base.ID;
-import logic.base.StableObject;
+import logic.base.PressEable;
 import logic.person.Captive;
 import logic.person.Player;
 import utilz.LoadSave;
@@ -16,7 +16,7 @@ import Scenes.GameComplete;
 import static utilz.Constants.GameState.*;
 import static utilz.Constants.Debug.*;
 
-public class Helicopter extends GameObject implements StableObject {
+public class Helicopter extends GameObject implements PressEable {
 	
 	private static final long serialVersionUID = 1L;
 	private boolean interacted;
@@ -38,7 +38,6 @@ public class Helicopter extends GameObject implements StableObject {
 		else setInteracted(false);
 	}
 
-	@Override
 	public void render(GraphicsContext gc) {
 		if(SOLID_SHOW) ShowSolidArea(gc);
 		if(interacted) gc.drawImage(imageInteract ,getxPos() ,getyPos());
@@ -52,7 +51,6 @@ public class Helicopter extends GameObject implements StableObject {
 		GameProcess.stage.setScene(GameComplete.scene);
 		GameProcess.setGameState(GAME_COMPLETE_STATE);
 	}
-	
 	
 	// Getter & Setter
 	
