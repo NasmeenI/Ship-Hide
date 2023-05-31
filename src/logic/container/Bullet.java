@@ -23,6 +23,7 @@ public class Bullet extends GameObject implements Attackable, InteractivePerson 
 	private static final long serialVersionUID = 1L;
 	private int maxDamage, minDamage;
 	private ID owner = null;
+	private String direct;
 	
 	public Bullet(double xPos, double yPos, ID id) {
 		super(xPos, yPos, id, 7, 3, 16, 16);
@@ -79,6 +80,7 @@ public class Bullet extends GameObject implements Attackable, InteractivePerson 
 		
 		setxVelo(_Vx);
 		setyVelo(_Vy);
+		direct = Checker.getDirectionByVelo(getxVelo(), getyVelo());	
 		
 		setSolidArea(new Rectangle((int)getxPos() + 7, (int)getyPos() + 3, 16, 16));
 	}
@@ -91,6 +93,7 @@ public class Bullet extends GameObject implements Attackable, InteractivePerson 
 			case "R" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Right), xPos, yPos); break;
 			case "U" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Up), xPos, yPos); break;
 			case "D" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Down), xPos, yPos); break;
+			case "null" : break;
 			default : break;
 		}
 	}
@@ -141,5 +144,9 @@ public class Bullet extends GameObject implements Attackable, InteractivePerson 
 
 	public void setOwner(ID owner) {
 		this.owner = owner;
+	}
+	
+	public String getDirect() {
+		return this.direct;
 	}
 }

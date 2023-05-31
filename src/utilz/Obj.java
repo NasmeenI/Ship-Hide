@@ -9,6 +9,7 @@ import logic.base.InteractivePerson;
 import logic.base.InteractivePlayer;
 import logic.base.Map;
 import logic.base.PressEable;
+import logic.container.Bullet;
 import logic.person.Person;
 import logic.person.Player;
 import object.Sculpture;
@@ -99,7 +100,17 @@ public class Obj {
 	public static void collision(GameObject A) {
 		for(int i = 0; i < Handler.getInstance().getAllObjects().size(); i++) {
 			if(Handler.getInstance().getAllObjects().get(i).getCode() == A.getCode() || (Handler.getInstance().getAllObjects().get(i) instanceof Sculpture)) continue;
-			if(A.getSolidArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal())) {
+			
+			if(A instanceof Person person && Handler.getInstance().getAllObjects().get(i) instanceof Bullet bullet) {
+				if((bullet.getDirect() == "L" || bullet.getDirect() == "R") && (person.getSolidArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal()))) {
+					action(A, Handler.getInstance().getAllObjects().get(i));
+				}
+				else if((bullet.getDirect() == "U" || bullet.getDirect() == "D") && (person.getFootArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal()))) {
+					action(A, Handler.getInstance().getAllObjects().get(i));
+				}
+			}
+			
+			else if(A.getSolidArea().intersects(Handler.getInstance().getAllObjects().get(i).getSolidArea().getBoundsInLocal())) {
 				action(A, Handler.getInstance().getAllObjects().get(i));
 			}
 		}

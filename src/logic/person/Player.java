@@ -55,7 +55,7 @@ public class Player extends Person {
 		setCurxPos(xPos);
 		setCuryPos(yPos);
 		setBag(new ArrayList<>());
-		setCoin(0);
+		setCoin(40);
 		setAc(0.8f);
 		setDc(0.4f);
 		initImg();
@@ -254,8 +254,8 @@ public class Player extends Person {
 //		if(Map.getInstance().mapTileNum[(int)((getyPos()-10)/48)+2][(int)((getxPos()-15)/48)] == 2) setBeforeTwo(true);
 //		else setBeforeTwo(false);
 
-//		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
-//		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
+		setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
+		setyPos(getyPos() + _Vy + (key.SHIFT ? _Vy : 0));
 //		
 //		if(mapTileNum[newYPos][newXPos] != 0) {
 //			setxPos(getxPos() + _Vx + (key.SHIFT ? _Vx : 0));
@@ -364,7 +364,7 @@ public class Player extends Person {
 	@Override
 	public void render(GraphicsContext gc) { // Set Player Graphics
 		if(SOLID_SHOW) ShowSolidArea(gc);
-
+		
 		gc.drawImage(currentAni, xPos, yPos);
 		return ;
 	}
