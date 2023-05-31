@@ -93,7 +93,6 @@ public class Bullet extends GameObject implements Attackable, InteractivePerson 
 			case "R" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Right), xPos, yPos); break;
 			case "U" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Up), xPos, yPos); break;
 			case "D" : gc.drawImage(LoadSave.GetSpriteAtlas(LoadSave.Player_Bullet_Down), xPos, yPos); break;
-			case "null" : break;
 			default : break;
 		}
 	}
