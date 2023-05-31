@@ -71,7 +71,7 @@ public class Bullet extends GameObject implements Attackable, InteractivePerson 
 		if(_Vy >= 0) newYPos = ((int)((getyPos() + _Vy)/48)); 	
 		else newYPos = ((int)((getyPos() + _Vy)/48));
 		
-		if(Map.getInstance().getMapTileNum()[newYPos][newXPos] == 0) {
+		if(Map.getInstance().getMapTileNum()[newYPos][newXPos-1] == 0) {
 			Handler.getInstance().removeObject(this);
 		}
 		

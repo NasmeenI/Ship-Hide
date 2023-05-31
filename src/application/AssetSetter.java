@@ -119,6 +119,8 @@ public class AssetSetter {
 		Handler.getInstance().getAllObjects().add(new PistolMagazine(65 * TILE_SIZE ,33 * TILE_SIZE, ID.PistolMagazine));
 				
 		// HP Bottles
+		Handler.getInstance().getAllObjects().add(new HpBottle(20 * TILE_SIZE ,14 * TILE_SIZE, ID.HpBottle));
+		Handler.getInstance().getAllObjects().add(new HpBottle(32 * TILE_SIZE ,15 * TILE_SIZE, ID.HpBottle));
 		Handler.getInstance().getAllObjects().add(new HpBottle(32 * TILE_SIZE ,47 * TILE_SIZE, ID.HpBottle));
 		Handler.getInstance().getAllObjects().add(new HpBottle(71 * TILE_SIZE ,37 * TILE_SIZE, ID.HpBottle));
 		Handler.getInstance().getAllObjects().add(new HpBottle(49 * TILE_SIZE ,23 * TILE_SIZE, ID.HpBottle));

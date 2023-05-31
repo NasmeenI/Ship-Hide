@@ -65,6 +65,7 @@ public class Handler implements Serializable {
 	}
 	
 	public void updateAfterLoadSave(KeyInput input) {
+		
 		// Player
 		Player player = Handler.getInstance().player;
 		player.setForceStop(false);
@@ -72,6 +73,7 @@ public class Handler implements Serializable {
 		player.setKey(new Keys());
 		player.setxVelo(0);
 		player.setyVelo(0);
+		player.setHp(4000);
 		player.setInput(input);
 		player.initImg();
 		if(getProgress() == 3) {
