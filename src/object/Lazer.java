@@ -82,7 +82,7 @@ public class Lazer extends GameObject implements Attackable, InteractivePlayer {
 	
 	public void interact(Player player) {
 		if(!isShow()) return;
-		new LazerAttack();
+//		new LazerAttack();
 		player.setHp(player.getHp() - dpsDamage());
 	}
 

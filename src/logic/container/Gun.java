@@ -31,7 +31,7 @@ public abstract class Gun extends GameObject implements InteractivePlayer {
 	}
 
 	public void update() {
-		shift();
+		if(!isPicked()) shift();
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -56,20 +56,11 @@ public abstract class Gun extends GameObject implements InteractivePlayer {
 		reduceBullet();
 		
 		switch(direct) {
-			case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
-			case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
-			case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
-			case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
-			default : {
-				switch(direct) {
-					case "LEFT" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
-					case "RIGHT" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setxVelo(20); break;
-					case "UP" : bullet.setxPos(xPos); bullet.setyPos(yPos); bullet.setyVelo(-20); break;
-					case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos); bullet.setyVelo(20); break;
-					default : break;
-				}
-				break;
-			}
+			case "LEFT" : bullet.setxPos(xPos + 10); bullet.setyPos(yPos); bullet.setxVelo(-20); break;
+			case "RIGHT" : bullet.setxPos(xPos - 30); bullet.setyPos(yPos); bullet.setxVelo(20); break;
+			case "UP" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos + 10); bullet.setyVelo(-20); break;
+			case "DOWN" : bullet.setxPos(xPos - 10); bullet.setyPos(yPos - 70); bullet.setyVelo(20); break;
+			default : break;
 		}
 		
 		Handler.getInstance().addObject(bullet);	

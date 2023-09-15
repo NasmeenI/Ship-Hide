@@ -35,7 +35,8 @@ public abstract class Person extends GameObject {
 	/*
 	1 --> Hand
 	2 --> Knife
-	3 --> Gun
+	3 --> Pistol
+	4 --> Ak47
 	*/
 
 	public Person(double xPos, double yPos, ID id ,double xDif ,double yDif ,double w ,double h) {
